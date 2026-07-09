@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "hero_jVaWmY": {
       "type": "hero",
@@ -16,7 +17,6 @@
           "name": "t:names.heading",
           "settings": {
             "text": "<p>Browse our latest products</p>",
-            "text_color": "{{ settings.color_palette.background }}",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -27,6 +27,7 @@
             "letter_spacing": "normal",
             "case": "none",
             "wrap": "pretty",
+            "text_color": "{{ settings.color_palette.background }}",
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
@@ -48,6 +49,7 @@
             "custom_button_background": "rgba(0,0,0,0)",
             "custom_button_text": "{{ settings.color_palette.background }}",
             "custom_button_border": "{{ settings.color_palette.background }}",
+            "link_text_color": "",
             "width": "fit-content",
             "custom_width": 100,
             "width_mobile": "fit-content",
@@ -68,6 +70,7 @@
         "custom_mobile_media": false,
         "media_type_1_mobile": "image",
         "media_type_2_mobile": "image",
+        "link": "",
         "open_in_new_tab": false,
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -91,201 +94,17 @@
         "padding-block-end": 72
       }
     },
-    "product_list_fa6P9H": {
-      "type": "product-list",
-      "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_list_button_MWeP9V": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "View all",
-                "open_in_new_tab": false,
-                "style_class": "link",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
-          ]
-        },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 4,
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_677WP3": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_YXxMTj": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
-          ]
-        }
-      },
-      "name": "Featured collection",
-      "settings": {
-        "collection": "all",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 8,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 48,
-        "padding-block-end": 48
-      }
-    },
     "section_faq": {
       "type": "section",
-      "name": "t:names.faq_section",
       "blocks": {
         "text": {
           "type": "text",
           "name": "t:names.heading",
           "settings": {
             "text": "<h2>Frequently Asked Questions</h2>",
+            "width": "fit-content",
+            "max_width": "narrow",
+            "alignment": "left",
             "type_preset": "h3",
             "font": "var(--font-body--family)",
             "font_size": "",
@@ -293,9 +112,10 @@
             "letter_spacing": "normal",
             "case": "none",
             "wrap": "pretty",
-            "width": "fit-content",
-            "max_width": "narrow",
-            "alignment": "left",
+            "text_color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -309,10 +129,14 @@
           "settings": {
             "icon": "caret",
             "dividers": true,
+            "divider_color": "",
             "type_preset": "h5",
+            "background_color": "",
+            "text_color": "",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
+            "border_color": "",
             "border_radius": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
@@ -323,13 +147,19 @@
             "accordion_row_1": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "What makes LiveGenix different from other hair care brands?"
+                "heading": "What makes LiveGenix different from other hair care brands?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
               },
               "blocks": {
                 "text": {
                   "type": "text",
                   "settings": {
                     "text": "<p>LiveGenix combines science-backed formulations with carefully selected ingredients to support healthier hair from root to tip. Every product is developed with a focus on performance, quality, and long-term hair wellness.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
                     "font_size": "",
@@ -337,9 +167,10 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "wrap": "pretty",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -348,18 +179,26 @@
                   "blocks": {}
                 }
               },
-              "block_order": ["text"]
+              "block_order": [
+                "text"
+              ]
             },
             "accordion_row_2": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "Are LiveGenix products suitable for all hair types?"
+                "heading": "Are LiveGenix products suitable for all hair types?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
               },
               "blocks": {
                 "text": {
                   "type": "text",
                   "settings": {
                     "text": "<p>Yes. Our formulations are designed to be suitable for most hair types, including straight, wavy, curly, and textured hair. Individual results may vary depending on your hair condition and routine.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
                     "font_size": "",
@@ -367,9 +206,10 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "wrap": "pretty",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -378,18 +218,26 @@
                   "blocks": {}
                 }
               },
-              "block_order": ["text"]
+              "block_order": [
+                "text"
+              ]
             },
             "accordion_row_3": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "Are your products safe for color-treated or chemically treated hair?"
+                "heading": "Are your products safe for color-treated or chemically treated hair?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
               },
               "blocks": {
                 "text": {
                   "type": "text",
                   "settings": {
                     "text": "<p>Yes. Our products are formulated to be gentle and are suitable for color-treated and chemically processed hair. We recommend following the usage instructions for the best results.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
                     "font_size": "",
@@ -397,9 +245,10 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "wrap": "pretty",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -408,18 +257,26 @@
                   "blocks": {}
                 }
               },
-              "block_order": ["text"]
+              "block_order": [
+                "text"
+              ]
             },
             "accordion_row_4": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "How long does it take to see results?"
+                "heading": "How long does it take to see results?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
               },
               "blocks": {
                 "text": {
                   "type": "text",
                   "settings": {
                     "text": "<p>Hair care is a gradual process. While some users notice improvements in texture and manageability within a few weeks, visible long-term results typically require consistent use over several months.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
                     "font_size": "",
@@ -427,9 +284,10 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "wrap": "pretty",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -438,18 +296,26 @@
                   "blocks": {}
                 }
               },
-              "block_order": ["text"]
+              "block_order": [
+                "text"
+              ]
             },
             "accordion_row_5": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "Are your products free from harmful chemicals?"
+                "heading": "Are your products free from harmful chemicals?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
               },
               "blocks": {
                 "text": {
                   "type": "text",
                   "settings": {
                     "text": "<p>We carefully formulate our products using high-quality ingredients and avoid unnecessary harsh additives whenever possible. Please refer to the ingredient list on each product page for complete details.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
                     "font_size": "",
@@ -457,9 +323,10 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "wrap": "pretty",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -468,18 +335,26 @@
                   "blocks": {}
                 }
               },
-              "block_order": ["text"]
+              "block_order": [
+                "text"
+              ]
             },
             "accordion_row_6": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "Are your products cruelty-free?"
+                "heading": "Are your products cruelty-free?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
               },
               "blocks": {
                 "text": {
                   "type": "text",
                   "settings": {
                     "text": "<p>Yes. We are committed to ethical practices, and our products are not tested on animals.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
                     "font_size": "",
@@ -487,9 +362,10 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "wrap": "pretty",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -498,18 +374,26 @@
                   "blocks": {}
                 }
               },
-              "block_order": ["text"]
+              "block_order": [
+                "text"
+              ]
             },
             "accordion_row_7": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "Can men and women both use LiveGenix products?"
+                "heading": "Can men and women both use LiveGenix products?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
               },
               "blocks": {
                 "text": {
                   "type": "text",
                   "settings": {
                     "text": "<p>Absolutely. Our hair wellness solutions are designed for everyone, regardless of gender.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
                     "font_size": "",
@@ -517,9 +401,10 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "wrap": "pretty",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -528,18 +413,26 @@
                   "blocks": {}
                 }
               },
-              "block_order": ["text"]
+              "block_order": [
+                "text"
+              ]
             },
             "accordion_row_8": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "How should I choose the right product?"
+                "heading": "How should I choose the right product?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
               },
               "blocks": {
                 "text": {
                   "type": "text",
                   "settings": {
                     "text": "<p>Each product page includes recommended hair concerns, benefits, and usage guidance. If you're unsure, our support team is happy to help you find the best routine.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
                     "font_size": "",
@@ -547,9 +440,10 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "wrap": "pretty",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -558,18 +452,26 @@
                   "blocks": {}
                 }
               },
-              "block_order": ["text"]
+              "block_order": [
+                "text"
+              ]
             },
             "accordion_row_9": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "Do you offer worldwide shipping?"
+                "heading": "Do you offer worldwide shipping?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
               },
               "blocks": {
                 "text": {
                   "type": "text",
                   "settings": {
                     "text": "<p>Shipping availability depends on your location. During checkout, you'll see the available shipping options and estimated delivery times.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
                     "font_size": "",
@@ -577,9 +479,10 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "wrap": "pretty",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -588,18 +491,26 @@
                   "blocks": {}
                 }
               },
-              "block_order": ["text"]
+              "block_order": [
+                "text"
+              ]
             },
             "accordion_row_10": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "What is your return policy?"
+                "heading": "What is your return policy?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
               },
               "blocks": {
                 "text": {
                   "type": "text",
                   "settings": {
                     "text": "<p>If you're not completely satisfied, please refer to our Return Policy page for eligibility, timelines, and return instructions.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
                     "font_size": "",
@@ -607,9 +518,10 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "wrap": "pretty",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -618,18 +530,26 @@
                   "blocks": {}
                 }
               },
-              "block_order": ["text"]
+              "block_order": [
+                "text"
+              ]
             },
             "accordion_row_11": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "How can I contact customer support?"
+                "heading": "How can I contact customer support?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
               },
               "blocks": {
                 "text": {
                   "type": "text",
                   "settings": {
                     "text": "<p>You can reach our support team through the Contact Us page or by email. We aim to respond to all enquiries as quickly as possible.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
                     "font_size": "",
@@ -637,9 +557,10 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "wrap": "pretty",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -648,18 +569,26 @@
                   "blocks": {}
                 }
               },
-              "block_order": ["text"]
+              "block_order": [
+                "text"
+              ]
             },
             "accordion_row_12": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "Are your products suitable for daily use?"
+                "heading": "Are your products suitable for daily use?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
               },
               "blocks": {
                 "text": {
                   "type": "text",
                   "settings": {
                     "text": "<p>Most LiveGenix products are designed for regular use. Please follow the usage instructions provided on the product packaging or product page.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
                     "font_size": "",
@@ -667,9 +596,10 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "wrap": "pretty",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
+                    "text_color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -678,29 +608,56 @@
                   "blocks": {}
                 }
               },
-              "block_order": ["text"]
+              "block_order": [
+                "text"
+              ]
             }
           },
-          "block_order": ["accordion_row_1", "accordion_row_2", "accordion_row_3", "accordion_row_4", "accordion_row_5", "accordion_row_6", "accordion_row_7", "accordion_row_8", "accordion_row_9", "accordion_row_10", "accordion_row_11", "accordion_row_12"]
+          "block_order": [
+            "accordion_row_1",
+            "accordion_row_2",
+            "accordion_row_3",
+            "accordion_row_4",
+            "accordion_row_5",
+            "accordion_row_6",
+            "accordion_row_7",
+            "accordion_row_8",
+            "accordion_row_9",
+            "accordion_row_10",
+            "accordion_row_11",
+            "accordion_row_12"
+          ]
         }
       },
-      "block_order": ["text", "accordion"],
+      "block_order": [
+        "text",
+        "accordion"
+      ],
+      "name": "t:names.faq_section",
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
         "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
+        "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
         "gap": 32,
         "section_width": "page-width",
         "section_height": "",
+        "section_height_custom": 50,
         "background_media": "none",
+        "background_color": "",
         "video_position": "cover",
         "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
         "border": "none",
         "border_width": 1,
         "border_opacity": 100,
+        "border_color": "",
         "border_radius": 0,
         "padding-block-start": 48,
         "padding-block-end": 48
@@ -709,7 +666,6 @@
   },
   "order": [
     "hero_jVaWmY",
-    "product_list_fa6P9H",
     "section_faq"
   ]
 }
