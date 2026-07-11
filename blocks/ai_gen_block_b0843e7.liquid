@@ -1,0 +1,809 @@
+{% doc %}
+  @prompt
+    Create a premium "FAQ Quick Links" section for a luxury Ayurvedic hair wellness brand called Livgenix.
+    
+    Design Goal:
+    Help customers quickly find answers to common questions by directing them to dedicated support pages instead of displaying long FAQ accordions.
+    
+    Layout:
+    - Full-width section.
+    - White background.
+    - Centered content.
+    - Maximum content width: 1400px.
+    - Luxury editorial design with generous whitespace.
+    
+    Header:
+    
+    Small Eyebrow:
+    HELP CENTER
+    
+    Large Heading:
+    Looking for Answers?
+    
+    Short Description:
+    Find quick answers to our most frequently asked questions about orders, shipping, returns, subscriptions, and product guidance.
+    
+    Below the introduction create a responsive grid of six premium navigation cards.
+    
+    Card 1
+    📦
+    Track My Order
+    Check your order status and delivery updates.
+    
+    Button:
+    Learn More →
+    
+    Card 2
+    🚚
+    Shipping Information
+    Delivery timelines, shipping charges and service areas.
+    
+    Button:
+    Learn More →
+    
+    Card 3
+    ↩️
+    Returns & Refunds
+    Understand our return eligibility and refund process.
+    
+    Button:
+    Learn More →
+    
+    Card 4
+    🌿
+    Product Questions
+    Learn how to use Livgenix products and choose the right routine.
+    
+    Button:
+    Learn More →
+    
+    Card 5
+    💳
+    Payments & Billing
+    Accepted payment methods, invoices and transaction support.
+    
+    Button:
+    Learn More →
+    
+    Card 6
+    ❓
+    Visit Our FAQ
+    Browse all frequently asked questions in one place.
+    
+    Button:
+    View FAQ →
+    
+    Design Style:
+    - Inspired by Aesop, Apple, Ritual and premium wellness brands.
+    - White background.
+    - Rounded cards (20–24px radius).
+    - Thin subtle border (#ECE2CE).
+    - No gradients.
+    - No heavy shadows.
+    - Minimal monochrome line icons.
+    - Large spacing between cards.
+    - Cards should have a subtle lift animation on hover.
+    - Buttons should use a simple text link with a right arrow instead of large filled buttons.
+    
+    Color Palette:
+    Background: #FFFFFF
+    Heading: #2F3324
+    Accent: #BE9A5C
+    Body Text: #6B705C
+    Borders: #ECE2CE
+    
+    The section should feel like a premium customer help center rather than a traditional FAQ block.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-faq-links-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding_top }}px 20px {{ block.settings.section_padding_bottom }}px;
+  }
+
+  .ai-faq-links-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-faq-links-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-faq-links-eyebrow-{{ ai_gen_id }} {
+    font-size: {{ block.settings.eyebrow_size }}px;
+    color: {{ block.settings.eyebrow_color }};
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .ai-faq-links-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 20px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .ai-faq-links-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.body_text_color }};
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .ai-faq-links-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: {{ block.settings.card_gap }}px;
+    margin-top: {{ block.settings.grid_spacing }}px;
+  }
+
+  .ai-faq-links-card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    border: {{ block.settings.card_border_width }}px solid {{ block.settings.card_border_color }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: {{ block.settings.card_padding }}px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ai-faq-links-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(47, 51, 36, 0.08);
+  }
+
+  .ai-faq-links-card-icon-{{ ai_gen_id }} {
+    font-size: {{ block.settings.icon_size }}px;
+    line-height: 1;
+  }
+
+  .ai-faq-links-card-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_title_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .ai-faq-links-card-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_text_size }}px;
+    color: {{ block.settings.body_text_color }};
+    line-height: 1.5;
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .ai-faq-links-card-link-{{ ai_gen_id }} {
+    font-size: {{ block.settings.link_size }}px;
+    color: {{ block.settings.accent_color }};
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.3s ease;
+  }
+
+  .ai-faq-links-card-link-{{ ai_gen_id }}:hover {
+    gap: 10px;
+  }
+
+  .ai-faq-links-card-link-{{ ai_gen_id }}:focus-visible {
+    outline: 2px solid {{ block.settings.accent_color }};
+    outline-offset: 2px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-faq-links-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.card_gap | times: 0.75 }}px;
+    }
+
+    .ai-faq-links-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.7 }}px;
+    }
+
+    .ai-faq-links-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size | times: 0.9 }}px;
+    }
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .ai-faq-links-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-faq-links-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+{% endstyle %}
+
+<div class="ai-faq-links-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-faq-links-container-{{ ai_gen_id }}">
+    <div class="ai-faq-links-header-{{ ai_gen_id }}">
+      {% if block.settings.eyebrow != blank %}
+        <div class="ai-faq-links-eyebrow-{{ ai_gen_id }}">{{ block.settings.eyebrow }}</div>
+      {% endif %}
+      {% if block.settings.heading != blank %}
+        <h2 class="ai-faq-links-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+      {% endif %}
+      {% if block.settings.description != blank %}
+        <div class="ai-faq-links-description-{{ ai_gen_id }}">{{ block.settings.description }}</div>
+      {% endif %}
+    </div>
+
+    <div class="ai-faq-links-grid-{{ ai_gen_id }}">
+      {% if block.settings.card_1_enabled %}
+        <div class="ai-faq-links-card-{{ ai_gen_id }}">
+          <div class="ai-faq-links-card-icon-{{ ai_gen_id }}">{{ block.settings.card_1_icon }}</div>
+          <h3 class="ai-faq-links-card-title-{{ ai_gen_id }}">{{ block.settings.card_1_title }}</h3>
+          <p class="ai-faq-links-card-text-{{ ai_gen_id }}">{{ block.settings.card_1_text }}</p>
+          <a href="{{ block.settings.card_1_link }}" class="ai-faq-links-card-link-{{ ai_gen_id }}">
+            {{ block.settings.card_1_button_text }}
+            <span>→</span>
+          </a>
+        </div>
+      {% endif %}
+
+      {% if block.settings.card_2_enabled %}
+        <div class="ai-faq-links-card-{{ ai_gen_id }}">
+          <div class="ai-faq-links-card-icon-{{ ai_gen_id }}">{{ block.settings.card_2_icon }}</div>
+          <h3 class="ai-faq-links-card-title-{{ ai_gen_id }}">{{ block.settings.card_2_title }}</h3>
+          <p class="ai-faq-links-card-text-{{ ai_gen_id }}">{{ block.settings.card_2_text }}</p>
+          <a href="{{ block.settings.card_2_link }}" class="ai-faq-links-card-link-{{ ai_gen_id }}">
+            {{ block.settings.card_2_button_text }}
+            <span>→</span>
+          </a>
+        </div>
+      {% endif %}
+
+      {% if block.settings.card_3_enabled %}
+        <div class="ai-faq-links-card-{{ ai_gen_id }}">
+          <div class="ai-faq-links-card-icon-{{ ai_gen_id }}">{{ block.settings.card_3_icon }}</div>
+          <h3 class="ai-faq-links-card-title-{{ ai_gen_id }}">{{ block.settings.card_3_title }}</h3>
+          <p class="ai-faq-links-card-text-{{ ai_gen_id }}">{{ block.settings.card_3_text }}</p>
+          <a href="{{ block.settings.card_3_link }}" class="ai-faq-links-card-link-{{ ai_gen_id }}">
+            {{ block.settings.card_3_button_text }}
+            <span>→</span>
+          </a>
+        </div>
+      {% endif %}
+
+      {% if block.settings.card_4_enabled %}
+        <div class="ai-faq-links-card-{{ ai_gen_id }}">
+          <div class="ai-faq-links-card-icon-{{ ai_gen_id }}">{{ block.settings.card_4_icon }}</div>
+          <h3 class="ai-faq-links-card-title-{{ ai_gen_id }}">{{ block.settings.card_4_title }}</h3>
+          <p class="ai-faq-links-card-text-{{ ai_gen_id }}">{{ block.settings.card_4_text }}</p>
+          <a href="{{ block.settings.card_4_link }}" class="ai-faq-links-card-link-{{ ai_gen_id }}">
+            {{ block.settings.card_4_button_text }}
+            <span>→</span>
+          </a>
+        </div>
+      {% endif %}
+
+      {% if block.settings.card_5_enabled %}
+        <div class="ai-faq-links-card-{{ ai_gen_id }}">
+          <div class="ai-faq-links-card-icon-{{ ai_gen_id }}">{{ block.settings.card_5_icon }}</div>
+          <h3 class="ai-faq-links-card-title-{{ ai_gen_id }}">{{ block.settings.card_5_title }}</h3>
+          <p class="ai-faq-links-card-text-{{ ai_gen_id }}">{{ block.settings.card_5_text }}</p>
+          <a href="{{ block.settings.card_5_link }}" class="ai-faq-links-card-link-{{ ai_gen_id }}">
+            {{ block.settings.card_5_button_text }}
+            <span>→</span>
+          </a>
+        </div>
+      {% endif %}
+
+      {% if block.settings.card_6_enabled %}
+        <div class="ai-faq-links-card-{{ ai_gen_id }}">
+          <div class="ai-faq-links-card-icon-{{ ai_gen_id }}">{{ block.settings.card_6_icon }}</div>
+          <h3 class="ai-faq-links-card-title-{{ ai_gen_id }}">{{ block.settings.card_6_title }}</h3>
+          <p class="ai-faq-links-card-text-{{ ai_gen_id }}">{{ block.settings.card_6_text }}</p>
+          <a href="{{ block.settings.card_6_link }}" class="ai-faq-links-card-link-{{ ai_gen_id }}">
+            {{ block.settings.card_6_button_text }}
+            <span>→</span>
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "FAQ quick links",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "HELP CENTER"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Looking for Answers?"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Find quick answers to our most frequently asked questions about orders, shipping, returns, subscriptions, and product guidance."
+    },
+    {
+      "type": "header",
+      "content": "Card 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_1_enabled",
+      "label": "Enable card 1",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_1_icon",
+      "label": "Icon",
+      "default": "📦"
+    },
+    {
+      "type": "text",
+      "id": "card_1_title",
+      "label": "Title",
+      "default": "Track My Order"
+    },
+    {
+      "type": "textarea",
+      "id": "card_1_text",
+      "label": "Description",
+      "default": "Check your order status and delivery updates."
+    },
+    {
+      "type": "text",
+      "id": "card_1_button_text",
+      "label": "Button text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "card_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_2_enabled",
+      "label": "Enable card 2",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_2_icon",
+      "label": "Icon",
+      "default": "🚚"
+    },
+    {
+      "type": "text",
+      "id": "card_2_title",
+      "label": "Title",
+      "default": "Shipping Information"
+    },
+    {
+      "type": "textarea",
+      "id": "card_2_text",
+      "label": "Description",
+      "default": "Delivery timelines, shipping charges and service areas."
+    },
+    {
+      "type": "text",
+      "id": "card_2_button_text",
+      "label": "Button text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "card_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_3_enabled",
+      "label": "Enable card 3",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_3_icon",
+      "label": "Icon",
+      "default": "↩️"
+    },
+    {
+      "type": "text",
+      "id": "card_3_title",
+      "label": "Title",
+      "default": "Returns & Refunds"
+    },
+    {
+      "type": "textarea",
+      "id": "card_3_text",
+      "label": "Description",
+      "default": "Understand our return eligibility and refund process."
+    },
+    {
+      "type": "text",
+      "id": "card_3_button_text",
+      "label": "Button text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "card_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_4_enabled",
+      "label": "Enable card 4",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_4_icon",
+      "label": "Icon",
+      "default": "🌿"
+    },
+    {
+      "type": "text",
+      "id": "card_4_title",
+      "label": "Title",
+      "default": "Product Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "card_4_text",
+      "label": "Description",
+      "default": "Learn how to use Livgenix products and choose the right routine."
+    },
+    {
+      "type": "text",
+      "id": "card_4_button_text",
+      "label": "Button text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "card_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_5_enabled",
+      "label": "Enable card 5",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_5_icon",
+      "label": "Icon",
+      "default": "💳"
+    },
+    {
+      "type": "text",
+      "id": "card_5_title",
+      "label": "Title",
+      "default": "Payments & Billing"
+    },
+    {
+      "type": "textarea",
+      "id": "card_5_text",
+      "label": "Description",
+      "default": "Accepted payment methods, invoices and transaction support."
+    },
+    {
+      "type": "text",
+      "id": "card_5_button_text",
+      "label": "Button text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "card_5_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Card 6"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_6_enabled",
+      "label": "Enable card 6",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_6_icon",
+      "label": "Icon",
+      "default": "❓"
+    },
+    {
+      "type": "text",
+      "id": "card_6_title",
+      "label": "Title",
+      "default": "Visit Our FAQ"
+    },
+    {
+      "type": "textarea",
+      "id": "card_6_text",
+      "label": "Description",
+      "default": "Browse all frequently asked questions in one place."
+    },
+    {
+      "type": "text",
+      "id": "card_6_button_text",
+      "label": "Button text",
+      "default": "View FAQ"
+    },
+    {
+      "type": "url",
+      "id": "card_6_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum content width",
+      "min": 1000,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "default": 1400
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "label": "Header bottom spacing",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "grid_spacing",
+      "label": "Grid top spacing",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Card gap",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Card title size",
+      "min": 16,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_text_size",
+      "label": "Card text size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "link_size",
+      "label": "Link size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#2F3324"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow",
+      "default": "#BE9A5C"
+    },
+    {
+      "type": "color",
+      "id": "body_text_color",
+      "label": "Body text",
+      "default": "#6B705C"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#BE9A5C"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border",
+      "default": "#ECE2CE"
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ quick links"
+    }
+  ]
+}
+{% endschema %}

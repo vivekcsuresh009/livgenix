@@ -1,0 +1,705 @@
+{% doc %}
+  @prompt
+    Create a premium split-layout section similar to the attached reference.
+    
+    Layout:
+    • Two equal columns (50/50).
+    • Left: Large premium lifestyle/product image with rounded corners (20px).
+    • Right: Content.
+    • White background.
+    • Generous spacing (100px top & bottom).
+    • Responsive on mobile.
+    
+    Content:
+    
+    Eyebrow:
+    PRODUCT PHILOSOPHY
+    
+    Heading:
+    Hair Wellness Begins at the Root.
+    
+    Body:
+    At LiveGenix, we believe healthier hair starts long before the first strand appears. Rather than masking symptoms, our formulations are designed to support scalp health, nourish from within, and promote long-term hair wellness.
+    
+    Inspired by the principles of Ayurveda and strengthened by modern scientific research, every product is created to work in harmony with your body's natural processes.
+    
+    We focus on consistency over quick fixes, helping you build healthier hair through thoughtful daily care.
+    
+    Button:
+    Learn More
+    
+    Design:
+    • Olive green heading
+    • Premium typography
+    • Gold accent line
+    • Luxury minimalist aesthetic
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-split-layout-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding_top }}px 0 {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-split-layout-container-{{ ai_gen_id }} {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-split-layout-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ block.settings.column_gap }}px;
+    align-items: center;
+  }
+
+  .ai-split-layout-image-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+    position: relative;
+  }
+
+  .ai-split-layout-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    object-fit: cover;
+  }
+
+  .ai-split-layout-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background-color: #f4f4f4;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-split-layout-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-split-layout-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-split-layout-content-{{ ai_gen_id }} {
+    padding: {{ block.settings.content_padding }}px;
+  }
+
+  .ai-split-layout-eyebrow-{{ ai_gen_id }} {
+    font-size: {{ block.settings.eyebrow_size }}px;
+    color: {{ block.settings.eyebrow_color }};
+    letter-spacing: {{ block.settings.eyebrow_letter_spacing }}px;
+    text-transform: uppercase;
+    margin-bottom: {{ block.settings.eyebrow_spacing }}px;
+    font-weight: 500;
+  }
+
+  .ai-split-layout-accent-line-{{ ai_gen_id }} {
+    width: {{ block.settings.accent_line_width }}px;
+    height: {{ block.settings.accent_line_height }}px;
+    background-color: {{ block.settings.accent_line_color }};
+    margin-bottom: {{ block.settings.accent_line_spacing }}px;
+  }
+
+  .ai-split-layout-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    line-height: 1.2;
+    margin: 0 0 {{ block.settings.heading_spacing }}px;
+    font-weight: 700;
+  }
+
+  .ai-split-layout-body-{{ ai_gen_id }} {
+    font-size: {{ block.settings.body_size }}px;
+    color: {{ block.settings.body_color }};
+    line-height: 1.7;
+    margin-bottom: {{ block.settings.body_spacing }}px;
+  }
+
+  .ai-split-layout-body-{{ ai_gen_id }} p {
+    margin-bottom: 16px;
+  }
+
+  .ai-split-layout-body-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-split-layout-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: {{ block.settings.button_font_size }}px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+  }
+
+  .ai-split-layout-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.button_hover_text_color }};
+    border-color: {{ block.settings.button_hover_border_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-split-layout-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding_top_mobile }}px 0 {{ block.settings.padding_bottom_mobile }}px;
+    }
+
+    .ai-split-layout-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.column_gap_mobile }}px;
+    }
+
+    {% if block.settings.mobile_layout == 'image_first' %}
+      .ai-split-layout-image-wrapper-{{ ai_gen_id }} {
+        order: 1;
+      }
+      .ai-split-layout-content-{{ ai_gen_id }} {
+        order: 2;
+      }
+    {% else %}
+      .ai-split-layout-image-wrapper-{{ ai_gen_id }} {
+        order: 2;
+      }
+      .ai-split-layout-content-{{ ai_gen_id }} {
+        order: 1;
+      }
+    {% endif %}
+
+    .ai-split-layout-content-{{ ai_gen_id }} {
+      padding: {{ block.settings.content_padding_mobile }}px;
+    }
+
+    .ai-split-layout-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size_mobile }}px;
+    }
+
+    .ai-split-layout-body-{{ ai_gen_id }} {
+      font-size: {{ block.settings.body_size_mobile }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-split-layout-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-split-layout-container-{{ ai_gen_id }}">
+    <div class="ai-split-layout-grid-{{ ai_gen_id }}">
+      <div class="ai-split-layout-image-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.image %}
+          <img
+            src="{{ block.settings.image | image_url: width: 1200 }}"
+            alt="{{ block.settings.image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.image.width }}"
+            height="{{ block.settings.image.height }}"
+            class="ai-split-layout-image-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-split-layout-image-placeholder-{{ ai_gen_id }}">
+            {{ 'hero-apparel-1' | placeholder_svg_tag }}
+            <div class="ai-split-layout-empty-state-{{ ai_gen_id }}">
+              Add a lifestyle or product image
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ai-split-layout-content-{{ ai_gen_id }}">
+        {% if block.settings.show_eyebrow and block.settings.eyebrow != blank %}
+          <div class="ai-split-layout-eyebrow-{{ ai_gen_id }}">
+            {{ block.settings.eyebrow }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.show_accent_line %}
+          <div class="ai-split-layout-accent-line-{{ ai_gen_id }}"></div>
+        {% endif %}
+
+        {% if block.settings.heading != blank %}
+          <h2 class="ai-split-layout-heading-{{ ai_gen_id }}">
+            {{ block.settings.heading }}
+          </h2>
+        {% endif %}
+
+        {% if block.settings.body != blank %}
+          <div class="ai-split-layout-body-{{ ai_gen_id }}">
+            {{ block.settings.body }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.show_button and block.settings.button_text != blank %}
+          <a
+            href="{{ block.settings.button_link }}"
+            class="ai-split-layout-button-{{ ai_gen_id }}"
+          >
+            {{ block.settings.button_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Split layout",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Column gap",
+      "min": 20,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Eyebrow"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_eyebrow",
+      "label": "Show eyebrow",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "PRODUCT PHILOSOPHY"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Color",
+      "default": "#6F764F"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_letter_spacing",
+      "label": "Letter spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "default": 1.5
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_spacing",
+      "label": "Bottom spacing",
+      "min": 5,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Accent line"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_accent_line",
+      "label": "Show accent line",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "accent_line_width",
+      "label": "Width",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "accent_line_height",
+      "label": "Height",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "color",
+      "id": "accent_line_color",
+      "label": "Color",
+      "default": "#BE9A5C"
+    },
+    {
+      "type": "range",
+      "id": "accent_line_spacing",
+      "label": "Bottom spacing",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Hair Wellness Begins at the Root."
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Font size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Mobile font size",
+      "min": 20,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Color",
+      "default": "#6F764F"
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing",
+      "label": "Bottom spacing",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "header",
+      "content": "Body text"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body text",
+      "default": "<p>At LiveGenix, we believe healthier hair starts long before the first strand appears. Rather than masking symptoms, our formulations are designed to support scalp health, nourish from within, and promote long-term hair wellness.</p><p>Inspired by the principles of Ayurveda and strengthened by modern scientific research, every product is created to work in harmony with your body's natural processes.</p><p>We focus on consistency over quick fixes, helping you build healthier hair through thoughtful daily care.</p>"
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "body_size_mobile",
+      "label": "Mobile font size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Color",
+      "default": "#2F3324"
+    },
+    {
+      "type": "range",
+      "id": "body_spacing",
+      "label": "Bottom spacing",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "label": "Vertical padding",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 35
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background color",
+      "default": "#6F764F"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border color",
+      "default": "#6F764F"
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Hover background",
+      "default": "#2F3324"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Hover border color",
+      "default": "#2F3324"
+    },
+    {
+      "type": "header",
+      "content": "Content spacing"
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "label": "Content padding",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "content_padding_mobile",
+      "label": "Mobile content padding",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Mobile settings"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Mobile layout",
+      "options": [
+        {
+          "value": "image_first",
+          "label": "Image first"
+        },
+        {
+          "value": "content_first",
+          "label": "Content first"
+        }
+      ],
+      "default": "image_first"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Mobile top padding",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Mobile bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "column_gap_mobile",
+      "label": "Mobile column gap",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Split layout"
+    }
+  ]
+}
+{% endschema %}

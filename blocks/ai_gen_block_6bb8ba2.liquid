@@ -1,0 +1,434 @@
+{% doc %}
+  @prompt
+    Create a premium storytelling section explaining why scalp health is the foundation of healthy hair.
+    
+    Headline:
+    Healthy Hair Begins With A Healthy Scalp
+    
+    Explain that many cosmetic oils only coat the hair while Coconeela focuses on nourishing the scalp, where healthy hair naturally grows.
+    
+    Use two-column layout with an illustration on one side and content on the other.
+    
+    Tone:
+    Educational, trustworthy and science-inspired while respecting Ayurvedic traditions.
+    
+    Style:
+    Luxury wellness brand with premium spacing and soft backgrounds.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-scalp-health-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding_top }}px {{ block.settings.section_padding_horizontal }}px {{ block.settings.section_padding_bottom }}px;
+  }
+
+  .ai-scalp-health-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-scalp-health-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: {{ block.settings.column_gap }}px;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-scalp-health-grid-{{ ai_gen_id }} {
+      grid-template-columns: {% if block.settings.layout == 'image_left' %}1fr 1fr{% else %}1fr 1fr{% endif %};
+    }
+
+    .ai-scalp-health-grid-{{ ai_gen_id }}--image-right .ai-scalp-health-image-wrapper-{{ ai_gen_id }} {
+      order: 2;
+    }
+
+    .ai-scalp-health-grid-{{ ai_gen_id }}--image-right .ai-scalp-health-content-{{ ai_gen_id }} {
+      order: 1;
+    }
+  }
+
+  .ai-scalp-health-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+  }
+
+  .ai-scalp-health-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    display: block;
+  }
+
+  .ai-scalp-health-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: {{ block.settings.placeholder_background }};
+    border-radius: {{ block.settings.image_border_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-scalp-health-image-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-scalp-health-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.6;
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .ai-scalp-health-content-{{ ai_gen_id }} {
+    padding: {{ block.settings.content_padding }}px;
+  }
+
+  .ai-scalp-health-eyebrow-{{ ai_gen_id }} {
+    font-size: {{ block.settings.eyebrow_size }}px;
+    color: {{ block.settings.eyebrow_color }};
+    margin-bottom: {{ block.settings.eyebrow_spacing }}px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .ai-scalp-health-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 {{ block.settings.heading_spacing }}px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  .ai-scalp-health-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .ai-scalp-health-description-{{ ai_gen_id }} p {
+    margin: 0 0 {{ block.settings.paragraph_spacing }}px;
+  }
+
+  .ai-scalp-health-description-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-scalp-health-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding_top | times: 0.6 }}px {{ block.settings.section_padding_horizontal | times: 0.6 }}px {{ block.settings.section_padding_bottom | times: 0.6 }}px;
+    }
+
+    .ai-scalp-health-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.7 }}px;
+    }
+
+    .ai-scalp-health-eyebrow-{{ ai_gen_id }} {
+      font-size: {{ block.settings.eyebrow_size | times: 0.85 }}px;
+    }
+
+    .ai-scalp-health-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size | times: 0.9 }}px;
+    }
+
+    .ai-scalp-health-content-{{ ai_gen_id }} {
+      padding: {{ block.settings.content_padding | times: 0.5 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-scalp-health-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-scalp-health-container-{{ ai_gen_id }}">
+    <div class="ai-scalp-health-grid-{{ ai_gen_id }} {% if block.settings.layout == 'image_right' %}ai-scalp-health-grid-{{ ai_gen_id }}--image-right{% endif %}">
+      <div class="ai-scalp-health-image-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.image %}
+          <img
+            src="{{ block.settings.image | image_url: width: 1200 }}"
+            alt="{{ block.settings.image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.image.width }}"
+            height="{{ block.settings.image.height }}"
+            class="ai-scalp-health-image-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-scalp-health-image-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+            <div class="ai-scalp-health-empty-state-{{ ai_gen_id }}">
+              Add an illustration or image
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ai-scalp-health-content-{{ ai_gen_id }}">
+        {% if block.settings.eyebrow != blank %}
+          <div class="ai-scalp-health-eyebrow-{{ ai_gen_id }}">
+            {{ block.settings.eyebrow }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.heading != blank %}
+          <h2 class="ai-scalp-health-heading-{{ ai_gen_id }}">
+            {{ block.settings.heading }}
+          </h2>
+        {% endif %}
+
+        {% if block.settings.description != blank %}
+          <div class="ai-scalp-health-description-{{ ai_gen_id }}">
+            {{ block.settings.description }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Scalp health storytelling",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "image_left",
+          "label": "Left"
+        },
+        {
+          "value": "image_right",
+          "label": "Right"
+        }
+      ],
+      "default": "image_left"
+    },
+    {
+      "type": "range",
+      "id": "container_max_width",
+      "label": "Container max width",
+      "min": 800,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Column gap",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "The Foundation"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Healthy Hair Begins With A Healthy Scalp"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Many cosmetic oils simply coat the hair, providing temporary shine without addressing the root cause of hair concerns. Coconeela takes a different approach.</p><p>Rooted in Ayurvedic wisdom and backed by modern understanding, our Bhringraj Hair Oil nourishes the scalp—the very foundation where healthy, vibrant hair naturally grows. By focusing on scalp health, we support the natural hair growth cycle from within.</p>"
+    },
+    {
+      "type": "range",
+      "id": "content_padding",
+      "label": "Content padding",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_spacing",
+      "label": "Eyebrow spacing",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing",
+      "label": "Heading spacing",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "paragraph_spacing",
+      "label": "Paragraph spacing",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Section padding top",
+      "min": 20,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Section padding bottom",
+      "min": 20,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_horizontal",
+      "label": "Section padding horizontal",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FAF8F3"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow",
+      "default": "#BE9A5C"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#2F3324"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#6F764F"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_background",
+      "label": "Placeholder background",
+      "default": "#ECE2CE"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scalp health storytelling"
+    }
+  ]
+}
+{% endschema %}

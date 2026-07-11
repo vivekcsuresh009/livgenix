@@ -1,0 +1,772 @@
+{% doc %}
+  @prompt
+    Create a premium "Business Information & Grievance Officer" section for a luxury Ayurvedic hair wellness brand called Livgenix.
+    
+    Design Goal:
+    Present Livgenix's official business information and grievance redressal details in a clean, trustworthy, and premium way that complies with Indian e-commerce standards.
+    
+    Layout:
+    - Full-width section.
+    - Soft cream background (#ECE2CE).
+    - Two-column responsive layout.
+    - Left column: Business Information.
+    - Right column: Grievance Officer.
+    - Rounded information cards with generous spacing.
+    - Maximum content width: 1400px.
+    
+    LEFT COLUMN
+    
+    Small Eyebrow:
+    BUSINESS INFORMATION
+    
+    Heading:
+    Registered Business Details
+    
+    Display the following information inside a premium information card:
+    
+    • Registered Company Name
+    • Registered Office Address
+    • Customer Support Email
+    • Customer Support Phone
+    • GST Number
+    • CIN (Optional)
+    • FSSAI License Number (Optional)
+    
+    Each item should have a clean minimalist line icon.
+    
+    RIGHT COLUMN
+    
+    Small Eyebrow:
+    GRIEVANCE REDRESSAL
+    
+    Heading:
+    Need Additional Assistance?
+    
+    Display a premium contact card containing:
+    
+    • Grievance Officer Name
+    • Designation
+    • Email Address
+    • Phone Number
+    • Office Address
+    • Response Timeline
+      (Example: We aim to respond within 48 business hours.)
+    
+    Below the information display a subtle note:
+    
+    "If your concern remains unresolved through our customer support team, our Grievance Officer will ensure your issue receives prompt attention in accordance with applicable consumer protection guidelines."
+    
+    Design Style:
+    - Luxury editorial design inspired by premium wellness brands.
+    - Rounded cards (24px radius).
+    - Soft borders.
+    - White cards on cream background.
+    - No gradients.
+    - No heavy shadows.
+    - Premium typography.
+    - Plenty of whitespace.
+    - Simple monochrome line icons.
+    - Smooth fade-up animation.
+    
+    Color Palette:
+    Background: #ECE2CE
+    Cards: White
+    Heading: #2F3324
+    Accent: #BE9A5C
+    Body Text: #6B705C
+    Borders: #DDD6C4
+    
+    The overall feeling should communicate transparency, trust, professionalism, and customer-first service rather than appearing overly corporate.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-business-info-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding_mobile }}px 20px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-business-info-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding_desktop }}px 40px;
+    }
+  }
+
+  .ai-business-info-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-business-info-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .ai-business-info-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+  }
+
+  .ai-business-info-column-{{ ai_gen_id }} {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: ai-business-info-fade-up-{{ ai_gen_id }} 0.8s ease-out forwards;
+  }
+
+  .ai-business-info-column-{{ ai_gen_id }}:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  @keyframes ai-business-info-fade-up-{{ ai_gen_id }} {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .ai-business-info-eyebrow-{{ ai_gen_id }} {
+    font-size: {{ block.settings.eyebrow_size }}px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: {{ block.settings.accent_color }};
+    margin-bottom: 12px;
+  }
+
+  .ai-business-info-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size_mobile }}px;
+    font-weight: 700;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 24px 0;
+    line-height: 1.2;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-business-info-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size }}px;
+    }
+  }
+
+  .ai-business-info-card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    border: 1px solid {{ block.settings.card_border_color }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: 32px 24px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .ai-business-info-card-{{ ai_gen_id }} {
+      padding: 40px 32px;
+    }
+  }
+
+  .ai-business-info-item-{{ ai_gen_id }} {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .ai-business-info-item-{{ ai_gen_id }}:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-business-info-icon-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+  }
+
+  .ai-business-info-icon-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    stroke: {{ block.settings.accent_color }};
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .ai-business-info-content-{{ ai_gen_id }} {
+    flex-grow: 1;
+  }
+
+  .ai-business-info-label-{{ ai_gen_id }} {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: {{ block.settings.label_color }};
+    margin-bottom: 4px;
+  }
+
+  .ai-business-info-value-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+  }
+
+  .ai-business-info-note-{{ ai_gen_id }} {
+    margin-top: 24px;
+    padding: 20px;
+    background-color: {{ block.settings.note_background }};
+    border-radius: 12px;
+    font-size: {{ block.settings.note_text_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.text_color }};
+    font-style: italic;
+  }
+
+  .ai-business-info-timeline-{{ ai_gen_id }} {
+    margin-top: 16px;
+    padding: 16px;
+    background-color: {{ block.settings.timeline_background }};
+    border-radius: 8px;
+    font-size: {{ block.settings.note_text_size }}px;
+    color: {{ block.settings.text_color }};
+  }
+{% endstyle %}
+
+<business-info-{{ ai_gen_id }} class="ai-business-info-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-business-info-container-{{ ai_gen_id }}">
+    <div class="ai-business-info-grid-{{ ai_gen_id }}">
+      <div class="ai-business-info-column-{{ ai_gen_id }}">
+        {% if block.settings.left_eyebrow != blank %}
+          <div class="ai-business-info-eyebrow-{{ ai_gen_id }}">{{ block.settings.left_eyebrow }}</div>
+        {% endif %}
+        
+        {% if block.settings.left_heading != blank %}
+          <h2 class="ai-business-info-heading-{{ ai_gen_id }}">{{ block.settings.left_heading }}</h2>
+        {% endif %}
+
+        <div class="ai-business-info-card-{{ ai_gen_id }}">
+          {% if block.settings.company_name != blank %}
+            <div class="ai-business-info-item-{{ ai_gen_id }}">
+              <div class="ai-business-info-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="9" y1="3" x2="9" y2="21"></line>
+                </svg>
+              </div>
+              <div class="ai-business-info-content-{{ ai_gen_id }}">
+                <div class="ai-business-info-label-{{ ai_gen_id }}">Registered Company Name</div>
+                <p class="ai-business-info-value-{{ ai_gen_id }}">{{ block.settings.company_name }}</p>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.office_address != blank %}
+            <div class="ai-business-info-item-{{ ai_gen_id }}">
+              <div class="ai-business-info-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <div class="ai-business-info-content-{{ ai_gen_id }}">
+                <div class="ai-business-info-label-{{ ai_gen_id }}">Registered Office Address</div>
+                <p class="ai-business-info-value-{{ ai_gen_id }}">{{ block.settings.office_address }}</p>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.support_email != blank %}
+            <div class="ai-business-info-item-{{ ai_gen_id }}">
+              <div class="ai-business-info-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <div class="ai-business-info-content-{{ ai_gen_id }}">
+                <div class="ai-business-info-label-{{ ai_gen_id }}">Customer Support Email</div>
+                <p class="ai-business-info-value-{{ ai_gen_id }}">{{ block.settings.support_email }}</p>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.support_phone != blank %}
+            <div class="ai-business-info-item-{{ ai_gen_id }}">
+              <div class="ai-business-info-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </div>
+              <div class="ai-business-info-content-{{ ai_gen_id }}">
+                <div class="ai-business-info-label-{{ ai_gen_id }}">Customer Support Phone</div>
+                <p class="ai-business-info-value-{{ ai_gen_id }}">{{ block.settings.support_phone }}</p>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.gst_number != blank %}
+            <div class="ai-business-info-item-{{ ai_gen_id }}">
+              <div class="ai-business-info-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+              </div>
+              <div class="ai-business-info-content-{{ ai_gen_id }}">
+                <div class="ai-business-info-label-{{ ai_gen_id }}">GST Number</div>
+                <p class="ai-business-info-value-{{ ai_gen_id }}">{{ block.settings.gst_number }}</p>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.cin_number != blank %}
+            <div class="ai-business-info-item-{{ ai_gen_id }}">
+              <div class="ai-business-info-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+              </div>
+              <div class="ai-business-info-content-{{ ai_gen_id }}">
+                <div class="ai-business-info-label-{{ ai_gen_id }}">CIN</div>
+                <p class="ai-business-info-value-{{ ai_gen_id }}">{{ block.settings.cin_number }}</p>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.fssai_number != blank %}
+            <div class="ai-business-info-item-{{ ai_gen_id }}">
+              <div class="ai-business-info-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                  <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                </svg>
+              </div>
+              <div class="ai-business-info-content-{{ ai_gen_id }}">
+                <div class="ai-business-info-label-{{ ai_gen_id }}">FSSAI License Number</div>
+                <p class="ai-business-info-value-{{ ai_gen_id }}">{{ block.settings.fssai_number }}</p>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="ai-business-info-column-{{ ai_gen_id }}">
+        {% if block.settings.right_eyebrow != blank %}
+          <div class="ai-business-info-eyebrow-{{ ai_gen_id }}">{{ block.settings.right_eyebrow }}</div>
+        {% endif %}
+        
+        {% if block.settings.right_heading != blank %}
+          <h2 class="ai-business-info-heading-{{ ai_gen_id }}">{{ block.settings.right_heading }}</h2>
+        {% endif %}
+
+        <div class="ai-business-info-card-{{ ai_gen_id }}">
+          {% if block.settings.officer_name != blank %}
+            <div class="ai-business-info-item-{{ ai_gen_id }}">
+              <div class="ai-business-info-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <div class="ai-business-info-content-{{ ai_gen_id }}">
+                <div class="ai-business-info-label-{{ ai_gen_id }}">Grievance Officer Name</div>
+                <p class="ai-business-info-value-{{ ai_gen_id }}">{{ block.settings.officer_name }}</p>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.officer_designation != blank %}
+            <div class="ai-business-info-item-{{ ai_gen_id }}">
+              <div class="ai-business-info-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              </div>
+              <div class="ai-business-info-content-{{ ai_gen_id }}">
+                <div class="ai-business-info-label-{{ ai_gen_id }}">Designation</div>
+                <p class="ai-business-info-value-{{ ai_gen_id }}">{{ block.settings.officer_designation }}</p>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.officer_email != blank %}
+            <div class="ai-business-info-item-{{ ai_gen_id }}">
+              <div class="ai-business-info-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <div class="ai-business-info-content-{{ ai_gen_id }}">
+                <div class="ai-business-info-label-{{ ai_gen_id }}">Email Address</div>
+                <p class="ai-business-info-value-{{ ai_gen_id }}">{{ block.settings.officer_email }}</p>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.officer_phone != blank %}
+            <div class="ai-business-info-item-{{ ai_gen_id }}">
+              <div class="ai-business-info-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </div>
+              <div class="ai-business-info-content-{{ ai_gen_id }}">
+                <div class="ai-business-info-label-{{ ai_gen_id }}">Phone Number</div>
+                <p class="ai-business-info-value-{{ ai_gen_id }}">{{ block.settings.officer_phone }}</p>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.officer_address != blank %}
+            <div class="ai-business-info-item-{{ ai_gen_id }}">
+              <div class="ai-business-info-icon-{{ ai_gen_id }}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <div class="ai-business-info-content-{{ ai_gen_id }}">
+                <div class="ai-business-info-label-{{ ai_gen_id }}">Office Address</div>
+                <p class="ai-business-info-value-{{ ai_gen_id }}">{{ block.settings.officer_address }}</p>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if block.settings.response_timeline != blank %}
+            <div class="ai-business-info-timeline-{{ ai_gen_id }}">
+              <strong>Response Timeline:</strong> {{ block.settings.response_timeline }}
+            </div>
+          {% endif %}
+        </div>
+
+        {% if block.settings.grievance_note != blank %}
+          <div class="ai-business-info-note-{{ ai_gen_id }}">
+            {{ block.settings.grievance_note }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</business-info-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class BusinessInfo{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.initAnimations();
+      }
+
+      initAnimations() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.style.animationPlayState = 'running';
+            }
+          });
+        }, {
+          threshold: 0.1
+        });
+
+        const columns = this.querySelectorAll('.ai-business-info-column-{{ ai_gen_id }}');
+        columns.forEach(column => {
+          column.style.animationPlayState = 'paused';
+          observer.observe(column);
+        });
+      }
+    }
+
+    customElements.define('business-info-{{ ai_gen_id }}', BusinessInfo{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Business info & grievance",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum content width",
+      "min": 1000,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "default": 1400
+    },
+    {
+      "type": "range",
+      "id": "section_padding_desktop",
+      "label": "Desktop padding",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_mobile",
+      "label": "Mobile padding",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Left column"
+    },
+    {
+      "type": "text",
+      "id": "left_eyebrow",
+      "label": "Eyebrow text",
+      "default": "BUSINESS INFORMATION"
+    },
+    {
+      "type": "text",
+      "id": "left_heading",
+      "label": "Heading",
+      "default": "Registered Business Details"
+    },
+    {
+      "type": "textarea",
+      "id": "company_name",
+      "label": "Registered company name"
+    },
+    {
+      "type": "textarea",
+      "id": "office_address",
+      "label": "Registered office address"
+    },
+    {
+      "type": "text",
+      "id": "support_email",
+      "label": "Customer support email"
+    },
+    {
+      "type": "text",
+      "id": "support_phone",
+      "label": "Customer support phone"
+    },
+    {
+      "type": "text",
+      "id": "gst_number",
+      "label": "GST number"
+    },
+    {
+      "type": "text",
+      "id": "cin_number",
+      "label": "CIN (optional)"
+    },
+    {
+      "type": "text",
+      "id": "fssai_number",
+      "label": "FSSAI license number (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Right column"
+    },
+    {
+      "type": "text",
+      "id": "right_eyebrow",
+      "label": "Eyebrow text",
+      "default": "GRIEVANCE REDRESSAL"
+    },
+    {
+      "type": "text",
+      "id": "right_heading",
+      "label": "Heading",
+      "default": "Need Additional Assistance?"
+    },
+    {
+      "type": "text",
+      "id": "officer_name",
+      "label": "Grievance officer name"
+    },
+    {
+      "type": "text",
+      "id": "officer_designation",
+      "label": "Designation"
+    },
+    {
+      "type": "text",
+      "id": "officer_email",
+      "label": "Email address"
+    },
+    {
+      "type": "text",
+      "id": "officer_phone",
+      "label": "Phone number"
+    },
+    {
+      "type": "textarea",
+      "id": "officer_address",
+      "label": "Office address"
+    },
+    {
+      "type": "text",
+      "id": "response_timeline",
+      "label": "Response timeline",
+      "default": "We aim to respond within 48 business hours."
+    },
+    {
+      "type": "textarea",
+      "id": "grievance_note",
+      "label": "Grievance note"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ECE2CE"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border",
+      "default": "#DDD6C4"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#2F3324"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#BE9A5C"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text",
+      "default": "#6B705C"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label text",
+      "default": "#6B705C"
+    },
+    {
+      "type": "color",
+      "id": "note_background",
+      "label": "Note background",
+      "default": "#F5F1E8"
+    },
+    {
+      "type": "color",
+      "id": "timeline_background",
+      "label": "Timeline background",
+      "default": "#F5F1E8"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size (desktop)",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading size (mobile)",
+      "min": 20,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Body text size",
+      "min": 13,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "note_text_size",
+      "label": "Note text size",
+      "min": 12,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "Business info & grievance"
+    }
+  ]
+}
+{% endschema %}

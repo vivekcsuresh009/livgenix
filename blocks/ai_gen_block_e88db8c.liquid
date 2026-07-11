@@ -1,0 +1,460 @@
+{% doc %}
+  @prompt
+    Create a premium trust bar section after the FAQ and before the footer.
+    
+    Layout:
+    - Full-width section with a soft cream background (#F8F5EF).
+    - Four equal columns on desktop and stacked on mobile.
+    - Each column should contain:
+      • Premium gold line icon (72px)
+      • Bold title
+      • One-line description
+    
+    Content:
+    
+    🚚 Free Shipping
+    On all eligible orders.
+    
+    💳 Cash on Delivery
+    Available across most locations.
+    
+    🔒 Secure Payments
+    100% safe and encrypted checkout.
+    
+    📦 Fast Dispatch
+    Orders shipped within 24–48 hours.
+    
+    Design:
+    - Premium minimalist style matching the LiveGenix website.
+    - Thin separators between columns.
+    - Gold icons (#BE9A5C).
+    - Olive green headings.
+    - No heavy shadows.
+    - Plenty of whitespace.
+    - Responsive on all devices.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-trust-bar-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding_top }}px 0 {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-trust-bar-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-trust-bar-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .ai-trust-bar-item-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: {{ block.settings.item_padding }}px;
+    position: relative;
+  }
+
+  .ai-trust-bar-item-{{ ai_gen_id }}:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 60%;
+    background-color: {{ block.settings.separator_color }};
+    opacity: {{ block.settings.separator_opacity | divided_by: 100.0 }};
+  }
+
+  .ai-trust-bar-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    margin-bottom: {{ block.settings.icon_spacing }}px;
+    color: {{ block.settings.icon_color }};
+    flex-shrink: 0;
+  }
+
+  .ai-trust-bar-icon-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .ai-trust-bar-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: {{ block.settings.title_weight }};
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.title_spacing }}px;
+    line-height: 1.3;
+  }
+
+  .ai-trust-bar-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.description_color }};
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-trust-bar-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px 0;
+    }
+
+    .ai-trust-bar-item-{{ ai_gen_id }}:nth-child(2n)::after {
+      display: none;
+    }
+
+    .ai-trust-bar-item-{{ ai_gen_id }}:nth-child(n+3) {
+      padding-top: 30px;
+      border-top: 1px solid {{ block.settings.separator_color }};
+      opacity: {{ block.settings.separator_opacity | divided_by: 100.0 }};
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-trust-bar-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .ai-trust-bar-item-{{ ai_gen_id }}::after {
+      display: none;
+    }
+
+    .ai-trust-bar-item-{{ ai_gen_id }}:not(:last-child) {
+      padding-bottom: 30px;
+      border-bottom: 1px solid {{ block.settings.separator_color }};
+      opacity: {{ block.settings.separator_opacity | divided_by: 100.0 }};
+    }
+
+    .ai-trust-bar-item-{{ ai_gen_id }}:not(:first-child) {
+      padding-top: 30px;
+      border-top: none;
+    }
+
+    .ai-trust-bar-icon-{{ ai_gen_id }} {
+      width: {{ block.settings.icon_size | times: 0.8 }}px;
+      height: {{ block.settings.icon_size | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-trust-bar-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-trust-bar-container-{{ ai_gen_id }}">
+    <div class="ai-trust-bar-grid-{{ ai_gen_id }}">
+      {% if block.settings.feature_1_enabled %}
+        <div class="ai-trust-bar-item-{{ ai_gen_id }}">
+          <div class="ai-trust-bar-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </div>
+          <h3 class="ai-trust-bar-title-{{ ai_gen_id }}">{{ block.settings.feature_1_title }}</h3>
+          <p class="ai-trust-bar-description-{{ ai_gen_id }}">{{ block.settings.feature_1_description }}</p>
+        </div>
+      {% endif %}
+
+      {% if block.settings.feature_2_enabled %}
+        <div class="ai-trust-bar-item-{{ ai_gen_id }}">
+          <div class="ai-trust-bar-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+              <line x1="1" y1="10" x2="23" y2="10"></line>
+            </svg>
+          </div>
+          <h3 class="ai-trust-bar-title-{{ ai_gen_id }}">{{ block.settings.feature_2_title }}</h3>
+          <p class="ai-trust-bar-description-{{ ai_gen_id }}">{{ block.settings.feature_2_description }}</p>
+        </div>
+      {% endif %}
+
+      {% if block.settings.feature_3_enabled %}
+        <div class="ai-trust-bar-item-{{ ai_gen_id }}">
+          <div class="ai-trust-bar-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <h3 class="ai-trust-bar-title-{{ ai_gen_id }}">{{ block.settings.feature_3_title }}</h3>
+          <p class="ai-trust-bar-description-{{ ai_gen_id }}">{{ block.settings.feature_3_description }}</p>
+        </div>
+      {% endif %}
+
+      {% if block.settings.feature_4_enabled %}
+        <div class="ai-trust-bar-item-{{ ai_gen_id }}">
+          <div class="ai-trust-bar-icon-{{ ai_gen_id }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <h3 class="ai-trust-bar-title-{{ ai_gen_id }}">{{ block.settings.feature_4_title }}</h3>
+          <p class="ai-trust-bar-description-{{ ai_gen_id }}">{{ block.settings.feature_4_description }}</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Trust bar",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F8F5EF"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "item_padding",
+      "label": "Item padding",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Separators"
+    },
+    {
+      "type": "color",
+      "id": "separator_color",
+      "label": "Color",
+      "default": "#2F3324"
+    },
+    {
+      "type": "range",
+      "id": "separator_opacity",
+      "label": "Opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Icons"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Size",
+      "min": 40,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Color",
+      "default": "#BE9A5C"
+    },
+    {
+      "type": "range",
+      "id": "icon_spacing",
+      "label": "Bottom spacing",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "title_weight",
+      "label": "Title weight",
+      "min": 400,
+      "max": 700,
+      "step": 100,
+      "default": 700
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#6F764F"
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "label": "Title bottom spacing",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#2F3324"
+    },
+    {
+      "type": "header",
+      "content": "Feature 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_1_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "feature_1_title",
+      "label": "Title",
+      "default": "Free Shipping"
+    },
+    {
+      "type": "text",
+      "id": "feature_1_description",
+      "label": "Description",
+      "default": "On all eligible orders."
+    },
+    {
+      "type": "header",
+      "content": "Feature 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_2_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "feature_2_title",
+      "label": "Title",
+      "default": "Cash on Delivery"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_description",
+      "label": "Description",
+      "default": "Available across most locations."
+    },
+    {
+      "type": "header",
+      "content": "Feature 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_3_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "feature_3_title",
+      "label": "Title",
+      "default": "Secure Payments"
+    },
+    {
+      "type": "text",
+      "id": "feature_3_description",
+      "label": "Description",
+      "default": "100% safe and encrypted checkout."
+    },
+    {
+      "type": "header",
+      "content": "Feature 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_4_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "feature_4_title",
+      "label": "Title",
+      "default": "Fast Dispatch"
+    },
+    {
+      "type": "text",
+      "id": "feature_4_description",
+      "label": "Description",
+      "default": "Orders shipped within 24–48 hours."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust bar"
+    }
+  ]
+}
+{% endschema %}

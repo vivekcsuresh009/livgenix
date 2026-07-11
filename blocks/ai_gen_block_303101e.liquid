@@ -1,0 +1,756 @@
+{% doc %}
+  @prompt
+    Create a reusable Shopify Online Store 2.0 section called "Feature Row" to be placed directly below the introductory paragraph on the About Us page.
+    
+    OBJECTIVE
+    Build a clean, premium, minimal feature row that highlights the brand's core principles. The design should feel elegant and lightweight, with no visual clutter.
+    
+    LAYOUT
+    - Display 3 feature items in a single horizontal row on desktop.
+    - On tablet, maintain three columns if space permits; otherwise wrap gracefully.
+    - On mobile, stack vertically or use a responsive 2+1 layout depending on available width.
+    - Center-align all content.
+    - Use generous whitespace.
+    - Do NOT use cards.
+    - Do NOT use borders.
+    - Do NOT use shadows.
+    - Do NOT use colored boxes or containers.
+    - Keep the design extremely minimal.
+    
+    DEFAULT CONTENT
+    
+    Feature 1
+    Icon:
+    🌿
+    Title:
+    Ayurvedic Inspired
+    
+    Feature 2
+    Icon:
+    ⚗️
+    Title:
+    Science Backed
+    
+    Feature 3
+    Icon:
+    ❤️
+    Title:
+    Made for Long-Term Wellness
+    
+    Each feature should contain only:
+    - Icon
+    - Title
+    
+    No descriptions.
+    
+    TYPOGRAPHY
+    - Icon should be visually prominent.
+    - Title should use the theme typography.
+    - Keep typography clean and premium.
+    - Maintain consistent spacing between icon and title.
+    
+    SECTION SETTINGS (Editable)
+    Nothing should be hardcoded.
+    
+    Include editable controls for:
+    - Section heading (optional)
+    - Background color
+    - Content width (Full / Standard / Narrow)
+    - Top padding
+    - Bottom padding
+    - Horizontal alignment
+    - Gap between feature items
+    - Gap between icon and title
+    - Icon size
+    - Title font size
+    - Title font weight
+    - Maximum content width
+    
+    FEATURE BLOCK SETTINGS
+    Each feature should be created as a repeatable block so merchants can add, remove, reorder, or duplicate features.
+    
+    Each block should include:
+    - Icon Type selector
+        - Emoji
+        - SVG
+        - Image
+    - Emoji field
+    - SVG code field
+    - Image picker
+    - Title text
+    - Icon color
+    - Title color
+    - Optional link
+    - Enable/Disable toggle
+    
+    RESPONSIVE REQUIREMENTS
+    Desktop:
+    - Three equal-width columns.
+    
+    Tablet:
+    - Responsive wrapping without breaking alignment.
+    
+    Mobile:
+    - Stack vertically or use an optimized 2+1 layout.
+    - Icons remain centered.
+    - Text remains centered.
+    - Prevent overflow.
+    - Maintain comfortable spacing.
+    
+    ACCESSIBILITY
+    - Use semantic HTML.
+    - Decorative icons should be hidden from screen readers unless an accessible label is provided.
+    - Maintain WCAG-compliant color contrast.
+    - Ensure keyboard accessibility if links are enabled.
+    
+    PERFORMANCE
+    - Build as a native Shopify Online Store 2.0 section.
+    - Use Section + Blocks architecture.
+    - No hardcoded content.
+    - No unnecessary JavaScript.
+    - Use CSS Grid or Flexbox for responsiveness.
+    - Follow Shopify theme best practices.
+    - Optimize for fast loading.
+    
+    DESIGN DIRECTION
+    The section should communicate trust in a refined and understated way. It should seamlessly blend into a premium wellness brand aesthetic, emphasizing simplicity, balance, and elegance rather than decorative styling.
+{% enddoc %}
+{% liquid
+  assign ai_gen_id = block.id | replace: '_', '' | downcase
+%}
+
+{% style %}
+  .ai-feature-row-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+    width: 100%;
+  }
+
+  .ai-feature-row-container-{{ ai_gen_id }} {
+    margin: 0 auto;
+    padding: 0 20px;
+    {% if block.settings.content_width == 'full' %}
+      max-width: 100%;
+    {% elsif block.settings.content_width == 'narrow' %}
+      max-width: calc({{ block.settings.max_content_width }}px * 0.75);
+    {% else %}
+      max-width: {{ block.settings.max_content_width }}px;
+    {% endif %}
+  }
+
+  .ai-feature-row-heading-{{ ai_gen_id }} {
+    text-align: {{ block.settings.horizontal_alignment }};
+    margin: 0 0 {{ block.settings.heading_bottom_spacing }}px 0;
+    color: {{ block.settings.heading_color }};
+  }
+
+  .ai-feature-row-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: {{ block.settings.gap_between_items }}px;
+    text-align: {{ block.settings.horizontal_alignment }};
+  }
+
+  .ai-feature-row-item-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: {% if block.settings.horizontal_alignment == 'left' %}flex-start{% elsif block.settings.horizontal_alignment == 'right' %}flex-end{% else %}center{% endif %};
+    gap: {{ block.settings.gap_icon_title }}px;
+  }
+
+  .ai-feature-row-icon-{{ ai_gen_id }} {
+    font-size: {{ block.settings.icon_size }}px;
+    line-height: 1;
+    color: {{ block.settings.icon_color_1 }};
+  }
+
+  .ai-feature-row-icon-{{ ai_gen_id }} svg {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    fill: currentColor;
+  }
+
+  .ai-feature-row-icon-{{ ai_gen_id }} img {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    object-fit: contain;
+  }
+
+  .ai-feature-row-title-{{ ai_gen_id }} {
+    margin: 0;
+    font-size: {{ block.settings.title_font_size }}px;
+    font-weight: {{ block.settings.title_font_weight }};
+    color: {{ block.settings.title_color_1 }};
+    line-height: 1.3;
+  }
+
+  .ai-feature-row-item-{{ ai_gen_id }}:nth-child(2) .ai-feature-row-icon-{{ ai_gen_id }} {
+    color: {{ block.settings.icon_color_2 }};
+  }
+
+  .ai-feature-row-item-{{ ai_gen_id }}:nth-child(2) .ai-feature-row-title-{{ ai_gen_id }} {
+    color: {{ block.settings.title_color_2 }};
+  }
+
+  .ai-feature-row-item-{{ ai_gen_id }}:nth-child(3) .ai-feature-row-icon-{{ ai_gen_id }} {
+    color: {{ block.settings.icon_color_3 }};
+  }
+
+  .ai-feature-row-item-{{ ai_gen_id }}:nth-child(3) .ai-feature-row-title-{{ ai_gen_id }} {
+    color: {{ block.settings.title_color_3 }};
+  }
+
+  .ai-feature-row-link-{{ ai_gen_id }} {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: {% if block.settings.horizontal_alignment == 'left' %}flex-start{% elsif block.settings.horizontal_alignment == 'right' %}flex-end{% else %}center{% endif %};
+    gap: {{ block.settings.gap_icon_title }}px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-feature-row-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ai-feature-row-item-{{ ai_gen_id }}:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      max-width: 50%;
+      margin: 0 auto;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-feature-row-{{ ai_gen_id }} {
+      padding-top: {{ block.settings.padding_top | times: 0.7 | round }}px;
+      padding-bottom: {{ block.settings.padding_bottom | times: 0.7 | round }}px;
+    }
+
+    .ai-feature-row-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.gap_between_items | times: 0.8 | round }}px;
+    }
+
+    .ai-feature-row-item-{{ ai_gen_id }}:last-child:nth-child(odd) {
+      grid-column: auto;
+      max-width: 100%;
+    }
+
+    .ai-feature-row-icon-{{ ai_gen_id }} {
+      font-size: {{ block.settings.icon_size | times: 0.9 | round }}px;
+    }
+
+    .ai-feature-row-icon-{{ ai_gen_id }} svg {
+      width: {{ block.settings.icon_size | times: 0.9 | round }}px;
+      height: {{ block.settings.icon_size | times: 0.9 | round }}px;
+    }
+
+    .ai-feature-row-icon-{{ ai_gen_id }} img {
+      width: {{ block.settings.icon_size | times: 0.9 | round }}px;
+      height: {{ block.settings.icon_size | times: 0.9 | round }}px;
+    }
+
+    .ai-feature-row-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_font_size | times: 0.9 | round }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-feature-row-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-feature-row-container-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank %}
+      <h2 class="ai-feature-row-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="ai-feature-row-grid-{{ ai_gen_id }}">
+      {% if block.settings.feature_1_enabled %}
+        <div class="ai-feature-row-item-{{ ai_gen_id }}">
+          {% if block.settings.feature_1_link != blank %}
+            <a href="{{ block.settings.feature_1_link }}" class="ai-feature-row-link-{{ ai_gen_id }}" aria-label="{{ block.settings.feature_1_title | escape }}">
+          {% endif %}
+
+          <div class="ai-feature-row-icon-{{ ai_gen_id }}" aria-hidden="true">
+            {% if block.settings.feature_1_icon_type == 'emoji' and block.settings.feature_1_emoji != blank %}
+              {{ block.settings.feature_1_emoji }}
+            {% elsif block.settings.feature_1_icon_type == 'svg' and block.settings.feature_1_svg_code != blank %}
+              {{ block.settings.feature_1_svg_code }}
+            {% elsif block.settings.feature_1_icon_type == 'image' and block.settings.feature_1_icon_image != blank %}
+              <img 
+                src="{{ block.settings.feature_1_icon_image | image_url: width: 200 }}" 
+                alt=""
+                loading="lazy"
+                width="{{ block.settings.icon_size }}"
+                height="{{ block.settings.icon_size }}"
+              >
+            {% endif %}
+          </div>
+
+          {% if block.settings.feature_1_title != blank %}
+            <h3 class="ai-feature-row-title-{{ ai_gen_id }}">{{ block.settings.feature_1_title }}</h3>
+          {% endif %}
+
+          {% if block.settings.feature_1_link != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.feature_2_enabled %}
+        <div class="ai-feature-row-item-{{ ai_gen_id }}">
+          {% if block.settings.feature_2_link != blank %}
+            <a href="{{ block.settings.feature_2_link }}" class="ai-feature-row-link-{{ ai_gen_id }}" aria-label="{{ block.settings.feature_2_title | escape }}">
+          {% endif %}
+
+          <div class="ai-feature-row-icon-{{ ai_gen_id }}" aria-hidden="true">
+            {% if block.settings.feature_2_icon_type == 'emoji' and block.settings.feature_2_emoji != blank %}
+              {{ block.settings.feature_2_emoji }}
+            {% elsif block.settings.feature_2_icon_type == 'svg' and block.settings.feature_2_svg_code != blank %}
+              {{ block.settings.feature_2_svg_code }}
+            {% elsif block.settings.feature_2_icon_type == 'image' and block.settings.feature_2_icon_image != blank %}
+              <img 
+                src="{{ block.settings.feature_2_icon_image | image_url: width: 200 }}" 
+                alt=""
+                loading="lazy"
+                width="{{ block.settings.icon_size }}"
+                height="{{ block.settings.icon_size }}"
+              >
+            {% endif %}
+          </div>
+
+          {% if block.settings.feature_2_title != blank %}
+            <h3 class="ai-feature-row-title-{{ ai_gen_id }}">{{ block.settings.feature_2_title }}</h3>
+          {% endif %}
+
+          {% if block.settings.feature_2_link != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.feature_3_enabled %}
+        <div class="ai-feature-row-item-{{ ai_gen_id }}">
+          {% if block.settings.feature_3_link != blank %}
+            <a href="{{ block.settings.feature_3_link }}" class="ai-feature-row-link-{{ ai_gen_id }}" aria-label="{{ block.settings.feature_3_title | escape }}">
+          {% endif %}
+
+          <div class="ai-feature-row-icon-{{ ai_gen_id }}" aria-hidden="true">
+            {% if block.settings.feature_3_icon_type == 'emoji' and block.settings.feature_3_emoji != blank %}
+              {{ block.settings.feature_3_emoji }}
+            {% elsif block.settings.feature_3_icon_type == 'svg' and block.settings.feature_3_svg_code != blank %}
+              {{ block.settings.feature_3_svg_code }}
+            {% elsif block.settings.feature_3_icon_type == 'image' and block.settings.feature_3_icon_image != blank %}
+              <img 
+                src="{{ block.settings.feature_3_icon_image | image_url: width: 200 }}" 
+                alt=""
+                loading="lazy"
+                width="{{ block.settings.icon_size }}"
+                height="{{ block.settings.icon_size }}"
+              >
+            {% endif %}
+          </div>
+
+          {% if block.settings.feature_3_title != blank %}
+            <h3 class="ai-feature-row-title-{{ ai_gen_id }}">{{ block.settings.feature_3_title }}</h3>
+          {% endif %}
+
+          {% if block.settings.feature_3_link != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Feature row",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#2F3324"
+    },
+    {
+      "type": "range",
+      "id": "heading_bottom_spacing",
+      "label": "Heading bottom spacing",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content width",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full"
+        },
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "narrow",
+          "label": "Narrow"
+        }
+      ],
+      "default": "standard"
+    },
+    {
+      "type": "range",
+      "id": "max_content_width",
+      "label": "Maximum content width",
+      "min": 600,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "select",
+      "id": "horizontal_alignment",
+      "label": "Horizontal alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "gap_between_items",
+      "label": "Gap between items",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "gap_icon_title",
+      "label": "Gap between icon and title",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Icon style"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Title style"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Title font size",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "title_font_weight",
+      "label": "Title font weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 500
+    },
+    {
+      "type": "header",
+      "content": "Feature 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_1_enabled",
+      "label": "Enable feature 1",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "feature_1_icon_type",
+      "label": "Icon type",
+      "options": [
+        {
+          "value": "emoji",
+          "label": "Emoji"
+        },
+        {
+          "value": "svg",
+          "label": "SVG"
+        },
+        {
+          "value": "image",
+          "label": "Image"
+        }
+      ],
+      "default": "emoji"
+    },
+    {
+      "type": "text",
+      "id": "feature_1_emoji",
+      "label": "Emoji",
+      "default": "🌿"
+    },
+    {
+      "type": "html",
+      "id": "feature_1_svg_code",
+      "label": "SVG code"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_1_icon_image",
+      "label": "Icon image"
+    },
+    {
+      "type": "color",
+      "id": "icon_color_1",
+      "label": "Icon color",
+      "default": "#6F764F"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_1_title",
+      "label": "Title",
+      "default": "Ayurvedic Inspired"
+    },
+    {
+      "type": "color",
+      "id": "title_color_1",
+      "label": "Title color",
+      "default": "#2F3324"
+    },
+    {
+      "type": "url",
+      "id": "feature_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Feature 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_2_enabled",
+      "label": "Enable feature 2",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "feature_2_icon_type",
+      "label": "Icon type",
+      "options": [
+        {
+          "value": "emoji",
+          "label": "Emoji"
+        },
+        {
+          "value": "svg",
+          "label": "SVG"
+        },
+        {
+          "value": "image",
+          "label": "Image"
+        }
+      ],
+      "default": "emoji"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_emoji",
+      "label": "Emoji",
+      "default": "⚗️"
+    },
+    {
+      "type": "html",
+      "id": "feature_2_svg_code",
+      "label": "SVG code"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_2_icon_image",
+      "label": "Icon image"
+    },
+    {
+      "type": "color",
+      "id": "icon_color_2",
+      "label": "Icon color",
+      "default": "#6F764F"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_2_title",
+      "label": "Title",
+      "default": "Science Backed"
+    },
+    {
+      "type": "color",
+      "id": "title_color_2",
+      "label": "Title color",
+      "default": "#2F3324"
+    },
+    {
+      "type": "url",
+      "id": "feature_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Feature 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_3_enabled",
+      "label": "Enable feature 3",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "feature_3_icon_type",
+      "label": "Icon type",
+      "options": [
+        {
+          "value": "emoji",
+          "label": "Emoji"
+        },
+        {
+          "value": "svg",
+          "label": "SVG"
+        },
+        {
+          "value": "image",
+          "label": "Image"
+        }
+      ],
+      "default": "emoji"
+    },
+    {
+      "type": "text",
+      "id": "feature_3_emoji",
+      "label": "Emoji",
+      "default": "❤️"
+    },
+    {
+      "type": "html",
+      "id": "feature_3_svg_code",
+      "label": "SVG code"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_3_icon_image",
+      "label": "Icon image"
+    },
+    {
+      "type": "color",
+      "id": "icon_color_3",
+      "label": "Icon color",
+      "default": "#6F764F"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_3_title",
+      "label": "Title",
+      "default": "Made for Long-Term Wellness"
+    },
+    {
+      "type": "color",
+      "id": "title_color_3",
+      "label": "Title color",
+      "default": "#2F3324"
+    },
+    {
+      "type": "url",
+      "id": "feature_3_link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature row"
+    }
+  ]
+}
+{% endschema %}

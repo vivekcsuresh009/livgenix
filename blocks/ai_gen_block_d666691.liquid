@@ -1,0 +1,585 @@
+{% doc %}
+  @prompt
+    Create a premium full-width hero section for the Contact Us page of a luxury Ayurvedic hair wellness brand called Livgenix.
+    
+    Design Style:
+    - Modern, luxury wellness aesthetic inspired by Aesop, Ritual, Apple, and Minimal skincare brands.
+    - Calm, clean and spacious.
+    - Large editorial typography.
+    - Generous whitespace.
+    - Responsive for desktop, tablet and mobile.
+    
+    Layout:
+    - Full-width section.
+    - Two-column layout on desktop (55% text, 45% image).
+    - Stack vertically on mobile.
+    - Vertically center all content.
+    
+    Left Side:
+    Small eyebrow text:
+    CONTACT US
+    
+    Large heading:
+    We're Here to Help.
+    
+    Short supporting paragraph:
+    Whether you have questions about your order, products, hair wellness journey, or need personalised guidance, our support team is ready to assist you.
+    
+    Below the paragraph add two buttons:
+    
+    Primary Button:
+    Contact Support
+    
+    Secondary Button:
+    Chat on WhatsApp
+    
+    Right Side:
+    Large premium lifestyle image of a woman with healthy natural hair in a bright modern home. The image should feel warm, trustworthy and premium. Do not use office photos or customer service agents.
+    
+    Style:
+    - White background (#FFFFFF)
+    - Heading color: #2F3324
+    - Accent color: #BE9A5C
+    - Primary button: #6F764F
+    - Rounded image corners (24px)
+    - Soft subtle shadows
+    - No gradients
+    - No decorative patterns
+    - Premium spacing with approximately 120px top and bottom padding
+    - Smooth fade-up animation on scroll
+    
+    The overall feeling should communicate warmth, trust, approachability and premium customer care rather than a corporate support page.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-contact-hero-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding_top }}px 0 {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-contact-hero-container-{{ ai_gen_id }} {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .ai-contact-hero-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 55% 45%;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .ai-contact-hero-content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .ai-contact-hero-eyebrow-{{ ai_gen_id }} {
+    font-size: {{ block.settings.eyebrow_size }}px;
+    letter-spacing: 2px;
+    color: {{ block.settings.accent_color }};
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .ai-contact-hero-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    line-height: 1.1;
+    color: {{ block.settings.heading_color }};
+    margin: 0;
+    font-weight: 700;
+  }
+
+  .ai-contact-hero-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+    max-width: 540px;
+  }
+
+  .ai-contact-hero-buttons-{{ ai_gen_id }} {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .ai-contact-hero-button-primary-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    background-color: {{ block.settings.primary_button_bg }};
+    color: {{ block.settings.primary_button_text }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_radius }}px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .ai-contact-hero-button-primary-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.primary_button_hover_bg }};
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-contact-hero-button-secondary-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    background-color: transparent;
+    color: {{ block.settings.secondary_button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_radius }}px;
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid {{ block.settings.secondary_button_border }};
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .ai-contact-hero-button-secondary-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.secondary_button_hover_bg }};
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  .ai-contact-hero-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+  }
+
+  .ai-contact-hero-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: {{ block.settings.image_radius }}px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  }
+
+  .ai-contact-hero-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    background-color: #f5f5f5;
+    border-radius: {{ block.settings.image_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-contact-hero-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 400px;
+    max-height: 400px;
+    opacity: 0.3;
+  }
+
+  .ai-contact-hero-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-contact-hero-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    .ai-contact-hero-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.7 }}px;
+    }
+
+    .ai-contact-hero-image-wrapper-{{ ai_gen_id }} {
+      min-height: 400px;
+    }
+
+    .ai-contact-hero-image-placeholder-{{ ai_gen_id }} {
+      min-height: 400px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-contact-hero-container-{{ ai_gen_id }} {
+      padding: 0 20px;
+    }
+
+    .ai-contact-hero-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding_top | times: 0.6 }}px 0 {{ block.settings.padding_bottom | times: 0.6 }}px;
+    }
+
+    .ai-contact-hero-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.6 }}px;
+    }
+
+    .ai-contact-hero-eyebrow-{{ ai_gen_id }} {
+      font-size: {{ block.settings.eyebrow_size | times: 0.9 }}px;
+    }
+
+    .ai-contact-hero-text-{{ ai_gen_id }} {
+      font-size: {{ block.settings.text_size | times: 0.95 }}px;
+    }
+
+    .ai-contact-hero-buttons-{{ ai_gen_id }} {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .ai-contact-hero-button-primary-{{ ai_gen_id }},
+    .ai-contact-hero-button-secondary-{{ ai_gen_id }} {
+      width: 100%;
+      text-align: center;
+    }
+
+    .ai-contact-hero-image-wrapper-{{ ai_gen_id }} {
+      min-height: 320px;
+    }
+
+    .ai-contact-hero-image-placeholder-{{ ai_gen_id }} {
+      min-height: 320px;
+    }
+  }
+{% endstyle %}
+
+<contact-hero-{{ ai_gen_id }} class="ai-contact-hero-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-contact-hero-container-{{ ai_gen_id }}">
+    <div class="ai-contact-hero-grid-{{ ai_gen_id }}">
+      <div class="ai-contact-hero-content-{{ ai_gen_id }}">
+        {% if block.settings.eyebrow_text != blank %}
+          <p class="ai-contact-hero-eyebrow-{{ ai_gen_id }}">{{ block.settings.eyebrow_text }}</p>
+        {% endif %}
+
+        {% if block.settings.heading != blank %}
+          <h1 class="ai-contact-hero-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h1>
+        {% endif %}
+
+        {% if block.settings.text != blank %}
+          <div class="ai-contact-hero-text-{{ ai_gen_id }}">{{ block.settings.text }}</div>
+        {% endif %}
+
+        <div class="ai-contact-hero-buttons-{{ ai_gen_id }}">
+          {% if block.settings.primary_btn_text != blank %}
+            <a
+              href="{{ block.settings.primary_btn_link }}"
+              class="ai-contact-hero-button-primary-{{ ai_gen_id }}"
+            >
+              {{ block.settings.primary_btn_text }}
+            </a>
+          {% endif %}
+
+          {% if block.settings.secondary_btn_text != blank %}
+            <a
+              href="{{ block.settings.secondary_btn_link }}"
+              class="ai-contact-hero-button-secondary-{{ ai_gen_id }}"
+              {% if block.settings.secondary_btn_link contains 'whatsapp' %}
+                target="_blank"
+                rel="noopener noreferrer"
+              {% endif %}
+            >
+              {{ block.settings.secondary_btn_text }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="ai-contact-hero-image-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.image %}
+          <img
+            src="{{ block.settings.image | image_url: width: 1000 }}"
+            alt="{{ block.settings.image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.image.width }}"
+            height="{{ block.settings.image.height }}"
+            class="ai-contact-hero-image-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-contact-hero-image-placeholder-{{ ai_gen_id }}">
+            {{ 'lifestyle-1' | placeholder_svg_tag }}
+            <div class="ai-contact-hero-empty-state-{{ ai_gen_id }}">
+              Add a lifestyle image
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</contact-hero-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ContactHero{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.setupIntersectionObserver();
+      }
+
+      setupIntersectionObserver() {
+        const options = {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+            }
+          });
+        }, options);
+
+        this.style.opacity = '0';
+        this.style.transform = 'translateY(30px)';
+        this.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+
+        observer.observe(this);
+      }
+    }
+
+    customElements.define('contact-hero-{{ ai_gen_id }}', ContactHero{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Contact hero",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow text",
+      "default": "CONTACT US"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "We're Here to Help."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Whether you have questions about your order, products, hair wellness journey, or need personalised guidance, our support team is ready to assist you.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Primary button"
+    },
+    {
+      "type": "text",
+      "id": "primary_btn_text",
+      "label": "Button text",
+      "default": "Contact Support"
+    },
+    {
+      "type": "url",
+      "id": "primary_btn_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Secondary button"
+    },
+    {
+      "type": "text",
+      "id": "secondary_btn_text",
+      "label": "Button text",
+      "default": "Chat on WhatsApp"
+    },
+    {
+      "type": "url",
+      "id": "secondary_btn_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#2F3324"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#2F3324"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#BE9A5C"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_bg",
+      "label": "Primary button background",
+      "default": "#6F764F"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_text",
+      "label": "Primary button text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_hover_bg",
+      "label": "Primary button hover",
+      "default": "#5A5F40"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_text_color",
+      "label": "Secondary button text",
+      "default": "#6F764F"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_border",
+      "label": "Secondary button border",
+      "default": "#6F764F"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_hover_bg",
+      "label": "Secondary button hover",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 32,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text size",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact hero"
+    }
+  ]
+}
+{% endschema %}

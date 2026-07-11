@@ -1,0 +1,769 @@
+{% doc %}
+  @prompt
+    Create a premium split-layout storytelling section for the LiveGenix homepage.
+    
+    Layout:
+    • Two-column layout.
+    • Left side contains the content.
+    • Right side contains a premium card explaining the meaning of the brand name.
+    • White background with generous whitespace.
+    • Fully responsive.
+    
+    Left Column:
+    Eyebrow:
+    OUR STORY
+    
+    Heading:
+    Why LiveGenix?
+    
+    Subheading:
+    Where Life Meets Regeneration.
+    
+    Body:
+    LiveGenix combines two powerful ideas: Life and Genesis.
+    
+    Life represents holistic wellness, vitality, and balance.
+    Genesis symbolizes new beginnings, renewal, and transformation.
+    
+    Together, they reflect our belief that healthier hair doesn't come from quick fixes. It begins by restoring the scalp, nourishing the body, and supporting natural hair growth from the root.
+    
+    Inspired by Ayurveda and backed by modern science, every LiveGenix formulation is designed to help people build healthier hair for the long term.
+    
+    Right Column:
+    Create a premium card with:
+    LIVE + GENESIS
+    
+    Life
+    Wellness • Balance • Vitality
+    
+    +
+    
+    Genesis
+    New Beginning • Regrowth • Renewal
+    
+    ↓
+    
+    LiveGenix
+    
+    Root Cause → Healthy Hair → Lasting Confidence
+    
+    Style:
+    • Rounded 20px corners
+    • Very subtle border (#E8E5DF)
+    • Soft off-white background
+    • Premium typography
+    • Gold accents (#BE9A5C)
+    • No heavy shadows
+    • Maintain the existing LiveGenix luxury aesthetic.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-story-section-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding_top }}px {{ block.settings.section_padding_horizontal }}px {{ block.settings.section_padding_bottom }}px;
+  }
+
+  .ai-story-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: {{ block.settings.column_gap }}px;
+    align-items: start;
+  }
+
+  .ai-story-left-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.content_spacing }}px;
+  }
+
+  .ai-story-eyebrow-{{ ai_gen_id }} {
+    font-size: {{ block.settings.eyebrow_size }}px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: {{ block.settings.eyebrow_color }};
+    margin: 0;
+  }
+
+  .ai-story-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: {{ block.settings.heading_color }};
+    margin: 0;
+  }
+
+  .ai-story-subheading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subheading_size }}px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: {{ block.settings.subheading_color }};
+    margin: 0;
+  }
+
+  .ai-story-body-{{ ai_gen_id }} {
+    font-size: {{ block.settings.body_size }}px;
+    line-height: 1.7;
+    color: {{ block.settings.body_color }};
+  }
+
+  .ai-story-body-{{ ai_gen_id }} p {
+    margin: 0 0 {{ block.settings.paragraph_spacing }}px;
+  }
+
+  .ai-story-body-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-story-right-{{ ai_gen_id }} {
+    position: sticky;
+    top: 40px;
+  }
+
+  .ai-story-card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    border: {{ block.settings.card_border_width }}px solid {{ block.settings.card_border_color }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: {{ block.settings.card_padding }}px;
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.card_spacing }}px;
+  }
+
+  .ai-story-card-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_title_size }}px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-align: center;
+    color: {{ block.settings.accent_color }};
+    margin: 0;
+  }
+
+  .ai-story-card-section-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ai-story-card-label-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_label_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.heading_color }};
+    margin: 0;
+  }
+
+  .ai-story-card-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_text_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.body_color }};
+    margin: 0;
+  }
+
+  .ai-story-card-divider-{{ ai_gen_id }} {
+    text-align: center;
+    font-size: {{ block.settings.card_divider_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.accent_color }};
+    margin: {{ block.settings.divider_spacing }}px 0;
+  }
+
+  .ai-story-card-brand-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_brand_size }}px;
+    font-weight: 700;
+    text-align: center;
+    color: {{ block.settings.heading_color }};
+    margin: {{ block.settings.brand_spacing }}px 0;
+  }
+
+  .ai-story-card-arrow-{{ ai_gen_id }} {
+    text-align: center;
+    font-size: {{ block.settings.card_arrow_size }}px;
+    color: {{ block.settings.accent_color }};
+    margin: {{ block.settings.arrow_spacing }}px 0;
+  }
+
+  .ai-story-card-tagline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_tagline_size }}px;
+    line-height: 1.5;
+    text-align: center;
+    color: {{ block.settings.body_color }};
+    margin: 0;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-story-container-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.mobile_gap }}px;
+    }
+
+    .ai-story-right-{{ ai_gen_id }} {
+      position: static;
+    }
+
+    .ai-story-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.75 }}px;
+    }
+
+    .ai-story-subheading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subheading_size | times: 0.85 }}px;
+    }
+
+    .ai-story-card-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.card_title_size | times: 0.85 }}px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-story-section-{{ ai_gen_id }} {
+      padding: {{ block.settings.mobile_padding_top }}px {{ block.settings.mobile_padding_horizontal }}px {{ block.settings.mobile_padding_bottom }}px;
+    }
+
+    .ai-story-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.6 }}px;
+    }
+
+    .ai-story-card-{{ ai_gen_id }} {
+      padding: {{ block.settings.card_padding | times: 0.75 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-story-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-story-container-{{ ai_gen_id }}">
+    <div class="ai-story-left-{{ ai_gen_id }}">
+      {% if block.settings.eyebrow != blank %}
+        <p class="ai-story-eyebrow-{{ ai_gen_id }}">{{ block.settings.eyebrow }}</p>
+      {% endif %}
+
+      {% if block.settings.heading != blank %}
+        <h2 class="ai-story-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+      {% endif %}
+
+      {% if block.settings.subheading != blank %}
+        <p class="ai-story-subheading-{{ ai_gen_id }}">{{ block.settings.subheading }}</p>
+      {% endif %}
+
+      {% if block.settings.body != blank %}
+        <div class="ai-story-body-{{ ai_gen_id }}">
+          {{ block.settings.body }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-story-right-{{ ai_gen_id }}">
+      <div class="ai-story-card-{{ ai_gen_id }}">
+        {% if block.settings.card_title != blank %}
+          <h3 class="ai-story-card-title-{{ ai_gen_id }}">{{ block.settings.card_title }}</h3>
+        {% endif %}
+
+        <div class="ai-story-card-section-{{ ai_gen_id }}">
+          {% if block.settings.card_label_1 != blank %}
+            <p class="ai-story-card-label-{{ ai_gen_id }}">{{ block.settings.card_label_1 }}</p>
+          {% endif %}
+          {% if block.settings.card_text_1 != blank %}
+            <p class="ai-story-card-text-{{ ai_gen_id }}">{{ block.settings.card_text_1 }}</p>
+          {% endif %}
+        </div>
+
+        {% if block.settings.show_divider %}
+          <div class="ai-story-card-divider-{{ ai_gen_id }}">{{ block.settings.divider_symbol }}</div>
+        {% endif %}
+
+        <div class="ai-story-card-section-{{ ai_gen_id }}">
+          {% if block.settings.card_label_2 != blank %}
+            <p class="ai-story-card-label-{{ ai_gen_id }}">{{ block.settings.card_label_2 }}</p>
+          {% endif %}
+          {% if block.settings.card_text_2 != blank %}
+            <p class="ai-story-card-text-{{ ai_gen_id }}">{{ block.settings.card_text_2 }}</p>
+          {% endif %}
+        </div>
+
+        {% if block.settings.show_arrow %}
+          <div class="ai-story-card-arrow-{{ ai_gen_id }}">{{ block.settings.arrow_symbol }}</div>
+        {% endif %}
+
+        {% if block.settings.card_brand != blank %}
+          <div class="ai-story-card-brand-{{ ai_gen_id }}">{{ block.settings.card_brand }}</div>
+        {% endif %}
+
+        {% if block.settings.card_tagline != blank %}
+          <p class="ai-story-card-tagline-{{ ai_gen_id }}">{{ block.settings.card_tagline }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand story split",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Left column content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "OUR STORY"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why LiveGenix?"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Where Life Meets Regeneration."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body text",
+      "default": "<p>LiveGenix combines two powerful ideas: Life and Genesis.</p><p>Life represents holistic wellness, vitality, and balance. Genesis symbolizes new beginnings, renewal, and transformation.</p><p>Together, they reflect our belief that healthier hair doesn't come from quick fixes. It begins by restoring the scalp, nourishing the body, and supporting natural hair growth from the root.</p><p>Inspired by Ayurveda and backed by modern science, every LiveGenix formulation is designed to help people build healthier hair for the long term.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Right column card"
+    },
+    {
+      "type": "text",
+      "id": "card_title",
+      "label": "Card title",
+      "default": "LIVE + GENESIS"
+    },
+    {
+      "type": "text",
+      "id": "card_label_1",
+      "label": "First label",
+      "default": "Life"
+    },
+    {
+      "type": "text",
+      "id": "card_text_1",
+      "label": "First text",
+      "default": "Wellness • Balance • Vitality"
+    },
+    {
+      "type": "text",
+      "id": "card_label_2",
+      "label": "Second label",
+      "default": "Genesis"
+    },
+    {
+      "type": "text",
+      "id": "card_text_2",
+      "label": "Second text",
+      "default": "New Beginning • Regrowth • Renewal"
+    },
+    {
+      "type": "text",
+      "id": "card_brand",
+      "label": "Brand name",
+      "default": "LiveGenix"
+    },
+    {
+      "type": "text",
+      "id": "card_tagline",
+      "label": "Tagline",
+      "default": "Root Cause → Healthy Hair → Lasting Confidence"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show divider",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "divider_symbol",
+      "label": "Divider symbol",
+      "default": "+"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrow",
+      "label": "Show arrow",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "arrow_symbol",
+      "label": "Arrow symbol",
+      "default": "↓"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 800,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Column gap",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "label": "Mobile gap",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_horizontal",
+      "label": "Mobile horizontal padding",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow",
+      "default": "#BE9A5C"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#2F3324"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading",
+      "default": "#6F764F"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body text",
+      "default": "#6F764F"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#BE9A5C"
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#FDFCFA"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border",
+      "default": "#E8E5DF"
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "label": "Card border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Typography sizes"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading",
+      "min": 16,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Body text",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Card title",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_label_size",
+      "label": "Card label",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "card_text_size",
+      "label": "Card text",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "card_brand_size",
+      "label": "Card brand",
+      "min": 16,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_tagline_size",
+      "label": "Card tagline",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "card_divider_size",
+      "label": "Divider size",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "card_arrow_size",
+      "label": "Arrow size",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "content_spacing",
+      "label": "Content spacing",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "paragraph_spacing",
+      "label": "Paragraph spacing",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_spacing",
+      "label": "Card spacing",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "divider_spacing",
+      "label": "Divider spacing",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "arrow_spacing",
+      "label": "Arrow spacing",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "brand_spacing",
+      "label": "Brand spacing",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand story split"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,679 @@
+{% doc %}
+  @prompt
+     Create a storytelling section explaining why every ingredient was carefully selected.
+    
+    Headline:
+    Every Ingredient Has A Purpose
+    
+    Explain that Coconeela combines multiple Ayurvedic botanicals instead of relying on one hero ingredient.
+    
+    Highlight:
+    
+    Bhringaraj
+    
+    Brahmi
+    
+    Amla
+    
+    Hibiscus
+    
+    Fenugreek
+    
+    Virgin Coconut Oil
+    
+    Tone:
+    Premium educational content with elegant typography.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-ingredient-story-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.section_padding }}px 20px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-ingredient-story__container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.content_max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-ingredient-story__header-{{ ai_gen_id }} {
+    text-align: {{ block.settings.text_alignment }};
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-ingredient-story__headline-{{ ai_gen_id }} {
+    font-family: {{ block.settings.headline_font.family }}, {{ block.settings.headline_font.fallback_families }};
+    font-weight: {{ block.settings.headline_font.weight }};
+    font-size: {{ block.settings.headline_size }}px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: {{ block.settings.headline_color }};
+    margin: 0 0 {{ block.settings.intro_spacing }}px;
+    {% if block.settings.headline_uppercase %}
+      text-transform: uppercase;
+    {% endif %}
+  }
+
+  .ai-ingredient-story__intro-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: {{ block.settings.body_font.weight }};
+    font-size: {{ block.settings.intro_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.text_color }};
+    max-width: {{ block.settings.intro_max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-ingredient-story__grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+    margin-top: {{ block.settings.grid_spacing }}px;
+  }
+
+  .ai-ingredient-story__card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    padding: {{ block.settings.card_padding }}px;
+    border-radius: {{ block.settings.card_border_radius }}px;
+    border: {{ block.settings.card_border_width }}px solid {{ block.settings.card_border_color }};
+    text-align: {{ block.settings.card_text_alignment }};
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  {% if block.settings.enable_card_hover %}
+    .ai-ingredient-story__card-{{ ai_gen_id }}:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+  {% endif %}
+
+  .ai-ingredient-story__ingredient-name-{{ ai_gen_id }} {
+    font-family: {{ block.settings.ingredient_font.family }}, {{ block.settings.ingredient_font.fallback_families }};
+    font-weight: {{ block.settings.ingredient_font.weight }};
+    font-size: {{ block.settings.ingredient_name_size }}px;
+    line-height: 1.3;
+    color: {{ block.settings.ingredient_name_color }};
+    margin: 0 0 {{ block.settings.ingredient_name_spacing }}px;
+    {% if block.settings.ingredient_name_uppercase %}
+      text-transform: uppercase;
+    {% endif %}
+  }
+
+  .ai-ingredient-story__description-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: {{ block.settings.body_font.weight }};
+    font-size: {{ block.settings.description_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-ingredient-story__grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_tablet }}, 1fr);
+    }
+
+    .ai-ingredient-story__headline-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.headline_size }}px * 0.75);
+    }
+
+    .ai-ingredient-story__intro-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.intro_size }}px * 0.9);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-ingredient-story-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding | times: 0.7 }}px 16px;
+    }
+
+    .ai-ingredient-story__grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.grid_gap | times: 0.75 }}px;
+    }
+
+    .ai-ingredient-story__headline-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.headline_size }}px * 0.6);
+    }
+
+    .ai-ingredient-story__card-{{ ai_gen_id }} {
+      padding: {{ block.settings.card_padding | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<ingredient-story-{{ ai_gen_id }} class="ai-ingredient-story-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-ingredient-story__container-{{ ai_gen_id }}">
+    <div class="ai-ingredient-story__header-{{ ai_gen_id }}">
+      {% if block.settings.headline != blank %}
+        <h2 class="ai-ingredient-story__headline-{{ ai_gen_id }}">
+          {{ block.settings.headline }}
+        </h2>
+      {% endif %}
+
+      {% if block.settings.intro_text != blank %}
+        <div class="ai-ingredient-story__intro-{{ ai_gen_id }}">
+          {{ block.settings.intro_text }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-ingredient-story__grid-{{ ai_gen_id }}">
+      {% if block.settings.ingredient_1_name != blank %}
+        <div class="ai-ingredient-story__card-{{ ai_gen_id }}">
+          <h3 class="ai-ingredient-story__ingredient-name-{{ ai_gen_id }}">
+            {{ block.settings.ingredient_1_name }}
+          </h3>
+          {% if block.settings.ingredient_1_description != blank %}
+            <div class="ai-ingredient-story__description-{{ ai_gen_id }}">
+              {{ block.settings.ingredient_1_description }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.ingredient_2_name != blank %}
+        <div class="ai-ingredient-story__card-{{ ai_gen_id }}">
+          <h3 class="ai-ingredient-story__ingredient-name-{{ ai_gen_id }}">
+            {{ block.settings.ingredient_2_name }}
+          </h3>
+          {% if block.settings.ingredient_2_description != blank %}
+            <div class="ai-ingredient-story__description-{{ ai_gen_id }}">
+              {{ block.settings.ingredient_2_description }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.ingredient_3_name != blank %}
+        <div class="ai-ingredient-story__card-{{ ai_gen_id }}">
+          <h3 class="ai-ingredient-story__ingredient-name-{{ ai_gen_id }}">
+            {{ block.settings.ingredient_3_name }}
+          </h3>
+          {% if block.settings.ingredient_3_description != blank %}
+            <div class="ai-ingredient-story__description-{{ ai_gen_id }}">
+              {{ block.settings.ingredient_3_description }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.ingredient_4_name != blank %}
+        <div class="ai-ingredient-story__card-{{ ai_gen_id }}">
+          <h3 class="ai-ingredient-story__ingredient-name-{{ ai_gen_id }}">
+            {{ block.settings.ingredient_4_name }}
+          </h3>
+          {% if block.settings.ingredient_4_description != blank %}
+            <div class="ai-ingredient-story__description-{{ ai_gen_id }}">
+              {{ block.settings.ingredient_4_description }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.ingredient_5_name != blank %}
+        <div class="ai-ingredient-story__card-{{ ai_gen_id }}">
+          <h3 class="ai-ingredient-story__ingredient-name-{{ ai_gen_id }}">
+            {{ block.settings.ingredient_5_name }}
+          </h3>
+          {% if block.settings.ingredient_5_description != blank %}
+            <div class="ai-ingredient-story__description-{{ ai_gen_id }}">
+              {{ block.settings.ingredient_5_description }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.ingredient_6_name != blank %}
+        <div class="ai-ingredient-story__card-{{ ai_gen_id }}">
+          <h3 class="ai-ingredient-story__ingredient-name-{{ ai_gen_id }}">
+            {{ block.settings.ingredient_6_name }}
+          </h3>
+          {% if block.settings.ingredient_6_description != blank %}
+            <div class="ai-ingredient-story__description-{{ ai_gen_id }}">
+              {{ block.settings.ingredient_6_description }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</ingredient-story-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class IngredientStory{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.style.display = 'block';
+      }
+    }
+
+    customElements.define('ingredient-story-{{ ai_gen_id }}', IngredientStory{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Ingredient storytelling",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Every Ingredient Has A Purpose"
+    },
+    {
+      "type": "richtext",
+      "id": "intro_text",
+      "label": "Introduction text",
+      "default": "<p>Coconeela combines multiple Ayurvedic botanicals instead of relying on one hero ingredient. Each element works in harmony to nourish, strengthen, and restore your hair naturally.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 1"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_1_name",
+      "label": "Name",
+      "default": "Bhringaraj"
+    },
+    {
+      "type": "richtext",
+      "id": "ingredient_1_description",
+      "label": "Description",
+      "default": "<p>Known as the 'King of Herbs' for hair, Bhringaraj promotes hair growth, prevents premature greying, and strengthens roots from within.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 2"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_2_name",
+      "label": "Name",
+      "default": "Brahmi"
+    },
+    {
+      "type": "richtext",
+      "id": "ingredient_2_description",
+      "label": "Description",
+      "default": "<p>A powerful adaptogen that nourishes the scalp, reduces stress-related hair fall, and enhances natural shine and thickness.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 3"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_3_name",
+      "label": "Name",
+      "default": "Amla"
+    },
+    {
+      "type": "richtext",
+      "id": "ingredient_3_description",
+      "label": "Description",
+      "default": "<p>Rich in Vitamin C and antioxidants, Amla strengthens hair follicles, conditions deeply, and adds natural lustre to every strand.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 4"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_4_name",
+      "label": "Name",
+      "default": "Hibiscus"
+    },
+    {
+      "type": "richtext",
+      "id": "ingredient_4_description",
+      "label": "Description",
+      "default": "<p>Packed with amino acids and vitamins, Hibiscus stimulates hair growth, prevents split ends, and maintains scalp health.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 5"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_5_name",
+      "label": "Name",
+      "default": "Fenugreek"
+    },
+    {
+      "type": "richtext",
+      "id": "ingredient_5_description",
+      "label": "Description",
+      "default": "<p>High in protein and nicotinic acid, Fenugreek combats hair thinning, soothes the scalp, and promotes healthy hair regrowth.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 6"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_6_name",
+      "label": "Name",
+      "default": "Virgin Coconut Oil"
+    },
+    {
+      "type": "richtext",
+      "id": "ingredient_6_description",
+      "label": "Description",
+      "default": "<p>The perfect carrier that penetrates deep into the hair shaft, locking in moisture, preventing protein loss, and delivering all botanicals effectively.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Content max width",
+      "min": 800,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "columns_tablet",
+      "label": "Columns on tablet",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid gap",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "grid_spacing",
+      "label": "Grid top spacing",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Header style"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "label": "Header bottom spacing",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "intro_spacing",
+      "label": "Headline bottom spacing",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "intro_max_width",
+      "label": "Introduction max width",
+      "min": 400,
+      "max": 900,
+      "step": 50,
+      "unit": "px",
+      "default": 700
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "select",
+      "id": "card_text_alignment",
+      "label": "Card text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 15,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "label": "Card border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border color",
+      "default": "#ECE2CE"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_card_hover",
+      "label": "Enable card hover effect",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#F9F7F3"
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Headline color",
+      "default": "#2F3324"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#6F764F"
+    },
+    {
+      "type": "color",
+      "id": "ingredient_name_color",
+      "label": "Ingredient name color",
+      "default": "#BE9A5C"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "headline_font",
+      "label": "Headline font",
+      "default": "inter_n7"
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "label": "Headline size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "checkbox",
+      "id": "headline_uppercase",
+      "label": "Headline uppercase",
+      "default": false
+    },
+    {
+      "type": "font_picker",
+      "id": "ingredient_font",
+      "label": "Ingredient name font",
+      "default": "inter_n7"
+    },
+    {
+      "type": "range",
+      "id": "ingredient_name_size",
+      "label": "Ingredient name size",
+      "min": 16,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "ingredient_name_spacing",
+      "label": "Ingredient name bottom spacing",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "ingredient_name_uppercase",
+      "label": "Ingredient name uppercase",
+      "default": false
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body font",
+      "default": "inter_n4"
+    },
+    {
+      "type": "range",
+      "id": "intro_size",
+      "label": "Introduction size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredient storytelling"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,683 @@
+{% doc %}
+  @prompt
+    Create a premium full-width "Our Mission" section for a luxury Ayurvedic hair wellness brand.
+    
+    Layout:
+    - Full-width section with a soft cream background (#ECE2CE).
+    - Centered content with generous whitespace.
+    - Maximum content width: 900px.
+    - No images on the sides.
+    - Editorial, luxury magazine aesthetic.
+    
+    Content Structure:
+    
+    Small Eyebrow:
+    OUR MISSION
+    
+    Large Heading:
+    Our Mission Is Simple.
+    Help People Build Healthier Hair Naturally.
+    
+    Below the heading, place one elegant paragraph (80–100 words) explaining that Livgenix exists to address the root causes of hair concerns by combining traditional Ayurvedic wisdom with modern scientific research, creating clean, effective formulations that support long-term hair wellness rather than temporary cosmetic fixes.
+    
+    Below the paragraph, display three premium pillar cards in a horizontal row (stack vertically on mobile).
+    
+    Card 1
+    🌿
+    Root Cause Approach
+    We focus on nourishing hair from within instead of masking symptoms.
+    
+    Card 2
+    ⚗️
+    Science Meets Ayurveda
+    Every formulation blends traditional herbal wisdom with modern research.
+    
+    Card 3
+    ❤️
+    Long-Term Wellness
+    Designed to build healthier hair through consistent daily care.
+    
+    Style:
+    - Luxury editorial design inspired by Aesop, Ritual, and Apple.
+    - Large elegant typography.
+    - Soft rounded cards (18–24px radius).
+    - Very subtle borders (#E5DDCB).
+    - No gradients.
+    - No heavy shadows.
+    - Plenty of whitespace (140px top and bottom padding).
+    - Clean line icons.
+    - Smooth fade-up animation on scroll.
+    
+    Color Palette:
+    - Background: #ECE2CE
+    - Heading: #2F3324
+    - Accent: #BE9A5C
+    - Body Text: #6B705C
+    - Cards: White
+    
+    The section should feel calm, premium, trustworthy, and visually different from the About section above it.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-mission-section-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding_top }}px 20px {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-mission-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .ai-mission-eyebrow-{{ ai_gen_id }} {
+    font-size: {{ block.settings.eyebrow_size }}px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: {{ block.settings.accent_color }};
+    margin: 0 0 {{ block.settings.eyebrow_spacing }}px;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .ai-mission-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    line-height: 1.2;
+    font-weight: 600;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 {{ block.settings.heading_spacing }}px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .ai-mission-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    line-height: 1.7;
+    color: {{ block.settings.body_color }};
+    margin: 0 0 {{ block.settings.description_spacing }}px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .ai-mission-cards-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: {{ block.settings.card_gap }}px;
+    margin-top: {{ block.settings.cards_top_spacing }}px;
+  }
+
+  .ai-mission-card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    border: {{ block.settings.card_border_width }}px solid {{ block.settings.card_border_color }};
+    border-radius: {{ block.settings.card_radius }}px;
+    padding: {{ block.settings.card_padding }}px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .ai-mission-card-icon-{{ ai_gen_id }} {
+    font-size: {{ block.settings.icon_size }}px;
+    margin-bottom: {{ block.settings.icon_spacing }}px;
+    display: block;
+  }
+
+  .ai-mission-card-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 {{ block.settings.card_title_spacing }}px;
+  }
+
+  .ai-mission-card-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_text_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.body_color }};
+    margin: 0;
+  }
+
+  .ai-mission-section-{{ ai_gen_id }}.ai-mission-animated-{{ ai_gen_id }} .ai-mission-eyebrow-{{ ai_gen_id }} {
+    animation: ai-mission-fade-up-{{ ai_gen_id }} 0.8s ease-out forwards;
+  }
+
+  .ai-mission-section-{{ ai_gen_id }}.ai-mission-animated-{{ ai_gen_id }} .ai-mission-heading-{{ ai_gen_id }} {
+    animation: ai-mission-fade-up-{{ ai_gen_id }} 0.8s ease-out 0.1s forwards;
+  }
+
+  .ai-mission-section-{{ ai_gen_id }}.ai-mission-animated-{{ ai_gen_id }} .ai-mission-description-{{ ai_gen_id }} {
+    animation: ai-mission-fade-up-{{ ai_gen_id }} 0.8s ease-out 0.2s forwards;
+  }
+
+  .ai-mission-section-{{ ai_gen_id }}.ai-mission-animated-{{ ai_gen_id }} .ai-mission-card-{{ ai_gen_id }}:nth-child(1) {
+    animation: ai-mission-fade-up-{{ ai_gen_id }} 0.8s ease-out 0.3s forwards;
+  }
+
+  .ai-mission-section-{{ ai_gen_id }}.ai-mission-animated-{{ ai_gen_id }} .ai-mission-card-{{ ai_gen_id }}:nth-child(2) {
+    animation: ai-mission-fade-up-{{ ai_gen_id }} 0.8s ease-out 0.4s forwards;
+  }
+
+  .ai-mission-section-{{ ai_gen_id }}.ai-mission-animated-{{ ai_gen_id }} .ai-mission-card-{{ ai_gen_id }}:nth-child(3) {
+    animation: ai-mission-fade-up-{{ ai_gen_id }} 0.8s ease-out 0.5s forwards;
+  }
+
+  @keyframes ai-mission-fade-up-{{ ai_gen_id }} {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-mission-section-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding_top_mobile }}px 16px {{ block.settings.padding_bottom_mobile }}px;
+    }
+
+    .ai-mission-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size_mobile }}px;
+    }
+
+    .ai-mission-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size_mobile }}px;
+    }
+
+    .ai-mission-cards-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.card_gap_mobile }}px;
+    }
+
+    .ai-mission-card-{{ ai_gen_id }} {
+      padding: {{ block.settings.card_padding_mobile }}px;
+    }
+  }
+{% endstyle %}
+
+<ai-mission-section-{{ ai_gen_id }} class="ai-mission-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-mission-container-{{ ai_gen_id }}">
+    {% if block.settings.eyebrow != blank %}
+      <div class="ai-mission-eyebrow-{{ ai_gen_id }}">{{ block.settings.eyebrow }}</div>
+    {% endif %}
+
+    {% if block.settings.heading != blank %}
+      <h2 class="ai-mission-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+    {% endif %}
+
+    {% if block.settings.description != blank %}
+      <div class="ai-mission-description-{{ ai_gen_id }}">{{ block.settings.description }}</div>
+    {% endif %}
+
+    <div class="ai-mission-cards-{{ ai_gen_id }}">
+      <div class="ai-mission-card-{{ ai_gen_id }}">
+        <span class="ai-mission-card-icon-{{ ai_gen_id }}">{{ block.settings.card_1_icon }}</span>
+        <h3 class="ai-mission-card-title-{{ ai_gen_id }}">{{ block.settings.card_1_title }}</h3>
+        <p class="ai-mission-card-text-{{ ai_gen_id }}">{{ block.settings.card_1_text }}</p>
+      </div>
+
+      <div class="ai-mission-card-{{ ai_gen_id }}">
+        <span class="ai-mission-card-icon-{{ ai_gen_id }}">{{ block.settings.card_2_icon }}</span>
+        <h3 class="ai-mission-card-title-{{ ai_gen_id }}">{{ block.settings.card_2_title }}</h3>
+        <p class="ai-mission-card-text-{{ ai_gen_id }}">{{ block.settings.card_2_text }}</p>
+      </div>
+
+      <div class="ai-mission-card-{{ ai_gen_id }}">
+        <span class="ai-mission-card-icon-{{ ai_gen_id }}">{{ block.settings.card_3_icon }}</span>
+        <h3 class="ai-mission-card-title-{{ ai_gen_id }}">{{ block.settings.card_3_title }}</h3>
+        <p class="ai-mission-card-text-{{ ai_gen_id }}">{{ block.settings.card_3_text }}</p>
+      </div>
+    </div>
+  </div>
+</ai-mission-section-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class AiMissionSection{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.hasAnimated = false;
+      }
+
+      connectedCallback() {
+        this.setupIntersectionObserver();
+      }
+
+      setupIntersectionObserver() {
+        const options = {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !this.hasAnimated) {
+              this.classList.add('ai-mission-animated-{{ ai_gen_id }}');
+              this.hasAnimated = true;
+              observer.unobserve(this);
+            }
+          });
+        }, options);
+
+        observer.observe(this);
+      }
+    }
+
+    customElements.define('ai-mission-section-{{ ai_gen_id }}', AiMissionSection{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Our mission",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "OUR MISSION"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Mission Is Simple. Help People Build Healthier Hair Naturally."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Livgenix exists to address the root causes of hair concerns by combining traditional Ayurvedic wisdom with modern scientific research, creating clean, effective formulations that support long-term hair wellness rather than temporary cosmetic fixes."
+    },
+    {
+      "type": "header",
+      "content": "Card 1"
+    },
+    {
+      "type": "text",
+      "id": "card_1_icon",
+      "label": "Icon",
+      "default": "🌿"
+    },
+    {
+      "type": "text",
+      "id": "card_1_title",
+      "label": "Title",
+      "default": "Root Cause Approach"
+    },
+    {
+      "type": "textarea",
+      "id": "card_1_text",
+      "label": "Text",
+      "default": "We focus on nourishing hair from within instead of masking symptoms."
+    },
+    {
+      "type": "header",
+      "content": "Card 2"
+    },
+    {
+      "type": "text",
+      "id": "card_2_icon",
+      "label": "Icon",
+      "default": "⚗️"
+    },
+    {
+      "type": "text",
+      "id": "card_2_title",
+      "label": "Title",
+      "default": "Science Meets Ayurveda"
+    },
+    {
+      "type": "textarea",
+      "id": "card_2_text",
+      "label": "Text",
+      "default": "Every formulation blends traditional herbal wisdom with modern research."
+    },
+    {
+      "type": "header",
+      "content": "Card 3"
+    },
+    {
+      "type": "text",
+      "id": "card_3_icon",
+      "label": "Icon",
+      "default": "❤️"
+    },
+    {
+      "type": "text",
+      "id": "card_3_title",
+      "label": "Title",
+      "default": "Long-Term Wellness"
+    },
+    {
+      "type": "textarea",
+      "id": "card_3_text",
+      "label": "Text",
+      "default": "Designed to build healthier hair through consistent daily care."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum content width",
+      "min": 600,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "default": 900
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding (desktop)",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 140
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding (desktop)",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 140
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top padding (mobile)",
+      "min": 30,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom padding (mobile)",
+      "min": 30,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ECE2CE"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#2F3324"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#BE9A5C"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body text",
+      "default": "#6B705C"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border",
+      "default": "#E5DDCB"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size (desktop)",
+      "min": 28,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading size (mobile)",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size (desktop)",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+    {
+      "type": "range",
+      "id": "description_size_mobile",
+      "label": "Description size (mobile)",
+      "min": 14,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Card title size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "card_text_size",
+      "label": "Card text size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_spacing",
+      "label": "Eyebrow bottom spacing",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing",
+      "label": "Heading bottom spacing",
+      "min": 20,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "description_spacing",
+      "label": "Description bottom spacing",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "cards_top_spacing",
+      "label": "Cards top spacing",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "icon_spacing",
+      "label": "Icon bottom spacing",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_title_spacing",
+      "label": "Card title bottom spacing",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Padding (desktop)",
+      "min": 20,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "card_padding_mobile",
+      "label": "Padding (mobile)",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Gap between cards (desktop)",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_gap_mobile",
+      "label": "Gap between cards (mobile)",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 24,
+      "max": 56,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our mission"
+    }
+  ]
+}
+{% endschema %}

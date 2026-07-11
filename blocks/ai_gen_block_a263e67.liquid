@@ -1,0 +1,617 @@
+{% doc %}
+  @prompt
+    Create a premium "About Livgenix" section for a luxury Ayurvedic hair wellness brand.
+    
+    Design Requirements:
+    - Full-width section with a white background.
+    - Two-column responsive layout.
+    - Left column (55%): text content.
+    - Right column (45%): one large rounded lifestyle image.
+    - Vertically center both columns.
+    
+    Left Column:
+    - Small uppercase eyebrow: "ABOUT LIVGENIX" in premium gold.
+    - Large heading: "Nature's Wisdom. Backed by Science."
+    - One short paragraph (90-120 words) describing the brand.
+    - Below the paragraph, display three minimalist icon features in a horizontal row:
+      • Ayurvedic Inspired
+      • Science Backed
+      • Long-Term Wellness
+    - Add a primary button: "Take Hair Assessment".
+    
+    Style:
+    - Luxury editorial design with generous whitespace.
+    - Clean typography.
+    - Soft rounded corners.
+    - Minimal shadows.
+    - No gradients.
+    - No decorative patterns.
+    - Premium wellness aesthetic similar to Aesop, Ritual, or Apple.
+    - Desktop spacing around 120px top and bottom.
+    - Mobile layout should stack: image first, then text, then icons, then button.
+    
+    Color Palette:
+    - Background: White (#FFFFFF)
+    - Heading: Charcoal Olive (#2F3324)
+    - Button: Olive Green (#6F764F)
+    - Accent: Premium Gold (#BE9A5C)
+    
+    Make the section feel calm, premium, modern, and highly readable. Focus on excellent spacing and visual hierarchy rather than decorative elements.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-about-livgenix-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.desktop_padding_top }}px 0 {{ block.settings.desktop_padding_bottom }}px;
+  }
+
+  .ai-about-livgenix-container-{{ ai_gen_id }} {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .ai-about-livgenix-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 55% 45%;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .ai-about-livgenix-content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .ai-about-livgenix-eyebrow-{{ ai_gen_id }} {
+    font-size: {{ block.settings.eyebrow_size }}px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: {{ block.settings.eyebrow_color }};
+    margin: 0;
+  }
+
+  .ai-about-livgenix-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: {{ block.settings.heading_color }};
+    margin: 0;
+  }
+
+  .ai-about-livgenix-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    line-height: 1.7;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+  }
+
+  .ai-about-livgenix-description-{{ ai_gen_id }} p {
+    margin: 0 0 16px;
+  }
+
+  .ai-about-livgenix-description-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-about-livgenix-features-{{ ai_gen_id }} {
+    display: flex;
+    gap: 40px;
+    margin-top: 8px;
+  }
+
+  .ai-about-livgenix-feature-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .ai-about-livgenix-feature-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-about-livgenix-feature-icon-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    stroke: {{ block.settings.icon_color }};
+    fill: none;
+    stroke-width: 1.5;
+  }
+
+  .ai-about-livgenix-feature-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.feature_text_size }}px;
+    font-weight: 500;
+    color: {{ block.settings.text_color }};
+    line-height: 1.4;
+    text-align: left;
+  }
+
+  .ai-about-livgenix-button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 40px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    font-size: {{ block.settings.button_text_size }}px;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .ai-about-livgenix-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.button_hover_text_color }};
+  }
+
+  .ai-about-livgenix-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-about-livgenix-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .ai-about-livgenix-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-about-livgenix-image-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+    opacity: 0.3;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-about-livgenix-{{ ai_gen_id }} {
+      padding: {{ block.settings.mobile_padding_top }}px 0 {{ block.settings.mobile_padding_bottom }}px;
+    }
+
+    .ai-about-livgenix-container-{{ ai_gen_id }} {
+      padding: 0 24px;
+    }
+
+    .ai-about-livgenix-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .ai-about-livgenix-content-{{ ai_gen_id }} {
+      order: 2;
+      gap: 24px;
+    }
+
+    .ai-about-livgenix-image-wrapper-{{ ai_gen_id }} {
+      order: 1;
+    }
+
+    .ai-about-livgenix-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.7 }}px;
+    }
+
+    .ai-about-livgenix-features-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .ai-about-livgenix-button-{{ ai_gen_id }} {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<about-livgenix-{{ ai_gen_id }} class="ai-about-livgenix-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-about-livgenix-container-{{ ai_gen_id }}">
+    <div class="ai-about-livgenix-grid-{{ ai_gen_id }}">
+      <div class="ai-about-livgenix-content-{{ ai_gen_id }}">
+        {% if block.settings.eyebrow != blank %}
+          <p class="ai-about-livgenix-eyebrow-{{ ai_gen_id }}">{{ block.settings.eyebrow }}</p>
+        {% endif %}
+
+        {% if block.settings.heading != blank %}
+          <h2 class="ai-about-livgenix-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+        {% endif %}
+
+        {% if block.settings.description != blank %}
+          <div class="ai-about-livgenix-description-{{ ai_gen_id }}">
+            {{ block.settings.description }}
+          </div>
+        {% endif %}
+
+        <div class="ai-about-livgenix-features-{{ ai_gen_id }}">
+          {% if block.settings.feature_1_enabled %}
+            <div class="ai-about-livgenix-feature-{{ ai_gen_id }}">
+              <div class="ai-about-livgenix-feature-icon-{{ ai_gen_id }}">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                  <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+                </svg>
+              </div>
+              <span class="ai-about-livgenix-feature-text-{{ ai_gen_id }}">{{ block.settings.feature_1_text }}</span>
+            </div>
+          {% endif %}
+
+          {% if block.settings.feature_2_enabled %}
+            <div class="ai-about-livgenix-feature-{{ ai_gen_id }}">
+              <div class="ai-about-livgenix-feature-icon-{{ ai_gen_id }}">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2v14H3v3c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V2l-1.5 1.5zM19 19c0 .55-.45 1-1 1s-1-.45-1-1v-3H8V5h11v14z"/>
+                  <path d="M9 7h6v2H9zm0 4h6v2H9z"/>
+                </svg>
+              </div>
+              <span class="ai-about-livgenix-feature-text-{{ ai_gen_id }}">{{ block.settings.feature_2_text }}</span>
+            </div>
+          {% endif %}
+
+          {% if block.settings.feature_3_enabled %}
+            <div class="ai-about-livgenix-feature-{{ ai_gen_id }}">
+              <div class="ai-about-livgenix-feature-icon-{{ ai_gen_id }}">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+              </div>
+              <span class="ai-about-livgenix-feature-text-{{ ai_gen_id }}">{{ block.settings.feature_3_text }}</span>
+            </div>
+          {% endif %}
+        </div>
+
+        {% if block.settings.button_text != blank %}
+          <div>
+            <a href="{{ block.settings.button_link }}" class="ai-about-livgenix-button-{{ ai_gen_id }}">
+              {{ block.settings.button_text }}
+            </a>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ai-about-livgenix-image-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.image %}
+          <img
+            src="{{ block.settings.image | image_url: width: 1200 }}"
+            alt="{{ block.settings.image.alt | escape }}"
+            loading="lazy"
+            width="{{ block.settings.image.width }}"
+            height="{{ block.settings.image.height }}"
+            class="ai-about-livgenix-image-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-about-livgenix-image-placeholder-{{ ai_gen_id }}">
+            {{ 'lifestyle-1' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</about-livgenix-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class AboutLivgenix{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+      }
+    }
+
+    customElements.define('about-livgenix-{{ ai_gen_id }}', AboutLivgenix{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "About Livgenix",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "ABOUT LIVGENIX"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Nature's Wisdom. Backed by Science."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>At Livgenix, we blend ancient Ayurvedic wisdom with modern scientific research to create transformative hair wellness solutions. Our formulations are crafted with premium botanical ingredients, rigorously tested for efficacy, and designed to deliver long-term results. We believe in nurturing your hair from root to tip, addressing the underlying causes of hair concerns rather than masking symptoms. Experience the power of nature, validated by science.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_1_enabled",
+      "label": "Enable feature 1",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_1_text",
+      "label": "Feature 1 text",
+      "default": "Ayurvedic Inspired"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_2_enabled",
+      "label": "Enable feature 2",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_2_text",
+      "label": "Feature 2 text",
+      "default": "Science Backed"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_3_enabled",
+      "label": "Enable feature 3",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_3_text",
+      "label": "Feature 3 text",
+      "default": "Long-Term Wellness"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Take Hair Assessment"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow",
+      "default": "#BE9A5C"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#2F3324"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#2F3324"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon",
+      "default": "#BE9A5C"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#6F764F"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Button hover background",
+      "default": "#2F3324"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button hover text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "feature_text_size",
+      "label": "Feature text size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "label": "Button text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 24,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_top",
+      "label": "Desktop top padding",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "desktop_padding_bottom",
+      "label": "Desktop bottom padding",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Livgenix"
+    }
+  ]
+}
+{% endschema %}

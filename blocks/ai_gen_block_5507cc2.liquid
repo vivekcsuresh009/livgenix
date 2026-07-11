@@ -1,0 +1,713 @@
+{% doc %}
+  @prompt
+    Create a four-step usage guide.
+    
+    Headline:
+    Simple Daily Scalp Care
+    
+    Step 1
+    Apply 5–10 ml.
+    
+    Step 2
+    Massage for 5–10 minutes.
+    
+    Step 3
+    Leave for 15–30 minutes.
+    
+    Step 4
+    Wash using Coconeela Herbal Cleanser Shampoo.
+    
+    Below include:
+    
+    Recommended Frequency
+    
+    Routine Care
+    2–3 times weekly
+    
+    Hair Fall & Dandruff Care
+    3–4 times weekly
+    
+    Design:
+    Illustrated numbered cards with connecting arrows.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-usage-guide-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.section_padding }}px 20px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-usage-guide-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-usage-guide-headline-{{ ai_gen_id }} {
+    text-align: center;
+    font-size: {{ block.settings.headline_size }}px;
+    color: {{ block.settings.headline_color }};
+    margin: 0 0 {{ block.settings.headline_spacing }}px;
+    font-weight: 600;
+  }
+
+  .ai-usage-guide-steps-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: {{ block.settings.step_gap }}px;
+    margin-bottom: {{ block.settings.frequency_spacing }}px;
+    position: relative;
+  }
+
+  .ai-usage-guide-step-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: {{ block.settings.card_padding }}px;
+    text-align: center;
+    box-shadow: {{ block.settings.card_shadow }};
+    position: relative;
+  }
+
+  .ai-usage-guide-step-number-{{ ai_gen_id }} {
+    width: {{ block.settings.number_size }}px;
+    height: {{ block.settings.number_size }}px;
+    background-color: {{ block.settings.number_background }};
+    color: {{ block.settings.number_color }};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: {{ block.settings.number_font_size }}px;
+    font-weight: 700;
+    margin: 0 auto {{ block.settings.number_spacing }}px;
+  }
+
+  .ai-usage-guide-step-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.step_title_size }}px;
+    color: {{ block.settings.step_title_color }};
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+
+  .ai-usage-guide-step-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.step_description_size }}px;
+    color: {{ block.settings.step_description_color }};
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .ai-usage-guide-arrow-{{ ai_gen_id }} {
+    position: absolute;
+    top: {{ block.settings.number_size | divided_by: 2 }}px;
+    left: calc(100% + {{ block.settings.step_gap | divided_by: 2 }}px - 20px);
+    transform: translateY(-50%);
+    color: {{ block.settings.arrow_color }};
+    font-size: 24px;
+    z-index: 1;
+  }
+
+  .ai-usage-guide-step-{{ ai_gen_id }}:last-child .ai-usage-guide-arrow-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-usage-guide-frequency-{{ ai_gen_id }} {
+    background-color: {{ block.settings.frequency_background }};
+    border-radius: {{ block.settings.frequency_border_radius }}px;
+    padding: {{ block.settings.frequency_padding }}px;
+  }
+
+  .ai-usage-guide-frequency-title-{{ ai_gen_id }} {
+    text-align: center;
+    font-size: {{ block.settings.frequency_title_size }}px;
+    color: {{ block.settings.frequency_title_color }};
+    margin: 0 0 {{ block.settings.frequency_title_spacing }}px;
+    font-weight: 600;
+  }
+
+  .ai-usage-guide-frequency-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: {{ block.settings.frequency_gap }}px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .ai-usage-guide-frequency-item-{{ ai_gen_id }} {
+    text-align: center;
+    padding: {{ block.settings.frequency_item_padding }}px;
+    background-color: {{ block.settings.frequency_item_background }};
+    border-radius: {{ block.settings.frequency_item_border_radius }}px;
+  }
+
+  .ai-usage-guide-frequency-label-{{ ai_gen_id }} {
+    font-size: {{ block.settings.frequency_label_size }}px;
+    color: {{ block.settings.frequency_label_color }};
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+
+  .ai-usage-guide-frequency-value-{{ ai_gen_id }} {
+    font-size: {{ block.settings.frequency_value_size }}px;
+    color: {{ block.settings.frequency_value_color }};
+    margin: 0;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-usage-guide-steps-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ai-usage-guide-step-{{ ai_gen_id }}:nth-child(2) .ai-usage-guide-arrow-{{ ai_gen_id }},
+    .ai-usage-guide-step-{{ ai_gen_id }}:nth-child(4) .ai-usage-guide-arrow-{{ ai_gen_id }} {
+      display: none;
+    }
+
+    .ai-usage-guide-arrow-{{ ai_gen_id }} {
+      display: block;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-usage-guide-steps-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .ai-usage-guide-arrow-{{ ai_gen_id }} {
+      display: none;
+    }
+
+    .ai-usage-guide-frequency-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-usage-guide-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-usage-guide-container-{{ ai_gen_id }}">
+    {% if block.settings.headline != blank %}
+      <h2 class="ai-usage-guide-headline-{{ ai_gen_id }}">{{ block.settings.headline }}</h2>
+    {% endif %}
+
+    <div class="ai-usage-guide-steps-{{ ai_gen_id }}">
+      {% if block.settings.step_1_title != blank %}
+        <div class="ai-usage-guide-step-{{ ai_gen_id }}">
+          <div class="ai-usage-guide-step-number-{{ ai_gen_id }}">1</div>
+          <h3 class="ai-usage-guide-step-title-{{ ai_gen_id }}">{{ block.settings.step_1_title }}</h3>
+          <p class="ai-usage-guide-step-description-{{ ai_gen_id }}">{{ block.settings.step_1_description }}</p>
+          <div class="ai-usage-guide-arrow-{{ ai_gen_id }}">→</div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.step_2_title != blank %}
+        <div class="ai-usage-guide-step-{{ ai_gen_id }}">
+          <div class="ai-usage-guide-step-number-{{ ai_gen_id }}">2</div>
+          <h3 class="ai-usage-guide-step-title-{{ ai_gen_id }}">{{ block.settings.step_2_title }}</h3>
+          <p class="ai-usage-guide-step-description-{{ ai_gen_id }}">{{ block.settings.step_2_description }}</p>
+          <div class="ai-usage-guide-arrow-{{ ai_gen_id }}">→</div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.step_3_title != blank %}
+        <div class="ai-usage-guide-step-{{ ai_gen_id }}">
+          <div class="ai-usage-guide-step-number-{{ ai_gen_id }}">3</div>
+          <h3 class="ai-usage-guide-step-title-{{ ai_gen_id }}">{{ block.settings.step_3_title }}</h3>
+          <p class="ai-usage-guide-step-description-{{ ai_gen_id }}">{{ block.settings.step_3_description }}</p>
+          <div class="ai-usage-guide-arrow-{{ ai_gen_id }}">→</div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.step_4_title != blank %}
+        <div class="ai-usage-guide-step-{{ ai_gen_id }}">
+          <div class="ai-usage-guide-step-number-{{ ai_gen_id }}">4</div>
+          <h3 class="ai-usage-guide-step-title-{{ ai_gen_id }}">{{ block.settings.step_4_title }}</h3>
+          <p class="ai-usage-guide-step-description-{{ ai_gen_id }}">{{ block.settings.step_4_description }}</p>
+          <div class="ai-usage-guide-arrow-{{ ai_gen_id }}">→</div>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ai-usage-guide-frequency-{{ ai_gen_id }}">
+      {% if block.settings.frequency_title != blank %}
+        <h3 class="ai-usage-guide-frequency-title-{{ ai_gen_id }}">{{ block.settings.frequency_title }}</h3>
+      {% endif %}
+
+      <div class="ai-usage-guide-frequency-grid-{{ ai_gen_id }}">
+        {% if block.settings.frequency_1_label != blank %}
+          <div class="ai-usage-guide-frequency-item-{{ ai_gen_id }}">
+            <div class="ai-usage-guide-frequency-label-{{ ai_gen_id }}">{{ block.settings.frequency_1_label }}</div>
+            <div class="ai-usage-guide-frequency-value-{{ ai_gen_id }}">{{ block.settings.frequency_1_value }}</div>
+          </div>
+        {% endif %}
+
+        {% if block.settings.frequency_2_label != blank %}
+          <div class="ai-usage-guide-frequency-item-{{ ai_gen_id }}">
+            <div class="ai-usage-guide-frequency-label-{{ ai_gen_id }}">{{ block.settings.frequency_2_label }}</div>
+            <div class="ai-usage-guide-frequency-value-{{ ai_gen_id }}">{{ block.settings.frequency_2_value }}</div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Usage guide",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Simple Daily Scalp Care"
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "label": "Headline size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Headline color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "headline_spacing",
+      "label": "Spacing below headline",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Step 1"
+    },
+    {
+      "type": "text",
+      "id": "step_1_title",
+      "label": "Title",
+      "default": "Step 1"
+    },
+    {
+      "type": "textarea",
+      "id": "step_1_description",
+      "label": "Description",
+      "default": "Apply 5–10 ml."
+    },
+    {
+      "type": "header",
+      "content": "Step 2"
+    },
+    {
+      "type": "text",
+      "id": "step_2_title",
+      "label": "Title",
+      "default": "Step 2"
+    },
+    {
+      "type": "textarea",
+      "id": "step_2_description",
+      "label": "Description",
+      "default": "Massage for 5–10 minutes."
+    },
+    {
+      "type": "header",
+      "content": "Step 3"
+    },
+    {
+      "type": "text",
+      "id": "step_3_title",
+      "label": "Title",
+      "default": "Step 3"
+    },
+    {
+      "type": "textarea",
+      "id": "step_3_description",
+      "label": "Description",
+      "default": "Leave for 15–30 minutes."
+    },
+    {
+      "type": "header",
+      "content": "Step 4"
+    },
+    {
+      "type": "text",
+      "id": "step_4_title",
+      "label": "Title",
+      "default": "Step 4"
+    },
+    {
+      "type": "textarea",
+      "id": "step_4_description",
+      "label": "Description",
+      "default": "Wash using Coconeela Herbal Cleanser Shampoo."
+    },
+    {
+      "type": "header",
+      "content": "Frequency section"
+    },
+    {
+      "type": "text",
+      "id": "frequency_title",
+      "label": "Title",
+      "default": "Recommended Frequency"
+    },
+    {
+      "type": "text",
+      "id": "frequency_1_label",
+      "label": "First frequency label",
+      "default": "Routine Care"
+    },
+    {
+      "type": "text",
+      "id": "frequency_1_value",
+      "label": "First frequency value",
+      "default": "2–3 times weekly"
+    },
+    {
+      "type": "text",
+      "id": "frequency_2_label",
+      "label": "Second frequency label",
+      "default": "Hair Fall & Dandruff Care"
+    },
+    {
+      "type": "text",
+      "id": "frequency_2_value",
+      "label": "Second frequency value",
+      "default": "3–4 times weekly"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "step_gap",
+      "label": "Gap between steps",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "frequency_spacing",
+      "label": "Space above frequency",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "color",
+      "id": "number_background",
+      "label": "Number background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "number_color",
+      "label": "Number color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "arrow_color",
+      "label": "Arrow color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "step_title_color",
+      "label": "Step title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "step_description_color",
+      "label": "Step description color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "frequency_background",
+      "label": "Frequency background",
+      "default": "#f0f0f0"
+    },
+    {
+      "type": "color",
+      "id": "frequency_item_background",
+      "label": "Frequency item background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "frequency_title_color",
+      "label": "Frequency title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "frequency_label_color",
+      "label": "Frequency label color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "frequency_value_color",
+      "label": "Frequency value color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "card_shadow",
+      "label": "Card shadow",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "0 2px 4px rgba(0,0,0,0.1)",
+          "label": "Light"
+        },
+        {
+          "value": "0 4px 8px rgba(0,0,0,0.15)",
+          "label": "Medium"
+        },
+        {
+          "value": "0 8px 16px rgba(0,0,0,0.2)",
+          "label": "Strong"
+        }
+      ],
+      "default": "0 2px 4px rgba(0,0,0,0.1)"
+    },
+    {
+      "type": "range",
+      "id": "number_size",
+      "label": "Number circle size",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "number_font_size",
+      "label": "Number font size",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "number_spacing",
+      "label": "Space below number",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "step_title_size",
+      "label": "Step title size",
+      "min": 12,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "step_description_size",
+      "label": "Step description size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Frequency style"
+    },
+    {
+      "type": "range",
+      "id": "frequency_padding",
+      "label": "Frequency padding",
+      "min": 15,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "frequency_border_radius",
+      "label": "Frequency border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "frequency_title_size",
+      "label": "Frequency title size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "frequency_title_spacing",
+      "label": "Space below title",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "frequency_gap",
+      "label": "Gap between items",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "frequency_item_padding",
+      "label": "Item padding",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "frequency_item_border_radius",
+      "label": "Item border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "frequency_label_size",
+      "label": "Label size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "frequency_value_size",
+      "label": "Value size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    }
+  ],
+  "presets": [
+    {
+      "name": "Usage guide"
+    }
+  ]
+}
+{% endschema %}
