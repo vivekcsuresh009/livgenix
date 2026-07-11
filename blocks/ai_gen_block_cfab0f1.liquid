@@ -1,84 +1,73 @@
 {% doc %}
   @prompt
     Create a premium full-width "Our Mission" section for a luxury Ayurvedic hair wellness brand.
-    
-    Layout:
-    - Full-width section with a soft cream background (#ECE2CE).
-    - Centered content with generous whitespace.
-    - Maximum content width: 900px.
-    - No images on the sides.
-    - Editorial, luxury magazine aesthetic.
-    
-    Content Structure:
-    
-    Small Eyebrow:
-    OUR MISSION
-    
-    Large Heading:
-    Our Mission Is Simple.
-    Help People Build Healthier Hair Naturally.
-    
-    Below the heading, place one elegant paragraph (80–100 words) explaining that Livgenix exists to address the root causes of hair concerns by combining traditional Ayurvedic wisdom with modern scientific research, creating clean, effective formulations that support long-term hair wellness rather than temporary cosmetic fixes.
-    
-    Below the paragraph, display three premium pillar cards in a horizontal row (stack vertically on mobile).
-    
-    Card 1
-    🌿
-    Root Cause Approach
-    We focus on nourishing hair from within instead of masking symptoms.
-    
-    Card 2
-    ⚗️
-    Science Meets Ayurveda
-    Every formulation blends traditional herbal wisdom with modern research.
-    
-    Card 3
-    ❤️
-    Long-Term Wellness
-    Designed to build healthier hair through consistent daily care.
-    
-    Style:
-    - Luxury editorial design inspired by Aesop, Ritual, and Apple.
-    - Large elegant typography.
-    - Soft rounded cards (18–24px radius).
-    - Very subtle borders (#E5DDCB).
-    - No gradients.
-    - No heavy shadows.
-    - Plenty of whitespace (140px top and bottom padding).
-    - Clean line icons.
-    - Smooth fade-up animation on scroll.
-    
-    Color Palette:
-    - Background: #ECE2CE
-    - Heading: #2F3324
-    - Accent: #BE9A5C
-    - Body Text: #6B705C
-    - Cards: White
-    
-    The section should feel calm, premium, trustworthy, and visually different from the About section above it.
+
+    Redesigned per brand design system: soft cream background with a low-opacity botanical
+    watermark, premium feature cards with elegant outline icons (replacing emoji), soft
+    shadows, hover lift, an animated gradient top-border accent, refined editorial typography,
+    staggered fade-up reveal on scroll, CSS custom properties, prefers-reduced-motion support.
+    Card icon settings remain in the schema for compatibility; the visible icon is now a
+    curated outline SVG matched to each card's position.
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
   .ai-mission-section-{{ ai_gen_id }} {
+    --lg-heading: {{ block.settings.heading_color }};
+    --lg-gold: {{ block.settings.accent_color }};
+    --lg-text: {{ block.settings.body_color }};
+    --lg-card-bg: {{ block.settings.card_background }};
+    --lg-card-border: {{ block.settings.card_border_color }};
+    --lg-radius-card: {{ block.settings.card_radius }}px;
+
     display: block;
     width: 100%;
     background-color: {{ block.settings.background_color }};
     padding: {{ block.settings.padding_top }}px 20px {{ block.settings.padding_bottom }}px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-mission-watermark-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: -8%;
+    width: 480px;
+    height: 480px;
+    transform: translateY(-50%);
+    stroke: var(--lg-heading);
+    fill: none;
+    stroke-width: 1;
+    opacity: 0.035;
+    pointer-events: none;
+  }
+
+  .ai-mission-watermark-secondary-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: -10%;
+    right: -6%;
+    width: 400px;
+    height: 400px;
+    stroke: var(--lg-gold);
+    fill: none;
+    stroke-width: 1;
+    opacity: 0.035;
+    pointer-events: none;
   }
 
   .ai-mission-container-{{ ai_gen_id }} {
     max-width: {{ block.settings.max_width }}px;
     margin: 0 auto;
     text-align: center;
+    position: relative;
   }
 
   .ai-mission-eyebrow-{{ ai_gen_id }} {
     font-size: {{ block.settings.eyebrow_size }}px;
-    font-weight: 500;
-    letter-spacing: 2px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
     text-transform: uppercase;
-    color: {{ block.settings.accent_color }};
+    color: var(--lg-gold);
     margin: 0 0 {{ block.settings.eyebrow_spacing }}px;
     opacity: 0;
     transform: translateY(20px);
@@ -87,8 +76,9 @@
   .ai-mission-heading-{{ ai_gen_id }} {
     font-size: {{ block.settings.heading_size }}px;
     line-height: 1.2;
-    font-weight: 600;
-    color: {{ block.settings.heading_color }};
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--lg-heading);
     margin: 0 0 {{ block.settings.heading_spacing }}px;
     max-width: 800px;
     margin-left: auto;
@@ -99,8 +89,8 @@
 
   .ai-mission-description-{{ ai_gen_id }} {
     font-size: {{ block.settings.description_size }}px;
-    line-height: 1.7;
-    color: {{ block.settings.body_color }};
+    line-height: 1.75;
+    color: var(--lg-text);
     margin: 0 0 {{ block.settings.description_spacing }}px;
     max-width: 700px;
     margin-left: auto;
@@ -117,32 +107,88 @@
   }
 
   .ai-mission-card-{{ ai_gen_id }} {
-    background-color: {{ block.settings.card_background }};
-    border: {{ block.settings.card_border_width }}px solid {{ block.settings.card_border_color }};
-    border-radius: {{ block.settings.card_radius }}px;
+    position: relative;
+    background-color: var(--lg-card-bg);
+    border: {{ block.settings.card_border_width }}px solid var(--lg-card-border);
+    border-radius: var(--lg-radius-card);
     padding: {{ block.settings.card_padding }}px;
     text-align: center;
+    box-shadow: 0 2px 16px rgba(47, 51, 36, 0.04);
+    overflow: hidden;
     opacity: 0;
     transform: translateY(30px);
+    transition: transform 300ms ease, box-shadow 300ms ease;
+  }
+
+  .ai-mission-card-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--lg-gold), {{ block.settings.heading_color }});
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 400ms ease;
+  }
+
+  .ai-mission-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(47, 51, 36, 0.1);
+  }
+
+  .ai-mission-card-{{ ai_gen_id }}:hover::before {
+    transform: scaleX(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-mission-card-{{ ai_gen_id }} {
+      transition: none;
+    }
+
+    .ai-mission-card-{{ ai_gen_id }}::before {
+      transition: none;
+    }
+  }
+
+  .ai-mission-card-icon-wrap-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: {{ block.settings.icon_size | plus: 28 }}px;
+    height: {{ block.settings.icon_size | plus: 28 }}px;
+    margin: 0 auto {{ block.settings.icon_spacing }}px;
+    border-radius: 50%;
+    background-color: rgba(190, 154, 92, 0.1);
+    transition: background-color 300ms ease;
+  }
+
+  .ai-mission-card-{{ ai_gen_id }}:hover .ai-mission-card-icon-wrap-{{ ai_gen_id }} {
+    background-color: rgba(190, 154, 92, 0.18);
   }
 
   .ai-mission-card-icon-{{ ai_gen_id }} {
-    font-size: {{ block.settings.icon_size }}px;
-    margin-bottom: {{ block.settings.icon_spacing }}px;
-    display: block;
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    stroke: var(--lg-gold);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   .ai-mission-card-title-{{ ai_gen_id }} {
     font-size: {{ block.settings.card_title_size }}px;
-    font-weight: 600;
-    color: {{ block.settings.heading_color }};
+    font-weight: 700;
+    color: var(--lg-heading);
     margin: 0 0 {{ block.settings.card_title_spacing }}px;
   }
 
   .ai-mission-card-text-{{ ai_gen_id }} {
     font-size: {{ block.settings.card_text_size }}px;
-    line-height: 1.6;
-    color: {{ block.settings.body_color }};
+    line-height: 1.65;
+    color: var(--lg-text);
     margin: 0;
   }
 
@@ -177,6 +223,17 @@
     }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .ai-mission-eyebrow-{{ ai_gen_id }},
+    .ai-mission-heading-{{ ai_gen_id }},
+    .ai-mission-description-{{ ai_gen_id }},
+    .ai-mission-card-{{ ai_gen_id }} {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
+
   @media screen and (max-width: 749px) {
     .ai-mission-section-{{ ai_gen_id }} {
       padding: {{ block.settings.padding_top_mobile }}px 16px {{ block.settings.padding_bottom_mobile }}px;
@@ -202,6 +259,15 @@
 {% endstyle %}
 
 <ai-mission-section-{{ ai_gen_id }} class="ai-mission-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <svg class="ai-mission-watermark-{{ ai_gen_id }}" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <path d="M20 180C90 170 150 120 165 40" />
+    <path d="M165 40c-30 0-55-20-55-50 30 0 55 20 55 50z" />
+  </svg>
+  <svg class="ai-mission-watermark-secondary-{{ ai_gen_id }}" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <path d="M40 140c-25 0-45-16-45-45 25 0 45 16 45 45z" />
+    <path d="M180 20c-2 32-18 58-48 60-2-32 18-58 48-60z" />
+  </svg>
+
   <div class="ai-mission-container-{{ ai_gen_id }}">
     {% if block.settings.eyebrow != blank %}
       <div class="ai-mission-eyebrow-{{ ai_gen_id }}">{{ block.settings.eyebrow }}</div>
@@ -217,19 +283,33 @@
 
     <div class="ai-mission-cards-{{ ai_gen_id }}">
       <div class="ai-mission-card-{{ ai_gen_id }}">
-        <span class="ai-mission-card-icon-{{ ai_gen_id }}">{{ block.settings.card_1_icon }}</span>
+        <div class="ai-mission-card-icon-wrap-{{ ai_gen_id }}">
+          <svg class="ai-mission-card-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 21c7-1 11-5 12-12" />
+            <path d="M15 9c-3 0-5-2-5-5 3 0 5 2 5 5z" />
+          </svg>
+        </div>
         <h3 class="ai-mission-card-title-{{ ai_gen_id }}">{{ block.settings.card_1_title }}</h3>
         <p class="ai-mission-card-text-{{ ai_gen_id }}">{{ block.settings.card_1_text }}</p>
       </div>
 
       <div class="ai-mission-card-{{ ai_gen_id }}">
-        <span class="ai-mission-card-icon-{{ ai_gen_id }}">{{ block.settings.card_2_icon }}</span>
+        <div class="ai-mission-card-icon-wrap-{{ ai_gen_id }}">
+          <svg class="ai-mission-card-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9.5 3h5M10.5 3v5.2L6 15.5A2 2 0 0 0 7.7 19h8.6a2 2 0 0 0 1.7-3.5L13.5 8.2V3" />
+            <path d="M8.5 13h7" />
+          </svg>
+        </div>
         <h3 class="ai-mission-card-title-{{ ai_gen_id }}">{{ block.settings.card_2_title }}</h3>
         <p class="ai-mission-card-text-{{ ai_gen_id }}">{{ block.settings.card_2_text }}</p>
       </div>
 
       <div class="ai-mission-card-{{ ai_gen_id }}">
-        <span class="ai-mission-card-icon-{{ ai_gen_id }}">{{ block.settings.card_3_icon }}</span>
+        <div class="ai-mission-card-icon-wrap-{{ ai_gen_id }}">
+          <svg class="ai-mission-card-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 20s-7-4.35-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 5c-2.5 4.65-9.5 9-9.5 9z" />
+          </svg>
+        </div>
         <h3 class="ai-mission-card-title-{{ ai_gen_id }}">{{ block.settings.card_3_title }}</h3>
         <p class="ai-mission-card-text-{{ ai_gen_id }}">{{ block.settings.card_3_text }}</p>
       </div>
@@ -246,6 +326,10 @@
       }
 
       connectedCallback() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          return;
+        }
+
         this.setupIntersectionObserver();
       }
 
@@ -270,7 +354,9 @@
       }
     }
 
-    customElements.define('ai-mission-section-{{ ai_gen_id }}', AiMissionSection{{ ai_gen_id }});
+    if (!customElements.get('ai-mission-section-{{ ai_gen_id }}')) {
+      customElements.define('ai-mission-section-{{ ai_gen_id }}', AiMissionSection{{ ai_gen_id }});
+    }
   })();
 </script>
 
@@ -308,7 +394,7 @@
     {
       "type": "text",
       "id": "card_1_icon",
-      "label": "Icon",
+      "label": "Icon (legacy, unused in current design)",
       "default": "🌿"
     },
     {
@@ -330,7 +416,7 @@
     {
       "type": "text",
       "id": "card_2_icon",
-      "label": "Icon",
+      "label": "Icon (legacy, unused in current design)",
       "default": "⚗️"
     },
     {
@@ -352,7 +438,7 @@
     {
       "type": "text",
       "id": "card_3_icon",
-      "label": "Icon",
+      "label": "Icon (legacy, unused in current design)",
       "default": "❤️"
     },
     {

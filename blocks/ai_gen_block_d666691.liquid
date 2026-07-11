@@ -1,69 +1,52 @@
 {% doc %}
   @prompt
     Create a premium full-width hero section for the Contact Us page of a luxury Ayurvedic hair wellness brand called Livgenix.
-    
-    Design Style:
-    - Modern, luxury wellness aesthetic inspired by Aesop, Ritual, Apple, and Minimal skincare brands.
-    - Calm, clean and spacious.
-    - Large editorial typography.
-    - Generous whitespace.
-    - Responsive for desktop, tablet and mobile.
-    
-    Layout:
-    - Full-width section.
-    - Two-column layout on desktop (55% text, 45% image).
-    - Stack vertically on mobile.
-    - Vertically center all content.
-    
-    Left Side:
-    Small eyebrow text:
-    CONTACT US
-    
-    Large heading:
-    We're Here to Help.
-    
-    Short supporting paragraph:
-    Whether you have questions about your order, products, hair wellness journey, or need personalised guidance, our support team is ready to assist you.
-    
-    Below the paragraph add two buttons:
-    
-    Primary Button:
-    Contact Support
-    
-    Secondary Button:
-    Chat on WhatsApp
-    
-    Right Side:
-    Large premium lifestyle image of a woman with healthy natural hair in a bright modern home. The image should feel warm, trustworthy and premium. Do not use office photos or customer service agents.
-    
-    Style:
-    - White background (#FFFFFF)
-    - Heading color: #2F3324
-    - Accent color: #BE9A5C
-    - Primary button: #6F764F
-    - Rounded image corners (24px)
-    - Soft subtle shadows
-    - No gradients
-    - No decorative patterns
-    - Premium spacing with approximately 120px top and bottom padding
-    - Smooth fade-up animation on scroll
-    
-    The overall feeling should communicate warmth, trust, approachability and premium customer care rather than a corporate support page.
+
+    Redesigned per brand design system: soft white-to-cream gradient background,
+    glassmorphism image container, three trust badges, olive/gold button pairing,
+    fade-up + lift micro interactions, CSS custom properties, WCAG AA contrast,
+    prefers-reduced-motion support. No external libraries.
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
   .ai-contact-hero-{{ ai_gen_id }} {
+    --lg-olive: {{ block.settings.primary_button_bg }};
+    --lg-olive-hover: {{ block.settings.primary_button_hover_bg }};
+    --lg-gold: {{ block.settings.accent_color }};
+    --lg-heading: {{ block.settings.heading_color }};
+    --lg-text: {{ block.settings.text_color }};
+    --lg-cream: {{ block.settings.cream_color }};
+    --lg-radius-image: {{ block.settings.image_radius }}px;
+    --lg-radius-button: {{ block.settings.button_radius }}px;
+
     display: block;
     width: 100%;
-    background-color: {{ block.settings.background_color }};
+    background: linear-gradient(180deg, {{ block.settings.background_color }} 0%, var(--lg-cream) 100%);
     padding: {{ block.settings.padding_top }}px 0 {{ block.settings.padding_bottom }}px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-contact-hero-watermark-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    right: -8%;
+    width: 520px;
+    height: 520px;
+    transform: translateY(-50%);
+    stroke: var(--lg-olive);
+    fill: none;
+    stroke-width: 1;
+    opacity: 0.035;
+    pointer-events: none;
   }
 
   .ai-contact-hero-container-{{ ai_gen_id }} {
-    max-width: 1400px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0 40px;
+    position: relative;
   }
 
   .ai-contact-hero-grid-{{ ai_gen_id }} {
@@ -81,32 +64,69 @@
 
   .ai-contact-hero-eyebrow-{{ ai_gen_id }} {
     font-size: {{ block.settings.eyebrow_size }}px;
-    letter-spacing: 2px;
-    color: {{ block.settings.accent_color }};
-    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--lg-gold);
+    font-weight: 600;
     margin: 0;
   }
 
   .ai-contact-hero-heading-{{ ai_gen_id }} {
     font-size: {{ block.settings.heading_size }}px;
-    line-height: 1.1;
-    color: {{ block.settings.heading_color }};
+    line-height: 1.12;
+    color: var(--lg-heading);
     margin: 0;
     font-weight: 700;
+    letter-spacing: -0.01em;
   }
 
   .ai-contact-hero-text-{{ ai_gen_id }} {
     font-size: {{ block.settings.text_size }}px;
-    line-height: 1.6;
-    color: {{ block.settings.text_color }};
+    line-height: 1.7;
+    color: var(--lg-text);
+    opacity: 0.85;
     margin: 0;
     max-width: 540px;
+  }
+
+  .ai-contact-hero-badges-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ai-contact-hero-badge-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(111, 118, 79, 0.16);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--lg-heading);
+    backdrop-filter: blur(6px);
+  }
+
+  .ai-contact-hero-badge-icon-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    stroke: var(--lg-olive);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   .ai-contact-hero-buttons-{{ ai_gen_id }} {
     display: flex;
     gap: 16px;
-    margin-top: 16px;
+    margin-top: 12px;
     flex-wrap: wrap;
   }
 
@@ -114,67 +134,92 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 16px 32px;
-    background-color: {{ block.settings.primary_button_bg }};
+    padding: 17px 34px;
+    background-color: var(--lg-olive);
     color: {{ block.settings.primary_button_text }};
     text-decoration: none;
-    border-radius: {{ block.settings.button_radius }}px;
+    border-radius: var(--lg-radius-button);
     font-size: 16px;
-    font-weight: 500;
-    transition: all 0.3s ease;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    transition: transform 300ms ease, box-shadow 300ms ease, background-color 300ms ease;
     border: none;
     cursor: pointer;
   }
 
   .ai-contact-hero-button-primary-{{ ai_gen_id }}:hover {
-    background-color: {{ block.settings.primary_button_hover_bg }};
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    background-color: var(--lg-olive-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(111, 118, 79, 0.24);
+  }
+
+  .ai-contact-hero-button-primary-{{ ai_gen_id }}:focus-visible {
+    outline: 2px solid var(--lg-olive);
+    outline-offset: 3px;
   }
 
   .ai-contact-hero-button-secondary-{{ ai_gen_id }} {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 16px 32px;
+    padding: 17px 34px;
     background-color: transparent;
-    color: {{ block.settings.secondary_button_text_color }};
+    color: var(--lg-gold);
     text-decoration: none;
-    border-radius: {{ block.settings.button_radius }}px;
+    border-radius: var(--lg-radius-button);
     font-size: 16px;
-    font-weight: 500;
-    border: 1px solid {{ block.settings.secondary_button_border }};
-    transition: all 0.3s ease;
+    font-weight: 600;
+    border: 1.5px solid var(--lg-gold);
+    transition: transform 300ms ease, box-shadow 300ms ease, background-color 300ms ease, color 300ms ease;
     cursor: pointer;
   }
 
   .ai-contact-hero-button-secondary-{{ ai_gen_id }}:hover {
-    background-color: {{ block.settings.secondary_button_hover_bg }};
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    background-color: var(--lg-gold);
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(190, 154, 92, 0.22);
+  }
+
+  .ai-contact-hero-button-secondary-{{ ai_gen_id }}:focus-visible {
+    outline: 2px solid var(--lg-gold);
+    outline-offset: 3px;
   }
 
   .ai-contact-hero-image-wrapper-{{ ai_gen_id }} {
     position: relative;
     width: 100%;
     height: 100%;
-    min-height: 500px;
+    min-height: 520px;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: calc(var(--lg-radius-image) + 14px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 24px 60px rgba(47, 51, 36, 0.1);
+  }
+
+  .ai-contact-hero-image-frame-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 492px;
+    border-radius: var(--lg-radius-image);
+    overflow: hidden;
   }
 
   .ai-contact-hero-image-{{ ai_gen_id }} {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: {{ block.settings.image_radius }}px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    display: block;
   }
 
   .ai-contact-hero-image-placeholder-{{ ai_gen_id }} {
     width: 100%;
     height: 100%;
-    min-height: 500px;
-    background-color: #f5f5f5;
-    border-radius: {{ block.settings.image_radius }}px;
+    min-height: 492px;
+    background-color: var(--lg-cream);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -191,16 +236,23 @@
 
   .ai-contact-hero-empty-state-{{ ai_gen_id }} {
     position: absolute;
-    bottom: 40px;
+    bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
     padding: 12px 24px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.92);
     border-radius: 8px;
     font-size: 14px;
     color: #666;
     text-align: center;
     pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-contact-hero-button-primary-{{ ai_gen_id }},
+    .ai-contact-hero-button-secondary-{{ ai_gen_id }} {
+      transition: none;
+    }
   }
 
   @media screen and (max-width: 989px) {
@@ -217,8 +269,9 @@
       min-height: 400px;
     }
 
+    .ai-contact-hero-image-frame-{{ ai_gen_id }},
     .ai-contact-hero-image-placeholder-{{ ai_gen_id }} {
-      min-height: 400px;
+      min-height: 372px;
     }
   }
 
@@ -243,6 +296,11 @@
       font-size: {{ block.settings.text_size | times: 0.95 }}px;
     }
 
+    .ai-contact-hero-badge-{{ ai_gen_id }} {
+      font-size: 12px;
+      padding: 9px 14px;
+    }
+
     .ai-contact-hero-buttons-{{ ai_gen_id }} {
       flex-direction: column;
       width: 100%;
@@ -256,15 +314,23 @@
 
     .ai-contact-hero-image-wrapper-{{ ai_gen_id }} {
       min-height: 320px;
+      padding: 10px;
     }
 
+    .ai-contact-hero-image-frame-{{ ai_gen_id }},
     .ai-contact-hero-image-placeholder-{{ ai_gen_id }} {
-      min-height: 320px;
+      min-height: 300px;
     }
   }
 {% endstyle %}
 
 <contact-hero-{{ ai_gen_id }} class="ai-contact-hero-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <svg class="ai-contact-hero-watermark-{{ ai_gen_id }}" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <path d="M20 180C90 170 150 120 165 40" />
+    <path d="M165 40c-30 0-55-20-55-50 30 0 55 20 55 50z" />
+    <path d="M40 140c-25 0-45-16-45-45 25 0 45 16 45 45z" />
+  </svg>
+
   <div class="ai-contact-hero-container-{{ ai_gen_id }}">
     <div class="ai-contact-hero-grid-{{ ai_gen_id }}">
       <div class="ai-contact-hero-content-{{ ai_gen_id }}">
@@ -278,6 +344,40 @@
 
         {% if block.settings.text != blank %}
           <div class="ai-contact-hero-text-{{ ai_gen_id }}">{{ block.settings.text }}</div>
+        {% endif %}
+
+        {% if block.settings.show_trust_badges %}
+          <ul class="ai-contact-hero-badges-{{ ai_gen_id }}" role="list">
+            {% if block.settings.badge_1_text != blank %}
+              <li class="ai-contact-hero-badge-{{ ai_gen_id }}">
+                <svg class="ai-contact-hero-badge-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 7v5l3.2 2" />
+                </svg>
+                {{ block.settings.badge_1_text }}
+              </li>
+            {% endif %}
+
+            {% if block.settings.badge_2_text != blank %}
+              <li class="ai-contact-hero-badge-{{ ai_gen_id }}">
+                <svg class="ai-contact-hero-badge-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z" />
+                  <path d="M9.25 12l1.85 1.85L15 10" />
+                </svg>
+                {{ block.settings.badge_2_text }}
+              </li>
+            {% endif %}
+
+            {% if block.settings.badge_3_text != blank %}
+              <li class="ai-contact-hero-badge-{{ ai_gen_id }}">
+                <svg class="ai-contact-hero-badge-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="4" y="10" width="16" height="10" rx="2" />
+                  <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+                </svg>
+                {{ block.settings.badge_3_text }}
+              </li>
+            {% endif %}
+          </ul>
         {% endif %}
 
         <div class="ai-contact-hero-buttons-{{ ai_gen_id }}">
@@ -306,23 +406,25 @@
       </div>
 
       <div class="ai-contact-hero-image-wrapper-{{ ai_gen_id }}">
-        {% if block.settings.image %}
-          <img
-            src="{{ block.settings.image | image_url: width: 1000 }}"
-            alt="{{ block.settings.image.alt | escape }}"
-            loading="lazy"
-            width="{{ block.settings.image.width }}"
-            height="{{ block.settings.image.height }}"
-            class="ai-contact-hero-image-{{ ai_gen_id }}"
-          >
-        {% else %}
-          <div class="ai-contact-hero-image-placeholder-{{ ai_gen_id }}">
-            {{ 'lifestyle-1' | placeholder_svg_tag }}
-            <div class="ai-contact-hero-empty-state-{{ ai_gen_id }}">
-              Add a lifestyle image
+        <div class="ai-contact-hero-image-frame-{{ ai_gen_id }}">
+          {% if block.settings.image %}
+            <img
+              src="{{ block.settings.image | image_url: width: 1000 }}"
+              alt="{{ block.settings.image.alt | escape }}"
+              loading="lazy"
+              width="{{ block.settings.image.width }}"
+              height="{{ block.settings.image.height }}"
+              class="ai-contact-hero-image-{{ ai_gen_id }}"
+            >
+          {% else %}
+            <div class="ai-contact-hero-image-placeholder-{{ ai_gen_id }}">
+              {{ 'lifestyle-1' | placeholder_svg_tag }}
+              <div class="ai-contact-hero-empty-state-{{ ai_gen_id }}">
+                Add a lifestyle image
+              </div>
             </div>
-          </div>
-        {% endif %}
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
@@ -331,15 +433,13 @@
 <script>
   (function() {
     class ContactHero{{ ai_gen_id }} extends HTMLElement {
-      constructor() {
-        super();
-      }
-
       connectedCallback() {
         this.setupIntersectionObserver();
       }
 
       setupIntersectionObserver() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
         const options = {
           root: null,
           rootMargin: '0px',
@@ -351,6 +451,7 @@
             if (entry.isIntersecting) {
               entry.target.style.opacity = '1';
               entry.target.style.transform = 'translateY(0)';
+              observer.unobserve(entry.target);
             }
           });
         }, options);
@@ -363,7 +464,9 @@
       }
     }
 
-    customElements.define('contact-hero-{{ ai_gen_id }}', ContactHero{{ ai_gen_id }});
+    if (!customElements.get('contact-hero-{{ ai_gen_id }}')) {
+      customElements.define('contact-hero-{{ ai_gen_id }}', ContactHero{{ ai_gen_id }});
+    }
   })();
 </script>
 
@@ -393,6 +496,34 @@
       "id": "text",
       "label": "Text",
       "default": "<p>Whether you have questions about your order, products, hair wellness journey, or need personalised guidance, our support team is ready to assist you.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Trust badges"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_badges",
+      "label": "Show trust badges",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_1_text",
+      "label": "Badge 1",
+      "default": "Response within 24 Hours"
+    },
+    {
+      "type": "text",
+      "id": "badge_2_text",
+      "label": "Badge 2",
+      "default": "Expert Wellness Guidance"
+    },
+    {
+      "type": "text",
+      "id": "badge_3_text",
+      "label": "Badge 3",
+      "default": "Secure Customer Support"
     },
     {
       "type": "header",
@@ -442,6 +573,12 @@
       "id": "background_color",
       "label": "Background",
       "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "cream_color",
+      "label": "Background gradient (cream)",
+      "default": "#ECE2CE"
     },
     {
       "type": "color",

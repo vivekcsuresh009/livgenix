@@ -1,0 +1,135 @@
+{% doc %}
+  @prompt
+    Premium accordion styling for the About Us "Frequently asked questions" section.
+
+    This block renders no visible markup of its own — it injects CSS scoped to this section
+    instance only (via #shopify-section-{{ section.id }}), upgrading the theme's shared
+    native accordion component with rounded cream panels, soft shadow, hover elevation,
+    smoother spacing and refined typography, without touching the global accordion
+    component files that are reused across the rest of the site.
+{% enddoc %}
+
+{% style %}
+  #shopify-section-{{ section.id }} .accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .accordion--dividers accordion-custom .details {
+    border-block-start: none !important;
+    border-block-end: none !important;
+  }
+
+  #shopify-section-{{ section.id }} accordion-custom .details {
+    background-color: {{ block.settings.panel_background }};
+    border: 1px solid {{ block.settings.panel_border_color }};
+    border-radius: {{ block.settings.panel_radius }}px;
+    padding-inline: 28px;
+    transition: box-shadow 300ms ease, border-color 300ms ease;
+  }
+
+  #shopify-section-{{ section.id }} accordion-custom:hover .details {
+    box-shadow: 0 14px 30px rgba(47, 51, 36, 0.08);
+    border-color: {{ block.settings.accent_color }};
+  }
+
+  #shopify-section-{{ section.id }} .details__header {
+    padding-block: 24px;
+    font-weight: 600;
+    font-size: 17px;
+    color: {{ block.settings.heading_color }};
+    cursor: pointer;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .details__header:focus-visible {
+    outline: 2px solid {{ block.settings.accent_color }};
+    outline-offset: 4px;
+    border-radius: {{ block.settings.panel_radius }}px;
+  }
+
+  #shopify-section-{{ section.id }} .details-content {
+    padding-bottom: 24px;
+    padding-right: 8px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.75;
+    font-size: 15px;
+  }
+
+  #shopify-section-{{ section.id }} .icon-caret svg,
+  #shopify-section-{{ section.id }} .icon-plus svg {
+    stroke: {{ block.settings.accent_color }};
+    width: 18px;
+    height: 18px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} accordion-custom .details {
+      padding-inline: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .details__header {
+      padding-block: 20px;
+      font-size: 16px;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "FAQ premium styling",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Injects scoped premium styling for this section's accordion. No visible content of its own."
+    },
+    {
+      "type": "color",
+      "id": "panel_background",
+      "label": "Panel background",
+      "default": "#F5F1E8"
+    },
+    {
+      "type": "color",
+      "id": "panel_border_color",
+      "label": "Panel border",
+      "default": "#ECE2CE"
+    },
+    {
+      "type": "range",
+      "id": "panel_radius",
+      "label": "Panel border radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Question color",
+      "default": "#2F3324"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Answer color",
+      "default": "#6B705C"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent (icon / hover border)",
+      "default": "#BE9A5C"
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ premium styling"
+    }
+  ]
+}
+{% endschema %}

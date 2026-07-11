@@ -1,0 +1,803 @@
+{% comment %}
+  ==========================================================================
+  Section: Testimonials
+  File: sections/testimonials.liquid
+
+  Calm, editorial customer-testimonials slider for the Livgenix homepage
+  (sits under Our Promise). Cards scroll-snap horizontally; prev/next
+  buttons and pagination dots are progressively enhanced by a small,
+  self-contained web component (no external libraries). Autoplay is
+  opt-in and pauses on hover/focus/touch and for prefers-reduced-motion.
+  ==========================================================================
+{% endcomment %}
+
+{% liquid
+  assign heading_id = 'TestimonialsHeading-' | append: section.id
+%}
+
+<section
+  class="testimonials"
+  id="testimonials-{{ section.id }}"
+  {% if section.settings.heading != blank %}
+    aria-labelledby="{{ heading_id }}"
+  {% else %}
+    aria-label="Customer testimonials"
+  {% endif %}
+>
+  {% comment %} Extremely subtle decorative botanical watermark, purely visual {% endcomment %}
+  <svg class="testimonials__watermark" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <path d="M15 185C95 165 155 110 170 25" />
+    <path d="M170 25c-32 2-58-18-60-48 32-2 58 18 60 48z" />
+    <path d="M35 150c-26 2-47-14-49-43 26-2 47 14 49 43z" />
+  </svg>
+
+  <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;">
+    <symbol id="testimonials-icon-star-{{ section.id }}" viewBox="0 0 24 24">
+      <path d="M12 2.5l2.9 6.06 6.6.77-4.9 4.6 1.27 6.57L12 17.4l-5.87 3.1 1.27-6.57-4.9-4.6 6.6-.77z" />
+    </symbol>
+    <symbol id="testimonials-icon-verified-{{ section.id }}" viewBox="0 0 24 24">
+      <path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z" />
+      <path d="M9.25 12l1.85 1.85L15 10" />
+    </symbol>
+    <symbol id="testimonials-icon-chevron-{{ section.id }}" viewBox="0 0 24 24">
+      <path d="M9 5l7 7-7 7" />
+    </symbol>
+  </svg>
+
+  <div class="testimonials__container">
+    <div class="testimonials__intro">
+      {% if section.settings.eyebrow != blank %}
+        <p class="testimonials__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 id="{{ heading_id }}" class="testimonials__heading">{{ section.settings.heading | escape }}</h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <p class="testimonials__description">{{ section.settings.description }}</p>
+      {% endif %}
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <testimonials-slider
+        class="testimonials__slider"
+        data-autoplay="{{ section.settings.enable_autoplay }}"
+        data-speed="{{ section.settings.autoplay_speed | times: 1000 }}"
+      >
+        <div class="testimonials__viewport">
+          <ul class="testimonials__track" role="list">
+            {% for block in section.blocks %}
+              {% liquid
+                assign rating = block.settings.rating | default: 5
+              %}
+              <li
+                class="testimonials__slide"
+                data-testimonials-slide
+                {{ block.shopify_attributes }}
+              >
+                <article class="testimonials__card" style="--testimonials-card-delay: {{ forloop.index0 | times: 90 }}ms;">
+                  <div class="testimonials__card-top">
+                    {% if block.settings.image != blank %}
+                      <img
+                        class="testimonials__avatar"
+                        src="{{ block.settings.image | image_url: width: 144 }}"
+                        srcset="{{ block.settings.image | image_url: width: 72 }} 72w, {{ block.settings.image | image_url: width: 144 }} 144w"
+                        sizes="72px"
+                        width="72"
+                        height="72"
+                        loading="lazy"
+                        decoding="async"
+                        alt="{{ block.settings.image_alt | default: block.settings.name | escape }}"
+                      >
+                    {% else %}
+                      <span class="testimonials__avatar testimonials__avatar--placeholder" aria-hidden="true">
+                        {{ block.settings.name | slice: 0, 1 }}
+                      </span>
+                    {% endif %}
+
+                    <div class="testimonials__identity">
+                      {% if block.settings.name != blank %}
+                        <p class="testimonials__name">{{ block.settings.name | escape }}</p>
+                      {% endif %}
+                      {% if block.settings.location != blank %}
+                        <p class="testimonials__location">{{ block.settings.location | escape }}</p>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  {% if rating > 0 %}
+                    <div class="testimonials__rating" role="img" aria-label="Rated {{ rating }} out of 5 stars">
+                      {% for i in (1..5) %}
+                        <svg class="testimonials__star{% if i > rating %} testimonials__star--empty{% endif %}" viewBox="0 0 24 24" aria-hidden="true">
+                          <use href="#testimonials-icon-star-{{ section.id }}"></use>
+                        </svg>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+
+                  {% if block.settings.timeline != blank %}
+                    <span class="testimonials__badge">{{ block.settings.timeline | escape }}</span>
+                  {% endif %}
+
+                  {% if block.settings.review != blank %}
+                    <blockquote class="testimonials__review">
+                      <p>{{ block.settings.review }}</p>
+                    </blockquote>
+                  {% endif %}
+
+                  {% if block.settings.verified or block.settings.product_used != blank %}
+                    <div class="testimonials__footer">
+                      {% if block.settings.verified %}
+                        <span class="testimonials__verified">
+                          <svg class="testimonials__verified-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <use href="#testimonials-icon-verified-{{ section.id }}"></use>
+                          </svg>
+                          Verified Customer
+                        </span>
+                      {% endif %}
+
+                      {% if block.settings.product_used != blank %}
+                        <span class="testimonials__product">{{ block.settings.product_used | escape }}</span>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </article>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        {% if section.settings.show_arrows and section.blocks.size > 1 %}
+          <button type="button" class="testimonials__arrow testimonials__arrow--prev" data-testimonials-prev aria-label="Previous testimonials">
+            <svg class="testimonials__arrow-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <use href="#testimonials-icon-chevron-{{ section.id }}"></use>
+            </svg>
+          </button>
+          <button type="button" class="testimonials__arrow testimonials__arrow--next" data-testimonials-next aria-label="Next testimonials">
+            <svg class="testimonials__arrow-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <use href="#testimonials-icon-chevron-{{ section.id }}"></use>
+            </svg>
+          </button>
+        {% endif %}
+
+        {% if section.settings.show_dots and section.blocks.size > 1 %}
+          <div class="testimonials__dots" role="tablist" data-testimonials-dots aria-label="{{ 'sections.testimonials.slides' | t | default: 'Testimonial slides' }}"></div>
+        {% endif %}
+      </testimonials-slider>
+    {% elsif request.design_mode %}
+      <div class="testimonials__placeholder">
+        <p>Add testimonial blocks to preview this section. Visitors will never see this placeholder.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% style %}
+  .testimonials {
+    position: relative;
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  .testimonials__watermark {
+    position: absolute;
+    top: 50%;
+    left: -6%;
+    width: 460px;
+    height: 460px;
+    transform: translateY(-50%);
+    stroke: #234536;
+    fill: none;
+    stroke-width: 1;
+    opacity: 0.03;
+    pointer-events: none;
+  }
+
+  .testimonials__container {
+    position: relative;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding-inline: 24px;
+  }
+
+  .testimonials__intro {
+    max-width: 720px;
+    margin: 0 auto 56px;
+    text-align: center;
+  }
+
+  .testimonials__eyebrow {
+    margin: 0 0 12px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #C8A35D;
+  }
+
+  .testimonials__heading {
+    margin: 0 0 16px;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #2B2B2B;
+  }
+
+  .testimonials__description {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #6B6B6B;
+  }
+
+  .testimonials__placeholder {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 48px 32px;
+    text-align: center;
+    background-color: #FFFFFF;
+    border: 1px dashed rgba(35, 69, 54, 0.24);
+    border-radius: 28px;
+    color: #6B6B6B;
+    font-size: 0.9375rem;
+  }
+
+  .testimonials__slider {
+    position: relative;
+    display: block;
+  }
+
+  .testimonials__viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .testimonials__viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .testimonials__track {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 4px 4px 24px;
+    gap: 24px;
+  }
+
+  .testimonials__slide {
+    flex: 0 0 100%;
+    max-width: 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+  }
+
+  .testimonials__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(35, 69, 54, 0.08);
+    border-radius: 28px;
+    padding: 40px;
+    box-shadow: 0 2px 16px rgba(43, 43, 43, 0.05);
+    transition: transform 300ms ease, box-shadow 300ms ease;
+  }
+
+  .testimonials__card:hover,
+  .testimonials__card:focus-within {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 36px rgba(43, 43, 43, 0.1);
+  }
+
+  .testimonials__card-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .testimonials__avatar {
+    flex-shrink: 0;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #FAF7F2;
+    box-shadow: 0 2px 8px rgba(43, 43, 43, 0.12);
+  }
+
+  .testimonials__avatar--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #E7EEE7;
+    color: #234536;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .testimonials__identity {
+    min-width: 0;
+  }
+
+  .testimonials__name {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #2B2B2B;
+  }
+
+  .testimonials__location {
+    margin: 2px 0 0;
+    font-size: 0.8125rem;
+    color: #6B6B6B;
+  }
+
+  .testimonials__rating {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 14px;
+  }
+
+  .testimonials__star {
+    width: 16px;
+    height: 16px;
+    fill: #C8A35D;
+    stroke: none;
+  }
+
+  .testimonials__star--empty {
+    fill: rgba(200, 163, 93, 0.25);
+  }
+
+  .testimonials__badge {
+    display: inline-block;
+    margin-bottom: 18px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background-color: rgba(141, 161, 140, 0.22);
+    color: #234536;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+  }
+
+  .testimonials__review {
+    flex-grow: 1;
+    margin: 0 0 24px;
+    padding: 0;
+    border: none;
+  }
+
+  .testimonials__review p {
+    margin: 0;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: #2B2B2B;
+  }
+
+  .testimonials__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(35, 69, 54, 0.08);
+    width: 100%;
+  }
+
+  .testimonials__verified {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #234536;
+  }
+
+  .testimonials__verified-icon {
+    width: 16px;
+    height: 16px;
+    stroke: #234536;
+    fill: none;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .testimonials__product {
+    font-size: 0.8125rem;
+    color: #6B6B6B;
+  }
+
+  .testimonials__arrow {
+    display: none;
+  }
+
+  .testimonials__dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .testimonials__dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(35, 69, 54, 0.18);
+    cursor: pointer;
+    transition: background-color 300ms ease, transform 300ms ease;
+  }
+
+  .testimonials__dot:hover {
+    background-color: rgba(35, 69, 54, 0.4);
+  }
+
+  .testimonials__dot[aria-current="true"] {
+    background-color: #234536;
+    transform: scale(1.2);
+  }
+
+  .testimonials__dot:focus-visible,
+  .testimonials__arrow:focus-visible {
+    outline: 2px solid #234536;
+    outline-offset: 3px;
+  }
+
+  /* Progressive-enhancement scroll reveal: no scroll-reveal system exists
+     elsewhere in this theme, so this stays CSS-only and self-contained.
+     Base state is fully visible, so unsupported browsers and
+     prefers-reduced-motion see the section normally with zero JS. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .testimonials__intro,
+      .testimonials__card {
+        animation: testimonials-fade-up linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 25%;
+      }
+
+      .testimonials__card {
+        animation-delay: var(--testimonials-card-delay, 0ms);
+      }
+    }
+  }
+
+  @keyframes testimonials-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .testimonials__card {
+      transition: none;
+    }
+
+    .testimonials__viewport {
+      scroll-behavior: auto;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .testimonials__heading {
+      font-size: 2.25rem;
+    }
+
+    .testimonials__slide {
+      flex: 0 0 calc(50% - 12px);
+      max-width: calc(50% - 12px);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .testimonials__heading {
+      font-size: 2.5rem;
+    }
+
+    .testimonials__slide {
+      flex: 0 0 calc(33.333% - 16px);
+      max-width: calc(33.333% - 16px);
+    }
+
+    .testimonials__viewport {
+      scroll-behavior: smooth;
+    }
+
+    .testimonials__arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 40%;
+      z-index: 2;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: #FFFFFF;
+      border: 1px solid rgba(35, 69, 54, 0.12);
+      box-shadow: 0 8px 20px rgba(43, 43, 43, 0.1);
+      cursor: pointer;
+      transition: transform 300ms ease, box-shadow 300ms ease, opacity 300ms ease;
+    }
+
+    .testimonials__arrow:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(43, 43, 43, 0.14);
+    }
+
+    .testimonials__arrow:disabled {
+      opacity: 0.35;
+      cursor: default;
+      transform: none;
+      box-shadow: 0 8px 20px rgba(43, 43, 43, 0.1);
+    }
+
+    .testimonials__arrow--prev {
+      left: -24px;
+    }
+
+    .testimonials__arrow--next {
+      right: -24px;
+    }
+
+    .testimonials__arrow--next .testimonials__arrow-icon {
+      transform: none;
+    }
+
+    .testimonials__arrow--prev .testimonials__arrow-icon {
+      transform: rotate(180deg);
+    }
+
+    .testimonials__arrow-icon {
+      width: 20px;
+      height: 20px;
+      stroke: #234536;
+      fill: none;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  }
+{% endstyle %}
+
+{% if section.blocks.size > 0 %}
+  <script src="{{ 'testimonials-slider.js' | asset_url }}" defer="defer"></script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "class": "shopify-section--testimonials",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "REAL STORIES"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Trusted by People on Their Hair Wellness Journey."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Every wellness journey is different. Here's how Livgenix has become part of healthier routines for our customers."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FAF7F2"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "Slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Enable autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay speed",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "unit": "s",
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show navigation arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show pagination dots",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Customer"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Customer image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image alt text",
+          "info": "Describe the image for screen readers. Defaults to the customer's name."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer name",
+          "default": "Ananya S."
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Location",
+          "default": "Kochi, Kerala"
+        },
+        {
+          "type": "header",
+          "content": "Review"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star rating",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "timeline",
+          "label": "Timeline badge",
+          "info": "Example: After 3 Months",
+          "default": "After 3 Months"
+        },
+        {
+          "type": "textarea",
+          "id": "review",
+          "label": "Review text",
+          "default": "My hair feels noticeably stronger, my scalp is healthier, and I love that Livgenix focuses on complete wellness instead of quick fixes."
+        },
+        {
+          "type": "header",
+          "content": "Verification"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Show \"Verified Customer\" badge",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "product_used",
+          "label": "Product used",
+          "info": "Optional. Example: Using Coconeela™ + Gutphala™"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Ananya S.",
+            "location": "Kochi, Kerala",
+            "rating": 5,
+            "timeline": "After 3 Months",
+            "review": "My hair feels noticeably stronger, my scalp is healthier, and I love that Livgenix focuses on complete wellness instead of quick fixes.",
+            "verified": true,
+            "product_used": "Using Coconeela™ + Gutphala™"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Meera K.",
+            "location": "Bengaluru, Karnataka",
+            "rating": 5,
+            "timeline": "After 6 Weeks",
+            "review": "I was skeptical at first, but the visible reduction in hair fall within weeks won me over. It finally feels like a routine I can stick to.",
+            "verified": true,
+            "product_used": "Using Coconeela™"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Priya R.",
+            "location": "Kochi, Kerala",
+            "rating": 5,
+            "timeline": "After 90 Days",
+            "review": "Beyond the results, what I appreciate most is the transparency. I know exactly what I'm putting into my body and onto my scalp.",
+            "verified": true,
+            "product_used": "Using Gutphala™"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

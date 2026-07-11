@@ -1,91 +1,33 @@
 {% doc %}
   @prompt
-    Create a premium "Business Information & Grievance Officer" section for a luxury Ayurvedic hair wellness brand called Livgenix.
-    
-    Design Goal:
-    Present Livgenix's official business information and grievance redressal details in a clean, trustworthy, and premium way that complies with Indian e-commerce standards.
-    
-    Layout:
-    - Full-width section.
-    - Soft cream background (#ECE2CE).
-    - Two-column responsive layout.
-    - Left column: Business Information.
-    - Right column: Grievance Officer.
-    - Rounded information cards with generous spacing.
-    - Maximum content width: 1400px.
-    
-    LEFT COLUMN
-    
-    Small Eyebrow:
-    BUSINESS INFORMATION
-    
-    Heading:
-    Registered Business Details
-    
-    Display the following information inside a premium information card:
-    
-    • Registered Company Name
-    • Registered Office Address
-    • Customer Support Email
-    • Customer Support Phone
-    • GST Number
-    • CIN (Optional)
-    • FSSAI License Number (Optional)
-    
-    Each item should have a clean minimalist line icon.
-    
-    RIGHT COLUMN
-    
-    Small Eyebrow:
-    GRIEVANCE REDRESSAL
-    
-    Heading:
-    Need Additional Assistance?
-    
-    Display a premium contact card containing:
-    
-    • Grievance Officer Name
-    • Designation
-    • Email Address
-    • Phone Number
-    • Office Address
-    • Response Timeline
-      (Example: We aim to respond within 48 business hours.)
-    
-    Below the information display a subtle note:
-    
-    "If your concern remains unresolved through our customer support team, our Grievance Officer will ensure your issue receives prompt attention in accordance with applicable consumer protection guidelines."
-    
-    Design Style:
-    - Luxury editorial design inspired by premium wellness brands.
-    - Rounded cards (24px radius).
-    - Soft borders.
-    - White cards on cream background.
-    - No gradients.
-    - No heavy shadows.
-    - Premium typography.
-    - Plenty of whitespace.
-    - Simple monochrome line icons.
-    - Smooth fade-up animation.
-    
-    Color Palette:
-    Background: #ECE2CE
-    Cards: White
-    Heading: #2F3324
-    Accent: #BE9A5C
-    Body Text: #6B705C
-    Borders: #DDD6C4
-    
-    The overall feeling should communicate transparency, trust, professionalism, and customer-first service rather than appearing overly corporate.
+    Create a premium "Business Information & Grievance Officer" section for a luxury
+    Ayurvedic hair wellness brand called Livgenix.
+
+    Redesigned per brand design system: refined two-column luxury cards, subtle low-opacity
+    botanical watermark as the "branded visual" backdrop, soft cream section background,
+    hover elevation on cards, CSS custom properties, prefers-reduced-motion support.
+    Preserves all business/compliance content exactly as before.
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
   .ai-business-info-{{ ai_gen_id }} {
+    --lg-heading: {{ block.settings.heading_color }};
+    --lg-gold: {{ block.settings.accent_color }};
+    --lg-text: {{ block.settings.text_color }};
+    --lg-label: {{ block.settings.label_color }};
+    --lg-card-bg: {{ block.settings.card_background }};
+    --lg-card-border: {{ block.settings.card_border_color }};
+    --lg-note-bg: {{ block.settings.note_background }};
+    --lg-timeline-bg: {{ block.settings.timeline_background }};
+    --lg-radius-card: {{ block.settings.card_border_radius }}px;
+
     display: block;
     width: 100%;
     background-color: {{ block.settings.background_color }};
     padding: {{ block.settings.section_padding_mobile }}px 20px;
+    position: relative;
+    overflow: hidden;
   }
 
   @media screen and (min-width: 750px) {
@@ -94,9 +36,24 @@
     }
   }
 
+  .ai-business-info-watermark-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    right: -6%;
+    width: 480px;
+    height: 480px;
+    transform: translateY(-50%);
+    stroke: var(--lg-heading);
+    fill: none;
+    stroke-width: 1;
+    opacity: 0.035;
+    pointer-events: none;
+  }
+
   .ai-business-info-container-{{ ai_gen_id }} {
     max-width: {{ block.settings.max_width }}px;
     margin: 0 auto;
+    position: relative;
   }
 
   .ai-business-info-grid-{{ ai_gen_id }} {
@@ -129,19 +86,27 @@
     }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .ai-business-info-column-{{ ai_gen_id }} {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   .ai-business-info-eyebrow-{{ ai_gen_id }} {
     font-size: {{ block.settings.eyebrow_size }}px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: {{ block.settings.accent_color }};
+    color: var(--lg-gold);
     margin-bottom: 12px;
   }
 
   .ai-business-info-heading-{{ ai_gen_id }} {
     font-size: {{ block.settings.heading_size_mobile }}px;
     font-weight: 700;
-    color: {{ block.settings.heading_color }};
+    color: var(--lg-heading);
     margin: 0 0 24px 0;
     line-height: 1.2;
   }
@@ -153,10 +118,23 @@
   }
 
   .ai-business-info-card-{{ ai_gen_id }} {
-    background-color: {{ block.settings.card_background }};
-    border: 1px solid {{ block.settings.card_border_color }};
-    border-radius: {{ block.settings.card_border_radius }}px;
+    background-color: var(--lg-card-bg);
+    border: 1px solid var(--lg-card-border);
+    border-radius: var(--lg-radius-card);
     padding: 32px 24px;
+    box-shadow: 0 2px 16px rgba(47, 51, 36, 0.04);
+    transition: transform 300ms ease, box-shadow 300ms ease;
+  }
+
+  .ai-business-info-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 36px rgba(47, 51, 36, 0.08);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-business-info-card-{{ ai_gen_id }} {
+      transition: none;
+    }
   }
 
   @media screen and (min-width: 750px) {
@@ -178,23 +156,28 @@
 
   .ai-business-info-icon-{{ ai_gen_id }} {
     flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(190, 154, 92, 0.1);
   }
 
   .ai-business-info-icon-{{ ai_gen_id }} svg {
-    width: 100%;
-    height: 100%;
-    stroke: {{ block.settings.accent_color }};
+    width: 18px;
+    height: 18px;
+    stroke: var(--lg-gold);
     fill: none;
-    stroke-width: 2;
+    stroke-width: 1.75;
     stroke-linecap: round;
     stroke-linejoin: round;
   }
 
   .ai-business-info-content-{{ ai_gen_id }} {
     flex-grow: 1;
+    padding-top: 2px;
   }
 
   .ai-business-info-label-{{ ai_gen_id }} {
@@ -202,46 +185,53 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: {{ block.settings.label_color }};
+    color: var(--lg-label);
     margin-bottom: 4px;
   }
 
   .ai-business-info-value-{{ ai_gen_id }} {
     font-size: {{ block.settings.text_size }}px;
     line-height: 1.6;
-    color: {{ block.settings.text_color }};
+    color: var(--lg-text);
     margin: 0;
+    white-space: pre-line;
   }
 
   .ai-business-info-note-{{ ai_gen_id }} {
     margin-top: 24px;
     padding: 20px;
-    background-color: {{ block.settings.note_background }};
-    border-radius: 12px;
+    background-color: var(--lg-note-bg);
+    border-radius: 14px;
     font-size: {{ block.settings.note_text_size }}px;
     line-height: 1.6;
-    color: {{ block.settings.text_color }};
+    color: var(--lg-text);
     font-style: italic;
   }
 
   .ai-business-info-timeline-{{ ai_gen_id }} {
     margin-top: 16px;
     padding: 16px;
-    background-color: {{ block.settings.timeline_background }};
-    border-radius: 8px;
+    background-color: var(--lg-timeline-bg);
+    border-radius: 10px;
     font-size: {{ block.settings.note_text_size }}px;
-    color: {{ block.settings.text_color }};
+    color: var(--lg-text);
   }
 {% endstyle %}
 
 <business-info-{{ ai_gen_id }} class="ai-business-info-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <svg class="ai-business-info-watermark-{{ ai_gen_id }}" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <path d="M20 180C90 170 150 120 165 40" />
+    <path d="M165 40c-30 0-55-20-55-50 30 0 55 20 55 50z" />
+    <path d="M40 140c-25 0-45-16-45-45 25 0 45 16 45 45z" />
+  </svg>
+
   <div class="ai-business-info-container-{{ ai_gen_id }}">
     <div class="ai-business-info-grid-{{ ai_gen_id }}">
       <div class="ai-business-info-column-{{ ai_gen_id }}">
         {% if block.settings.left_eyebrow != blank %}
           <div class="ai-business-info-eyebrow-{{ ai_gen_id }}">{{ block.settings.left_eyebrow }}</div>
         {% endif %}
-        
+
         {% if block.settings.left_heading != blank %}
           <h2 class="ai-business-info-heading-{{ ai_gen_id }}">{{ block.settings.left_heading }}</h2>
         {% endif %}
@@ -361,7 +351,7 @@
         {% if block.settings.right_eyebrow != blank %}
           <div class="ai-business-info-eyebrow-{{ ai_gen_id }}">{{ block.settings.right_eyebrow }}</div>
         {% endif %}
-        
+
         {% if block.settings.right_heading != blank %}
           <h2 class="ai-business-info-heading-{{ ai_gen_id }}">{{ block.settings.right_heading }}</h2>
         {% endif %}
@@ -463,15 +453,17 @@
 <script>
   (function() {
     class BusinessInfo{{ ai_gen_id }} extends HTMLElement {
-      constructor() {
-        super();
-      }
-
       connectedCallback() {
         this.initAnimations();
       }
 
       initAnimations() {
+        const columns = this.querySelectorAll('.ai-business-info-column-{{ ai_gen_id }}');
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          return;
+        }
+
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -482,7 +474,6 @@
           threshold: 0.1
         });
 
-        const columns = this.querySelectorAll('.ai-business-info-column-{{ ai_gen_id }}');
         columns.forEach(column => {
           column.style.animationPlayState = 'paused';
           observer.observe(column);
@@ -490,7 +481,9 @@
       }
     }
 
-    customElements.define('business-info-{{ ai_gen_id }}', BusinessInfo{{ ai_gen_id }});
+    if (!customElements.get('business-info-{{ ai_gen_id }}')) {
+      customElements.define('business-info-{{ ai_gen_id }}', BusinessInfo{{ ai_gen_id }});
+    }
   })();
 </script>
 

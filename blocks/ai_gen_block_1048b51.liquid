@@ -1,65 +1,24 @@
 {% doc %}
   @prompt
-    Create a premium split-layout storytelling section for the LiveGenix homepage.
-    
-    Layout:
-    • Two-column layout.
-    • Left side contains the content.
-    • Right side contains a premium card explaining the meaning of the brand name.
-    • White background with generous whitespace.
-    • Fully responsive.
-    
-    Left Column:
-    Eyebrow:
-    OUR STORY
-    
-    Heading:
-    Why LiveGenix?
-    
-    Subheading:
-    Where Life Meets Regeneration.
-    
-    Body:
-    LiveGenix combines two powerful ideas: Life and Genesis.
-    
-    Life represents holistic wellness, vitality, and balance.
-    Genesis symbolizes new beginnings, renewal, and transformation.
-    
-    Together, they reflect our belief that healthier hair doesn't come from quick fixes. It begins by restoring the scalp, nourishing the body, and supporting natural hair growth from the root.
-    
-    Inspired by Ayurveda and backed by modern science, every LiveGenix formulation is designed to help people build healthier hair for the long term.
-    
-    Right Column:
-    Create a premium card with:
-    LIVE + GENESIS
-    
-    Life
-    Wellness • Balance • Vitality
-    
-    +
-    
-    Genesis
-    New Beginning • Regrowth • Renewal
-    
-    ↓
-    
-    LiveGenix
-    
-    Root Cause → Healthy Hair → Lasting Confidence
-    
-    Style:
-    • Rounded 20px corners
-    • Very subtle border (#E8E5DF)
-    • Soft off-white background
-    • Premium typography
-    • Gold accents (#BE9A5C)
-    • No heavy shadows
-    • Maintain the existing LiveGenix luxury aesthetic.
+    Create a premium split-layout storytelling section explaining the meaning of the
+    LiveGenix brand name.
+
+    Redesigned per brand design system to be one of the most memorable sections on the
+    page: left column becomes editorial storytelling with quote styling and a gold divider;
+    right column becomes a glassmorphism card with an animated connecting line drawing
+    downward between "Life", "+", "Genesis", "↓" and "LiveGenix" as the section scrolls into
+    view, plus subtle hover effects on each label. CSS custom properties,
+    prefers-reduced-motion support. Content and settings are unchanged.
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
   .ai-story-section-{{ ai_gen_id }} {
+    --lg-heading: {{ block.settings.heading_color }};
+    --lg-gold: {{ block.settings.accent_color }};
+    --lg-sub: {{ block.settings.subheading_color }};
+    --lg-text: {{ block.settings.body_color }};
+
     display: block;
     width: 100%;
     background-color: {{ block.settings.background_color }};
@@ -79,37 +38,56 @@
     display: flex;
     flex-direction: column;
     gap: {{ block.settings.content_spacing }}px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 800ms ease, transform 800ms ease;
+  }
+
+  .ai-story-section-{{ ai_gen_id }}.ai-visible-{{ ai_gen_id }} .ai-story-left-{{ ai_gen_id }} {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .ai-story-eyebrow-{{ ai_gen_id }} {
     font-size: {{ block.settings.eyebrow_size }}px;
     font-weight: 600;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: {{ block.settings.eyebrow_color }};
+    color: var(--lg-gold);
     margin: 0;
   }
 
   .ai-story-heading-{{ ai_gen_id }} {
     font-size: {{ block.settings.heading_size }}px;
     font-weight: 700;
-    line-height: 1.2;
-    color: {{ block.settings.heading_color }};
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--lg-heading);
     margin: 0;
   }
 
+  .ai-story-divider-{{ ai_gen_id }} {
+    width: 72px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--lg-gold), transparent);
+  }
+
   .ai-story-subheading-{{ ai_gen_id }} {
+    position: relative;
     font-size: {{ block.settings.subheading_size }}px;
     font-weight: 500;
-    line-height: 1.4;
-    color: {{ block.settings.subheading_color }};
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--lg-sub);
     margin: 0;
+    padding-left: 22px;
+    border-left: 2px solid var(--lg-gold);
   }
 
   .ai-story-body-{{ ai_gen_id }} {
     font-size: {{ block.settings.body_size }}px;
-    line-height: 1.7;
-    color: {{ block.settings.body_color }};
+    line-height: 1.8;
+    color: var(--lg-text);
   }
 
   .ai-story-body-{{ ai_gen_id }} p {
@@ -123,75 +101,150 @@
   .ai-story-right-{{ ai_gen_id }} {
     position: sticky;
     top: 40px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 800ms ease 150ms, transform 800ms ease 150ms;
+  }
+
+  .ai-story-section-{{ ai_gen_id }}.ai-visible-{{ ai_gen_id }} .ai-story-right-{{ ai_gen_id }} {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-story-left-{{ ai_gen_id }},
+    .ai-story-right-{{ ai_gen_id }} {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
   }
 
   .ai-story-card-{{ ai_gen_id }} {
-    background-color: {{ block.settings.card_background }};
-    border: {{ block.settings.card_border_width }}px solid {{ block.settings.card_border_color }};
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: {{ block.settings.card_border_radius }}px;
     padding: {{ block.settings.card_padding }}px;
     display: flex;
     flex-direction: column;
     gap: {{ block.settings.card_spacing }}px;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 24px 60px rgba(47, 51, 36, 0.1);
   }
 
   .ai-story-card-title-{{ ai_gen_id }} {
     font-size: {{ block.settings.card_title_size }}px;
     font-weight: 700;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.16em;
     text-align: center;
-    color: {{ block.settings.accent_color }};
+    color: var(--lg-gold);
     margin: 0;
   }
 
+  .ai-story-connector-{{ ai_gen_id }} {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.card_spacing }}px;
+  }
+
+  .ai-story-connector-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: 50%;
+    width: 2px;
+    background: linear-gradient(180deg, var(--lg-gold), {{ block.settings.heading_color }});
+    transform: translateX(-50%) scaleY(0);
+    transform-origin: top;
+    transition: transform 1200ms ease;
+    z-index: 0;
+  }
+
+  .ai-story-section-{{ ai_gen_id }}.ai-visible-{{ ai_gen_id }} .ai-story-connector-{{ ai_gen_id }}::before {
+    transform: translateX(-50%) scaleY(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-story-connector-{{ ai_gen_id }}::before {
+      transition: none;
+      transform: translateX(-50%) scaleY(1);
+    }
+  }
+
   .ai-story-card-section-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    background-color: rgba(255, 255, 255, 0.6);
+    transition: transform 300ms ease, background-color 300ms ease;
+  }
+
+  .ai-story-card-section-{{ ai_gen_id }}:hover {
+    transform: translateY(-3px);
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-story-card-section-{{ ai_gen_id }} {
+      transition: none;
+    }
   }
 
   .ai-story-card-label-{{ ai_gen_id }} {
     font-size: {{ block.settings.card_label_size }}px;
     font-weight: 700;
-    color: {{ block.settings.heading_color }};
+    color: var(--lg-heading);
     margin: 0;
+    text-align: center;
   }
 
   .ai-story-card-text-{{ ai_gen_id }} {
     font-size: {{ block.settings.card_text_size }}px;
     line-height: 1.6;
-    color: {{ block.settings.body_color }};
+    color: var(--lg-text);
     margin: 0;
+    text-align: center;
   }
 
   .ai-story-card-divider-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 1;
     text-align: center;
     font-size: {{ block.settings.card_divider_size }}px;
     font-weight: 700;
-    color: {{ block.settings.accent_color }};
-    margin: {{ block.settings.divider_spacing }}px 0;
+    color: var(--lg-gold);
+    margin: 0;
   }
 
   .ai-story-card-brand-{{ ai_gen_id }} {
     font-size: {{ block.settings.card_brand_size }}px;
     font-weight: 700;
     text-align: center;
-    color: {{ block.settings.heading_color }};
-    margin: {{ block.settings.brand_spacing }}px 0;
+    color: var(--lg-heading);
+    margin: 0;
   }
 
   .ai-story-card-arrow-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 1;
     text-align: center;
     font-size: {{ block.settings.card_arrow_size }}px;
-    color: {{ block.settings.accent_color }};
-    margin: {{ block.settings.arrow_spacing }}px 0;
+    color: var(--lg-gold);
+    margin: 0;
   }
 
   .ai-story-card-tagline-{{ ai_gen_id }} {
     font-size: {{ block.settings.card_tagline_size }}px;
     line-height: 1.5;
     text-align: center;
-    color: {{ block.settings.body_color }};
+    color: var(--lg-text);
     margin: 0;
   }
 
@@ -233,7 +286,7 @@
   }
 {% endstyle %}
 
-<div class="ai-story-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+<ai-story-section-{{ ai_gen_id }} class="ai-story-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
   <div class="ai-story-container-{{ ai_gen_id }}">
     <div class="ai-story-left-{{ ai_gen_id }}">
       {% if block.settings.eyebrow != blank %}
@@ -243,6 +296,8 @@
       {% if block.settings.heading != blank %}
         <h2 class="ai-story-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
       {% endif %}
+
+      <div class="ai-story-divider-{{ ai_gen_id }}"></div>
 
       {% if block.settings.subheading != blank %}
         <p class="ai-story-subheading-{{ ai_gen_id }}">{{ block.settings.subheading }}</p>
@@ -261,43 +316,75 @@
           <h3 class="ai-story-card-title-{{ ai_gen_id }}">{{ block.settings.card_title }}</h3>
         {% endif %}
 
-        <div class="ai-story-card-section-{{ ai_gen_id }}">
-          {% if block.settings.card_label_1 != blank %}
-            <p class="ai-story-card-label-{{ ai_gen_id }}">{{ block.settings.card_label_1 }}</p>
+        <div class="ai-story-connector-{{ ai_gen_id }}">
+          <div class="ai-story-card-section-{{ ai_gen_id }}">
+            {% if block.settings.card_label_1 != blank %}
+              <p class="ai-story-card-label-{{ ai_gen_id }}">{{ block.settings.card_label_1 }}</p>
+            {% endif %}
+            {% if block.settings.card_text_1 != blank %}
+              <p class="ai-story-card-text-{{ ai_gen_id }}">{{ block.settings.card_text_1 }}</p>
+            {% endif %}
+          </div>
+
+          {% if block.settings.show_divider %}
+            <p class="ai-story-card-divider-{{ ai_gen_id }}">{{ block.settings.divider_symbol }}</p>
           {% endif %}
-          {% if block.settings.card_text_1 != blank %}
-            <p class="ai-story-card-text-{{ ai_gen_id }}">{{ block.settings.card_text_1 }}</p>
+
+          <div class="ai-story-card-section-{{ ai_gen_id }}">
+            {% if block.settings.card_label_2 != blank %}
+              <p class="ai-story-card-label-{{ ai_gen_id }}">{{ block.settings.card_label_2 }}</p>
+            {% endif %}
+            {% if block.settings.card_text_2 != blank %}
+              <p class="ai-story-card-text-{{ ai_gen_id }}">{{ block.settings.card_text_2 }}</p>
+            {% endif %}
+          </div>
+
+          {% if block.settings.show_arrow %}
+            <p class="ai-story-card-arrow-{{ ai_gen_id }}">{{ block.settings.arrow_symbol }}</p>
           {% endif %}
+
+          <div class="ai-story-card-section-{{ ai_gen_id }}">
+            {% if block.settings.card_brand != blank %}
+              <p class="ai-story-card-brand-{{ ai_gen_id }}">{{ block.settings.card_brand }}</p>
+            {% endif %}
+
+            {% if block.settings.card_tagline != blank %}
+              <p class="ai-story-card-tagline-{{ ai_gen_id }}">{{ block.settings.card_tagline }}</p>
+            {% endif %}
+          </div>
         </div>
-
-        {% if block.settings.show_divider %}
-          <div class="ai-story-card-divider-{{ ai_gen_id }}">{{ block.settings.divider_symbol }}</div>
-        {% endif %}
-
-        <div class="ai-story-card-section-{{ ai_gen_id }}">
-          {% if block.settings.card_label_2 != blank %}
-            <p class="ai-story-card-label-{{ ai_gen_id }}">{{ block.settings.card_label_2 }}</p>
-          {% endif %}
-          {% if block.settings.card_text_2 != blank %}
-            <p class="ai-story-card-text-{{ ai_gen_id }}">{{ block.settings.card_text_2 }}</p>
-          {% endif %}
-        </div>
-
-        {% if block.settings.show_arrow %}
-          <div class="ai-story-card-arrow-{{ ai_gen_id }}">{{ block.settings.arrow_symbol }}</div>
-        {% endif %}
-
-        {% if block.settings.card_brand != blank %}
-          <div class="ai-story-card-brand-{{ ai_gen_id }}">{{ block.settings.card_brand }}</div>
-        {% endif %}
-
-        {% if block.settings.card_tagline != blank %}
-          <p class="ai-story-card-tagline-{{ ai_gen_id }}">{{ block.settings.card_tagline }}</p>
-        {% endif %}
       </div>
     </div>
   </div>
-</div>
+</ai-story-section-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class AiStorySection{{ ai_gen_id }} extends HTMLElement {
+      connectedCallback() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          this.classList.add('ai-visible-{{ ai_gen_id }}');
+          return;
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('ai-visible-{{ ai_gen_id }}');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+
+        observer.observe(this);
+      }
+    }
+
+    if (!customElements.get('ai-story-section-{{ ai_gen_id }}')) {
+      customElements.define('ai-story-section-{{ ai_gen_id }}', AiStorySection{{ ai_gen_id }});
+    }
+  })();
+</script>
 
 {% schema %}
 {
@@ -569,7 +656,7 @@
       "max": 40,
       "step": 2,
       "unit": "px",
-      "default": 20
+      "default": 28
     },
     {
       "type": "range",

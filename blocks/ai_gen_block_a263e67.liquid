@@ -1,55 +1,52 @@
 {% doc %}
   @prompt
-    Create a premium "About Livgenix" section for a luxury Ayurvedic hair wellness brand.
-    
-    Design Requirements:
-    - Full-width section with a white background.
-    - Two-column responsive layout.
-    - Left column (55%): text content.
-    - Right column (45%): one large rounded lifestyle image.
-    - Vertically center both columns.
-    
-    Left Column:
-    - Small uppercase eyebrow: "ABOUT LIVGENIX" in premium gold.
-    - Large heading: "Nature's Wisdom. Backed by Science."
-    - One short paragraph (90-120 words) describing the brand.
-    - Below the paragraph, display three minimalist icon features in a horizontal row:
-      • Ayurvedic Inspired
-      • Science Backed
-      • Long-Term Wellness
-    - Add a primary button: "Take Hair Assessment".
-    
-    Style:
-    - Luxury editorial design with generous whitespace.
-    - Clean typography.
-    - Soft rounded corners.
-    - Minimal shadows.
-    - No gradients.
-    - No decorative patterns.
-    - Premium wellness aesthetic similar to Aesop, Ritual, or Apple.
-    - Desktop spacing around 120px top and bottom.
-    - Mobile layout should stack: image first, then text, then icons, then button.
-    
-    Color Palette:
-    - Background: White (#FFFFFF)
-    - Heading: Charcoal Olive (#2F3324)
-    - Button: Olive Green (#6F764F)
-    - Accent: Premium Gold (#BE9A5C)
-    
-    Make the section feel calm, premium, modern, and highly readable. Focus on excellent spacing and visual hierarchy rather than decorative elements.
+    Create a premium "About Livgenix" hero section for a luxury Ayurvedic hair wellness brand.
+
+    Redesigned per brand design system: editorial eyebrow/headline/paragraph, three pill-style
+    trust badges, primary filled-olive + secondary gold-outline CTAs with lift/hover
+    micro-interactions, right-side lifestyle image inside a rounded 28px glassmorphism frame
+    with a subtle floating animation, fade-up scroll reveal, CSS custom properties,
+    prefers-reduced-motion support. Shared by the homepage "About Livgenix" section and the
+    About Us page hero; the optional secondary CTA only renders where configured, so the
+    homepage instance is unaffected unless a secondary button is added there too.
 {% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
   .ai-about-livgenix-{{ ai_gen_id }} {
+    --lg-heading: {{ block.settings.heading_color }};
+    --lg-gold: {{ block.settings.eyebrow_color }};
+    --lg-text: {{ block.settings.text_color }};
+    --lg-icon: {{ block.settings.icon_color }};
+    --lg-olive: {{ block.settings.button_background }};
+    --lg-olive-hover: {{ block.settings.button_hover_background }};
+    --lg-radius-image: {{ block.settings.image_border_radius }}px;
+    --lg-radius-button: {{ block.settings.button_border_radius }}px;
+
     display: block;
     width: 100%;
     background-color: {{ block.settings.background_color }};
     padding: {{ block.settings.desktop_padding_top }}px 0 {{ block.settings.desktop_padding_bottom }}px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 800ms ease, transform 800ms ease;
+  }
+
+  .ai-about-livgenix-{{ ai_gen_id }}.ai-visible-{{ ai_gen_id }} {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-about-livgenix-{{ ai_gen_id }} {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
   }
 
   .ai-about-livgenix-container-{{ ai_gen_id }} {
-    max-width: 1400px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0 40px;
   }
@@ -64,30 +61,32 @@
   .ai-about-livgenix-content-{{ ai_gen_id }} {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 28px;
   }
 
   .ai-about-livgenix-eyebrow-{{ ai_gen_id }} {
     font-size: {{ block.settings.eyebrow_size }}px;
-    font-weight: 500;
-    letter-spacing: 2px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
     text-transform: uppercase;
-    color: {{ block.settings.eyebrow_color }};
+    color: var(--lg-gold);
     margin: 0;
   }
 
   .ai-about-livgenix-heading-{{ ai_gen_id }} {
     font-size: {{ block.settings.heading_size }}px;
     font-weight: 700;
-    line-height: 1.1;
-    color: {{ block.settings.heading_color }};
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: var(--lg-heading);
     margin: 0;
   }
 
   .ai-about-livgenix-description-{{ ai_gen_id }} {
     font-size: {{ block.settings.description_size }}px;
-    line-height: 1.7;
-    color: {{ block.settings.text_color }};
+    line-height: 1.75;
+    color: var(--lg-text);
+    opacity: 0.85;
     margin: 0;
   }
 
@@ -101,67 +100,170 @@
 
   .ai-about-livgenix-features-{{ ai_gen_id }} {
     display: flex;
-    gap: 40px;
-    margin-top: 8px;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
+    padding: 0;
+    list-style: none;
   }
 
   .ai-about-livgenix-feature-{{ ai_gen_id }} {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(111, 118, 79, 0.16);
+    border-radius: 999px;
   }
 
   .ai-about-livgenix-feature-icon-{{ ai_gen_id }} {
-    width: {{ block.settings.icon_size }}px;
-    height: {{ block.settings.icon_size }}px;
+    width: {{ block.settings.icon_size | divided_by: 2 }}px;
+    height: {{ block.settings.icon_size | divided_by: 2 }}px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
   }
 
   .ai-about-livgenix-feature-icon-{{ ai_gen_id }} svg {
     width: 100%;
     height: 100%;
-    stroke: {{ block.settings.icon_color }};
+    stroke: var(--lg-icon);
     fill: none;
-    stroke-width: 1.5;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   .ai-about-livgenix-feature-text-{{ ai_gen_id }} {
     font-size: {{ block.settings.feature_text_size }}px;
-    font-weight: 500;
-    color: {{ block.settings.text_color }};
-    line-height: 1.4;
+    font-weight: 600;
+    color: var(--lg-heading);
+    line-height: 1.3;
     text-align: left;
+  }
+
+  .ai-about-livgenix-buttons-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 8px;
   }
 
   .ai-about-livgenix-button-{{ ai_gen_id }} {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 16px 40px;
-    background-color: {{ block.settings.button_background }};
+    padding: 17px 38px;
+    background-color: var(--lg-olive);
     color: {{ block.settings.button_text_color }};
     font-size: {{ block.settings.button_text_size }}px;
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: 0.01em;
     text-decoration: none;
-    border-radius: {{ block.settings.button_border_radius }}px;
-    transition: all 0.3s ease;
+    border-radius: var(--lg-radius-button);
+    transition: transform 300ms ease, box-shadow 300ms ease, background-color 300ms ease;
     border: none;
     cursor: pointer;
   }
 
   .ai-about-livgenix-button-{{ ai_gen_id }}:hover {
-    background-color: {{ block.settings.button_hover_background }};
+    background-color: var(--lg-olive-hover);
     color: {{ block.settings.button_hover_text_color }};
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(111, 118, 79, 0.24);
+  }
+
+  .ai-about-livgenix-button-{{ ai_gen_id }}:focus-visible {
+    outline: 2px solid var(--lg-olive);
+    outline-offset: 3px;
+  }
+
+  .ai-about-livgenix-button-secondary-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 17px 38px;
+    background-color: transparent;
+    color: var(--lg-gold);
+    font-size: {{ block.settings.button_text_size }}px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--lg-radius-button);
+    border: 1.5px solid var(--lg-gold);
+    transition: transform 300ms ease, box-shadow 300ms ease, background-color 300ms ease, color 300ms ease;
+    cursor: pointer;
+  }
+
+  .ai-about-livgenix-button-secondary-icon-{{ ai_gen_id }} {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 300ms ease;
+  }
+
+  .ai-about-livgenix-button-secondary-{{ ai_gen_id }}:hover {
+    background-color: var(--lg-gold);
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(190, 154, 92, 0.22);
+  }
+
+  .ai-about-livgenix-button-secondary-{{ ai_gen_id }}:hover .ai-about-livgenix-button-secondary-icon-{{ ai_gen_id }} {
+    transform: translateX(4px);
+  }
+
+  .ai-about-livgenix-button-secondary-{{ ai_gen_id }}:focus-visible {
+    outline: 2px solid var(--lg-gold);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-about-livgenix-button-{{ ai_gen_id }},
+    .ai-about-livgenix-button-secondary-{{ ai_gen_id }},
+    .ai-about-livgenix-button-secondary-icon-{{ ai_gen_id }} {
+      transition: none;
+    }
   }
 
   .ai-about-livgenix-image-wrapper-{{ ai_gen_id }} {
     position: relative;
     width: 100%;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: calc(var(--lg-radius-image) + 14px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 24px 60px rgba(47, 51, 36, 0.1);
+    animation: ai-about-float-{{ ai_gen_id }} 6s ease-in-out infinite;
+  }
+
+  @keyframes ai-about-float-{{ ai_gen_id }} {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ai-about-livgenix-image-wrapper-{{ ai_gen_id }} {
+      animation: none;
+    }
+  }
+
+  .ai-about-livgenix-image-frame-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
     overflow: hidden;
-    border-radius: {{ block.settings.image_border_radius }}px;
+    border-radius: var(--lg-radius-image);
   }
 
   .ai-about-livgenix-image-{{ ai_gen_id }} {
@@ -178,7 +280,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: {{ block.settings.image_border_radius }}px;
+    border-radius: var(--lg-radius-image);
   }
 
   .ai-about-livgenix-image-placeholder-{{ ai_gen_id }} svg {
@@ -216,12 +318,13 @@
       font-size: {{ block.settings.heading_size | times: 0.7 }}px;
     }
 
-    .ai-about-livgenix-features-{{ ai_gen_id }} {
+    .ai-about-livgenix-buttons-{{ ai_gen_id }} {
       flex-direction: column;
-      gap: 24px;
+      width: 100%;
     }
 
-    .ai-about-livgenix-button-{{ ai_gen_id }} {
+    .ai-about-livgenix-button-{{ ai_gen_id }},
+    .ai-about-livgenix-button-secondary-{{ ai_gen_id }} {
       width: 100%;
     }
   }
@@ -245,67 +348,80 @@
           </div>
         {% endif %}
 
-        <div class="ai-about-livgenix-features-{{ ai_gen_id }}">
+        <ul class="ai-about-livgenix-features-{{ ai_gen_id }}" role="list">
           {% if block.settings.feature_1_enabled %}
-            <div class="ai-about-livgenix-feature-{{ ai_gen_id }}">
-              <div class="ai-about-livgenix-feature-icon-{{ ai_gen_id }}">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                  <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+            <li class="ai-about-livgenix-feature-{{ ai_gen_id }}">
+              <span class="ai-about-livgenix-feature-icon-{{ ai_gen_id }}">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 21c7-1 11-5 12-12" />
+                  <path d="M15 9c-3 0-5-2-5-5 3 0 5 2 5 5z" />
                 </svg>
-              </div>
+              </span>
               <span class="ai-about-livgenix-feature-text-{{ ai_gen_id }}">{{ block.settings.feature_1_text }}</span>
-            </div>
+            </li>
           {% endif %}
 
           {% if block.settings.feature_2_enabled %}
-            <div class="ai-about-livgenix-feature-{{ ai_gen_id }}">
-              <div class="ai-about-livgenix-feature-icon-{{ ai_gen_id }}">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2v14H3v3c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V2l-1.5 1.5zM19 19c0 .55-.45 1-1 1s-1-.45-1-1v-3H8V5h11v14z"/>
-                  <path d="M9 7h6v2H9zm0 4h6v2H9z"/>
+            <li class="ai-about-livgenix-feature-{{ ai_gen_id }}">
+              <span class="ai-about-livgenix-feature-icon-{{ ai_gen_id }}">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M9.5 3h5M10.5 3v5.2L6 15.5A2 2 0 0 0 7.7 19h8.6a2 2 0 0 0 1.7-3.5L13.5 8.2V3" />
                 </svg>
-              </div>
+              </span>
               <span class="ai-about-livgenix-feature-text-{{ ai_gen_id }}">{{ block.settings.feature_2_text }}</span>
-            </div>
+            </li>
           {% endif %}
 
           {% if block.settings.feature_3_enabled %}
-            <div class="ai-about-livgenix-feature-{{ ai_gen_id }}">
-              <div class="ai-about-livgenix-feature-icon-{{ ai_gen_id }}">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            <li class="ai-about-livgenix-feature-{{ ai_gen_id }}">
+              <span class="ai-about-livgenix-feature-icon-{{ ai_gen_id }}">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 20s-7-4.35-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 5c-2.5 4.65-9.5 9-9.5 9z" />
                 </svg>
-              </div>
+              </span>
               <span class="ai-about-livgenix-feature-text-{{ ai_gen_id }}">{{ block.settings.feature_3_text }}</span>
-            </div>
+            </li>
           {% endif %}
-        </div>
+        </ul>
 
-        {% if block.settings.button_text != blank %}
-          <div>
+        <div class="ai-about-livgenix-buttons-{{ ai_gen_id }}">
+          {% if block.settings.button_text != blank %}
             <a href="{{ block.settings.button_link }}" class="ai-about-livgenix-button-{{ ai_gen_id }}">
               {{ block.settings.button_text }}
             </a>
-          </div>
-        {% endif %}
+          {% endif %}
+
+          {% if block.settings.secondary_button_text != blank %}
+            <a
+              href="{{ block.settings.secondary_button_link }}"
+              class="ai-about-livgenix-button-secondary-{{ ai_gen_id }}"
+            >
+              {{ block.settings.secondary_button_text }}
+              <svg class="ai-about-livgenix-button-secondary-icon-{{ ai_gen_id }}" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+          {% endif %}
+        </div>
       </div>
 
       <div class="ai-about-livgenix-image-wrapper-{{ ai_gen_id }}">
-        {% if block.settings.image %}
-          <img
-            src="{{ block.settings.image | image_url: width: 1200 }}"
-            alt="{{ block.settings.image.alt | escape }}"
-            loading="lazy"
-            width="{{ block.settings.image.width }}"
-            height="{{ block.settings.image.height }}"
-            class="ai-about-livgenix-image-{{ ai_gen_id }}"
-          >
-        {% else %}
-          <div class="ai-about-livgenix-image-placeholder-{{ ai_gen_id }}">
-            {{ 'lifestyle-1' | placeholder_svg_tag }}
-          </div>
-        {% endif %}
+        <div class="ai-about-livgenix-image-frame-{{ ai_gen_id }}">
+          {% if block.settings.image %}
+            <img
+              src="{{ block.settings.image | image_url: width: 1200 }}"
+              alt="{{ block.settings.image.alt | escape }}"
+              loading="lazy"
+              width="{{ block.settings.image.width }}"
+              height="{{ block.settings.image.height }}"
+              class="ai-about-livgenix-image-{{ ai_gen_id }}"
+            >
+          {% else %}
+            <div class="ai-about-livgenix-image-placeholder-{{ ai_gen_id }}">
+              {{ 'lifestyle-1' | placeholder_svg_tag }}
+            </div>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
@@ -314,15 +430,28 @@
 <script>
   (function() {
     class AboutLivgenix{{ ai_gen_id }} extends HTMLElement {
-      constructor() {
-        super();
-      }
-
       connectedCallback() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          this.classList.add('ai-visible-{{ ai_gen_id }}');
+          return;
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('ai-visible-{{ ai_gen_id }}');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+
+        observer.observe(this);
       }
     }
 
-    customElements.define('about-livgenix-{{ ai_gen_id }}', AboutLivgenix{{ ai_gen_id }});
+    if (!customElements.get('about-livgenix-{{ ai_gen_id }}')) {
+      customElements.define('about-livgenix-{{ ai_gen_id }}', AboutLivgenix{{ ai_gen_id }});
+    }
   })();
 </script>
 
@@ -370,7 +499,7 @@
       "max": 40,
       "step": 2,
       "unit": "px",
-      "default": 16
+      "default": 28
     },
     {
       "type": "header",
@@ -414,7 +543,7 @@
     },
     {
       "type": "header",
-      "content": "Button"
+      "content": "Primary button"
     },
     {
       "type": "text",
@@ -425,6 +554,21 @@
     {
       "type": "url",
       "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Secondary button"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Button text",
+      "info": "Optional. Leave blank to hide."
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
       "label": "Button link"
     },
     {

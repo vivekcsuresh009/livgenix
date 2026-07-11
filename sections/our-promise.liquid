@@ -1,0 +1,486 @@
+{% comment %}
+  ==========================================================================
+  Section: Our Promise
+  File: sections/our-promise.liquid
+
+  Calm, editorial "principles" section for the Livgenix homepage (sits under
+  Trust Bar). Icons are drawn once as an inline SVG <symbol> sprite and
+  referenced with <use>. No external libraries or JS; the only motion is a
+  CSS-only, progressively enhanced scroll reveal (animation-timeline: view())
+  that safely no-ops in browsers/reduced-motion contexts that don't support it.
+  ==========================================================================
+{% endcomment %}
+
+{% liquid
+  assign heading_id = 'OurPromiseHeading-' | append: section.id
+%}
+
+<section
+  class="our-promise"
+  id="our-promise-{{ section.id }}"
+  {% if section.settings.heading != blank %}
+    aria-labelledby="{{ heading_id }}"
+  {% else %}
+    aria-label="Our promise"
+  {% endif %}
+>
+  {% comment %} Very low-opacity decorative botanical watermark, purely visual {% endcomment %}
+  <svg class="our-promise__watermark" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <path d="M20 180C90 170 150 120 165 40" />
+    <path d="M165 40c-30 0-55-20-55-50 30 0 55 20 55 50z" />
+    <path d="M40 140c-25 0-45-16-45-45 25 0 45 16 45 45z" />
+  </svg>
+
+  {% comment %} Shared icon sprite, defined once, referenced via <use> {% endcomment %}
+  <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;">
+    <symbol id="our-promise-icon-leaf-{{ section.id }}" viewBox="0 0 24 24">
+      <path d="M3 21c7-1 11-5 12-12" />
+      <path d="M15 9c-3 0-5-2-5-5 3 0 5 2 5 5z" />
+    </symbol>
+    <symbol id="our-promise-icon-shield_check-{{ section.id }}" viewBox="0 0 24 24">
+      <path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z" />
+      <path d="M9.25 12l1.85 1.85L15 10" />
+    </symbol>
+    <symbol id="our-promise-icon-open_book-{{ section.id }}" viewBox="0 0 24 24">
+      <path d="M12 6.5c-1.8-1.4-4.2-2-6.5-2v12.5c2.3 0 4.7.6 6.5 2" />
+      <path d="M12 6.5c1.8-1.4 4.2-2 6.5-2v12.5c-2.3 0-4.7.6-6.5 2" />
+      <path d="M12 6.5v12.5" />
+    </symbol>
+    <symbol id="our-promise-icon-lotus-{{ section.id }}" viewBox="0 0 24 24">
+      <path d="M12 20c-4-1.5-6.5-4.7-6.5-8.5C8 13 12 13.5 12 17c0-3.5 4-4 6.5-5.5C18.5 15.3 16 18.5 12 20z" />
+      <path d="M12 17c-2.5-2-3.5-5-3.5-8 2.7 1 3.5 3.6 3.5 6 0-2.4.8-5 3.5-6 0 3-1 6-3.5 8z" />
+    </symbol>
+  </svg>
+
+  <div class="our-promise__container">
+    <div class="our-promise__intro">
+      {% if section.settings.eyebrow != blank %}
+        <p class="our-promise__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 id="{{ heading_id }}" class="our-promise__heading">{{ section.settings.heading | escape }}</h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <p class="our-promise__description">{{ section.settings.description }}</p>
+      {% endif %}
+    </div>
+
+    <ul class="our-promise__grid" role="list">
+      {% for block in section.blocks %}
+        {% liquid
+          assign icon_key = block.settings.icon
+          if icon_key == blank
+            assign icon_key = 'leaf'
+          endif
+        %}
+        <li
+          class="our-promise__card"
+          style="--our-promise-card-delay: {{ forloop.index0 | times: 90 }}ms;"
+          {{ block.shopify_attributes }}
+        >
+          <span class="our-promise__icon-wrap" aria-hidden="true">
+            <svg class="our-promise__icon" viewBox="0 0 24 24">
+              <use href="#our-promise-icon-{{ icon_key }}-{{ section.id }}"></use>
+            </svg>
+          </span>
+
+          {% if block.settings.heading != blank %}
+            <h3 class="our-promise__card-heading">{{ block.settings.heading | escape }}</h3>
+          {% endif %}
+
+          {% if block.settings.description != blank %}
+            <p class="our-promise__card-description">{{ block.settings.description }}</p>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% if section.settings.cta_enabled and section.settings.cta_text != blank %}
+      <p class="our-promise__cta">
+        <a href="{{ section.settings.cta_link | default: '#' }}" class="our-promise__cta-link">
+          {{ section.settings.cta_text | escape }}
+        </a>
+      </p>
+    {% endif %}
+  </div>
+</section>
+
+{% style %}
+  .our-promise {
+    position: relative;
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    overflow: hidden;
+  }
+
+  .our-promise__watermark {
+    position: absolute;
+    top: 50%;
+    right: -4%;
+    width: 420px;
+    height: 420px;
+    transform: translateY(-50%);
+    stroke: {{ section.settings.heading_color }};
+    fill: none;
+    stroke-width: 1;
+    opacity: 0.04;
+    pointer-events: none;
+  }
+
+  .our-promise__container {
+    position: relative;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding-inline: 24px;
+  }
+
+  .our-promise__intro {
+    max-width: 700px;
+    margin: 0 auto 56px;
+    text-align: center;
+  }
+
+  .our-promise__eyebrow {
+    margin: 0 0 12px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #C8A35D;
+  }
+
+  .our-promise__heading {
+    margin: 0 0 16px;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: {{ section.settings.heading_color }};
+  }
+
+  .our-promise__description {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: {{ section.settings.text_color }};
+  }
+
+  .our-promise__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .our-promise__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(35, 69, 54, 0.08);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 2px 12px rgba(43, 43, 43, 0.04);
+    transition: transform 300ms ease, box-shadow 300ms ease;
+  }
+
+  .our-promise__card:hover,
+  .our-promise__card:focus-within {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(43, 43, 43, 0.09);
+  }
+
+  .our-promise__icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 24px;
+    border-radius: 50%;
+    background-color: rgba(141, 161, 140, 0.2);
+    transition: background-color 300ms ease;
+  }
+
+  .our-promise__card:hover .our-promise__icon-wrap,
+  .our-promise__card:focus-within .our-promise__icon-wrap {
+    background-color: rgba(141, 161, 140, 0.38);
+  }
+
+  .our-promise__icon {
+    width: 26px;
+    height: 26px;
+    stroke: #234536;
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .our-promise__card-heading {
+    margin: 0 0 10px;
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: {{ section.settings.heading_color }};
+  }
+
+  .our-promise__card-description {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: {{ section.settings.text_color }};
+  }
+
+  .our-promise__cta {
+    margin: 56px 0 0;
+    text-align: center;
+  }
+
+  .our-promise__cta-link {
+    display: inline-block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #234536;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: rgba(35, 69, 54, 0.4);
+    transition: text-decoration-color 300ms ease, color 300ms ease;
+  }
+
+  .our-promise__cta-link:hover {
+    text-decoration-color: currentColor;
+  }
+
+  .our-promise__cta-link:focus-visible {
+    outline: 2px solid #234536;
+    outline-offset: 4px;
+  }
+
+  /* Progressive-enhancement scroll reveal: no scroll-reveal system exists
+     elsewhere in this theme, so this stays CSS-only and self-contained.
+     Base state is fully visible, so unsupported browsers and
+     prefers-reduced-motion see the section normally with zero JS. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .our-promise__intro,
+      .our-promise__card {
+        animation: our-promise-fade-up linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 25%;
+      }
+
+      .our-promise__card {
+        animation-delay: var(--our-promise-card-delay, 0ms);
+      }
+    }
+  }
+
+  @keyframes our-promise-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .our-promise__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .our-promise__heading {
+      font-size: 2.5rem;
+    }
+
+    .our-promise__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .our-promise__card {
+      transition: none;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Our Promise",
+  "tag": "section",
+  "class": "shopify-section--our-promise",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "OUR PROMISE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Wellness Without Compromise."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Every Livgenix formulation is thoughtfully crafted using carefully selected Ayurvedic botanicals, responsible manufacturing practices and a commitment to transparency. We believe true wellness begins with trust, quality and consistency."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F7F2EA"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#2B2B2B"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "Bottom link"
+    },
+    {
+      "type": "checkbox",
+      "id": "cta_enabled",
+      "label": "Show bottom text link",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Link text",
+      "default": "Learn more about our philosophy"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Link URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "promise_card",
+      "name": "Promise card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "shield_check", "label": "Shield check" },
+            { "value": "open_book", "label": "Open book" },
+            { "value": "lotus", "label": "Lotus" }
+          ],
+          "default": "leaf"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Carefully Selected Herbs"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Every ingredient is chosen for its quality, purity and traditional Ayurvedic significance."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our Promise",
+      "blocks": [
+        {
+          "type": "promise_card",
+          "settings": {
+            "icon": "leaf",
+            "heading": "Carefully Selected Herbs",
+            "description": "Every ingredient is chosen for its quality, purity and traditional Ayurvedic significance."
+          }
+        },
+        {
+          "type": "promise_card",
+          "settings": {
+            "icon": "shield_check",
+            "heading": "Premium Manufacturing",
+            "description": "Produced under strict quality standards using carefully controlled manufacturing processes."
+          }
+        },
+        {
+          "type": "promise_card",
+          "settings": {
+            "icon": "open_book",
+            "heading": "Transparent Formulations",
+            "description": "Clear ingredient lists with an honest commitment to quality and authenticity."
+          }
+        },
+        {
+          "type": "promise_card",
+          "settings": {
+            "icon": "lotus",
+            "heading": "Holistic Philosophy",
+            "description": "Supporting healthy hair through scalp care, internal wellness and balanced daily habits."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

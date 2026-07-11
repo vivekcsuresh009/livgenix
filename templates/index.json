@@ -66,6 +66,197 @@
         "padding-block-end": 40
       }
     },
+    "trust_bar_QsX1zP": {
+      "type": "trust-bar",
+      "blocks": {
+        "trust_item_leaf": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "leaf",
+            "heading": "100% Herbal",
+            "text": "Carefully selected Ayurvedic herbs."
+          }
+        },
+        "trust_item_microscope": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "microscope",
+            "heading": "Science-Informed",
+            "text": "Traditional wisdom backed by modern research."
+          }
+        },
+        "trust_item_shield": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "shield",
+            "heading": "Quality Tested",
+            "text": "Manufactured under strict quality standards."
+          }
+        },
+        "trust_item_heart": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "heart",
+            "heading": "Holistic Wellness",
+            "text": "Supporting hair health from the inside out."
+          }
+        },
+        "trust_item_location_pin": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "location_pin",
+            "heading": "Made in India",
+            "text": "Inspired by authentic Ayurvedic traditions."
+          }
+        },
+        "trust_item_droplet": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "droplet",
+            "heading": "No Harsh Chemicals",
+            "text": "Free from sulfates, parabens and silicones.*"
+          }
+        }
+      },
+      "block_order": [
+        "trust_item_leaf",
+        "trust_item_microscope",
+        "trust_item_shield",
+        "trust_item_heart",
+        "trust_item_location_pin",
+        "trust_item_droplet"
+      ],
+      "name": "Trust Bar",
+      "settings": {
+        "heading": "",
+        "background_color": "#FAF7F2",
+        "card_background_color": "#FFFFFF",
+        "icon_background_color": "#E7EEE7",
+        "heading_color": "#2B2B2B",
+        "text_color": "#6E6E6E",
+        "padding_top": 70,
+        "padding_bottom": 70
+      }
+    },
+    "our_promise_Rv4mKd": {
+      "type": "our-promise",
+      "blocks": {
+        "promise_card_leaf": {
+          "type": "promise_card",
+          "settings": {
+            "icon": "leaf",
+            "heading": "Carefully Selected Herbs",
+            "description": "Every ingredient is chosen for its quality, purity and traditional Ayurvedic significance."
+          }
+        },
+        "promise_card_shield": {
+          "type": "promise_card",
+          "settings": {
+            "icon": "shield_check",
+            "heading": "Premium Manufacturing",
+            "description": "Produced under strict quality standards using carefully controlled manufacturing processes."
+          }
+        },
+        "promise_card_book": {
+          "type": "promise_card",
+          "settings": {
+            "icon": "open_book",
+            "heading": "Transparent Formulations",
+            "description": "Clear ingredient lists with an honest commitment to quality and authenticity."
+          }
+        },
+        "promise_card_lotus": {
+          "type": "promise_card",
+          "settings": {
+            "icon": "lotus",
+            "heading": "Holistic Philosophy",
+            "description": "Supporting healthy hair through scalp care, internal wellness and balanced daily habits."
+          }
+        }
+      },
+      "block_order": [
+        "promise_card_leaf",
+        "promise_card_shield",
+        "promise_card_book",
+        "promise_card_lotus"
+      ],
+      "name": "Our Promise",
+      "settings": {
+        "eyebrow": "OUR PROMISE",
+        "heading": "Wellness Without Compromise.",
+        "description": "Every Livgenix formulation is thoughtfully crafted using carefully selected Ayurvedic botanicals, responsible manufacturing practices and a commitment to transparency. We believe true wellness begins with trust, quality and consistency.",
+        "background_color": "#F7F2EA",
+        "heading_color": "#2B2B2B",
+        "text_color": "#666666",
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "cta_enabled": false,
+        "cta_text": "Learn more about our philosophy",
+        "cta_link": ""
+      }
+    },
+    "testimonials_Lv9gXk": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_ananya": {
+          "type": "testimonial",
+          "settings": {
+            "image_alt": "",
+            "name": "Ananya S.",
+            "location": "Kochi, Kerala",
+            "rating": 5,
+            "timeline": "After 3 Months",
+            "review": "My hair feels noticeably stronger, my scalp is healthier, and I love that Livgenix focuses on complete wellness instead of quick fixes.",
+            "verified": true,
+            "product_used": "Using Coconeela™ + Gutphala™"
+          }
+        },
+        "testimonial_meera": {
+          "type": "testimonial",
+          "settings": {
+            "image_alt": "",
+            "name": "Meera K.",
+            "location": "Bengaluru, Karnataka",
+            "rating": 5,
+            "timeline": "After 6 Weeks",
+            "review": "I was skeptical at first, but the visible reduction in hair fall within weeks won me over. It finally feels like a routine I can stick to.",
+            "verified": true,
+            "product_used": "Using Coconeela™"
+          }
+        },
+        "testimonial_priya": {
+          "type": "testimonial",
+          "settings": {
+            "image_alt": "",
+            "name": "Priya R.",
+            "location": "Kochi, Kerala",
+            "rating": 5,
+            "timeline": "After 90 Days",
+            "review": "Beyond the results, what I appreciate most is the transparency. I know exactly what I'm putting into my body and onto my scalp.",
+            "verified": true,
+            "product_used": "Using Gutphala™"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_ananya",
+        "testimonial_meera",
+        "testimonial_priya"
+      ],
+      "name": "Testimonials",
+      "settings": {
+        "eyebrow": "REAL STORIES",
+        "heading": "Trusted by People on Their Hair Wellness Journey.",
+        "description": "Every wellness journey is different. Here's how Livgenix has become part of healthier routines for our customers.",
+        "background_color": "#FAF7F2",
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "enable_autoplay": false,
+        "autoplay_speed": 6,
+        "show_arrows": true,
+        "show_dots": true
+      }
+    },
     "blocks_TTEcUJ": {
       "type": "_blocks",
       "blocks": {
@@ -144,6 +335,9 @@
   },
   "order": [
     "section_UdPTm9",
+    "trust_bar_QsX1zP",
+    "our_promise_Rv4mKd",
+    "testimonials_Lv9gXk",
     "blocks_TTEcUJ"
   ]
 }
